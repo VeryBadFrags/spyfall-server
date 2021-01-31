@@ -5,6 +5,7 @@
 module.exports = {
   mount: {
     "client": { url: "/" },
+    "assets": { url: "/", static: true }
   },
   plugins: [
     ['@snowpack/plugin-sass', {
