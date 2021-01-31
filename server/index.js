@@ -16,7 +16,7 @@ const staticPort = 8081;
 app.use(express.static(clientPath));
 
 staticServer.listen(staticPort, () => {
-    console.log(`serving from ${clientPath} on http://localhost:${staticPort}`);
+    console.log(`Serving Online Spy on http://localhost:${staticPort}`);
 });
 
 // WS

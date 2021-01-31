@@ -12,5 +12,5 @@ npm run build
 ## Run with Node
 
 ```sh
-node server
+npm start
 ```

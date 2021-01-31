@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "npm-run-all -p watch:client watch:server",
     "build": "snowpack build",
+    "start": "npm run build && node server/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch:client": "watch 'snowpack build' client/",
     "watch:server": "nodemon -w build -w server server/index.js"
