@@ -1,0 +1,31 @@
+{
+  "name": "online-spy",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "npm-run-all -p watch:client watch:server",
+    "build": "snowpack build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:client": "watch 'snowpack build' client/",
+    "watch:server": "nodemon -w build -w server server/index.js"
+  },
+  "keywords": [],
+  "author": "VeryBadFrags",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.12.11",
+    "@snowpack/plugin-babel": "^2.1.6",
+    "@snowpack/plugin-optimize": "^0.2.13",
+    "@snowpack/plugin-sass": "^1.3.0",
+    "express": "^4.17.1",
+    "snowpack": "^3.0.11",
+    "ws": "^7.4.2"
+  }
+}

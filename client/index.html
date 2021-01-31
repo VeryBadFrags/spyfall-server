@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spy</title>
+    <link rel="stylesheet" href="spy.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark">
+        <span class="navbar-brand">🕵️ Spyfall</span>
+        <a href="https://games.verybadfrags.com" target="_blank">🎮 More games</a>
+    </nav>
+
+    <div class="container">
+        <div id="error" class="card alert" style="display: none;"></div>
+
+        <div class="flex">
+            <!-- Connect -->
+            <div id="connect-wrapper" class="card bg-light">
+                <form id="connect-form">
+                    <div>
+                        <label for="name-input">👤 Name</label>
+                        <input type="text" id="name-input" class="form-control" required autofocus maxlength="16">
+                    </div>
+                    <div>
+                        <label for="lobby-input">🎲 Lobby code</label>
+                        <input type="text" id="lobby-input" class="form-control" pattern="[A-Za-z0-9]*"
+                            title="Lobby Code" maxlength="8" autocomplete="off">
+                    </div>
+                    <button type="submit" id="create-lobby-button" class="btn btn-primary">🔌 Join Lobby</button>
+                </form>
+            </div>
+
+            <!-- Game chat -->
+            <div id="chat-wrapper" class="card bg-light" style="display: none;">
+                <div id="chat-box" class="chat-box">
+                    <ul id="events" class="list"></ul>
+                </div>
+                <form id="talk-form" class="mt-0">
+                    <input type="text" id="chat-input" class="form-control chat-input" placeholder="Message..."
+                        autocomplete="off" required maxlength="64">
+                    <button type="submit" id="chat-button" class="btn btn-outline btn-outline-primary">✉️ Send</button>
+                </form>
+            </div>
+
+            <!-- Game settings -->
+            <div id="players-wrapper" class="card bg-light" style="display: none;">
+                <h4 class="mt-0">👥 Players</h4>
+                <ul id="peers-list" class="list"></ul>
+
+                <p>Lobby: <input id="lobby-display" readonly=true></input></p>
+
+                <h4 class="card-title">⚙️ New Game</h4>
+                <form id="new-game-form">
+                    <div>
+                        <input type="checkbox" id="ready-check" name="ready-check" required autocomplete="off">
+                        <label for="ready-check" class="clickable">Ready</label>
+                    </div>
+                    <button type="submit" id="start-button" class="btn btn-primary">🏁 Start</button>
+                </form>
+                <hr>
+                <button type="submit" id="leave-lobby-button" class="btn btn-outline btn-danger-outline">⬅️ Leave
+                    lobby</button>
+            </div>
+
+            <!-- List of Locations -->
+            <div class="card bg-light">
+                <h3 class="card-title">Locations</h3>
+                <ul id="locations-list" class="list">
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="flex">
+            <!-- Rules -->
+            <div class="card bg-light">
+                <h3 class="card-title">📖 Rules</h3>
+                <button id="rules-button" class="btn btn-outline btn-outline-primary">👓 Show/Hide</button>
+                <div id="instructions" style="display: none;">
+                    <ul>
+                        <li>👥 3-10 Players</li>
+                        <li>⏱ 5 Minutes Rounds</li>
+                        <li>📱 1 Device per player</li>
+                    </ul>
+                    <ul>
+                        <li>All players are in the same location</li>
+                        <li>The spy has to guess the current location</li>
+                        <li>The other players have to guess who the spy is</li>
+                        <li>The first player picks another person and asks them a question about the location (Do
+                            people wear a uniform? Is there a specific color in this place? ...)</li>
+                        <li>The player who just answered the question asks the next question to another person</li>
+                    </ul>
+                    <h4 id="when-the-timer-ends">When the timer ends</h4>
+                    <ul>
+                        <li>Players vote to designate the spy<ul>
+                                <li>If the players have voted for the spy, the spy has one chance to guess the
+                                    location and win the game</li>
+                                <li>If the players have voted for an innocent, the spy wins</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4 id="at-any-time">At any time</h4>
+                    <ul>
+                        <li>The players can vote for a spy if they have a majority</li>
+                        <li>The spy can guess the location. The spy wins the game if he guessed correctly, or loses
+                            otherwise</li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="footer bg-light">
+        <div>No internet? Play <a href="https://offline-spy.verybadfrags.com" target="_blank">📵🕵️ Offline Spyfall</a></div>
+        <p>Suggestions, Feedback? <a href="mailto:spy@verybadfrags.com">spy@verybadfrags.com</a></p>
+        <p><a href="https://github.com/VeryBadFrags/game-server/tree/master/client/src/spy" target="_blank" rel="noopener noreferrer">🐙 Source code on GitHub</a></p>        
+        <p>Like this game? <a href="https://www.buymeacoffee.com/verybadfrags" target="_blank" rel="noopener noreferrer">Support VeryBadFrags</a></p>
+    </footer>
+
+    <script src="connection-manager.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

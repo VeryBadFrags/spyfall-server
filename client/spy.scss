@@ -1,0 +1,296 @@
+$bgBody: #cfd8dc;
+$bgLight: #fafafa;
+$bgDark: #1a237e;
+$bgDark2: #af8c9d;
+
+$textLight: invert($bgDark, 100%);
+$textDark: invert($bgLight, 100%);
+
+$linkColor: #03a9f4;
+$linkColorActive: #0277bd;
+$linkColorActiveDark: invert($bgDark);
+
+$transparentBlack: rgba(black, 0.3);
+$transparentBlack8: rgba(black, 0.8);
+$shadow1: 1px 1px 3px $transparentBlack;
+
+/* Shades of Light Blue */
+$primary: #0277bd;
+$primary2: #0288d1;
+$primary3: #03a9f4;
+$primary4: #e1f5fe;
+$primaryBorder: #124d77;
+
+$secondary1: #90a4ae;
+$secondaryBorder: #546e7a;
+
+$danger: #b71c1c;
+
+$borderRadius: 4px;
+
+html {
+  min-height: 100%;
+}
+
+body {
+  background-color: #fee2f8;
+  background-image: linear-gradient(315deg, #fee2f8 0%, #dcf8ef 74%);
+  background-size: cover;
+
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+hr {
+  background-color: $secondary1;
+  border: 0;
+  height: 2px;
+  margin: 24px 0;
+}
+
+h4 {
+  margin-bottom: 0.7em;
+}
+
+a {
+  color: $linkColor;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $linkColorActive;
+  text-decoration: underline;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.container {
+  margin: 8px;
+  padding-bottom: 5rem;
+}
+
+.bg-light {
+  background-color: $bgLight;
+  background-image: linear-gradient(135deg, lighten($bgLight, 5%) 0%, darken($bgLight, 5%) 90%);
+  color: $textDark;
+}
+
+.navbar {
+  align-items: center;
+  box-shadow: 0px 1px 3px $transparentBlack;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 8px 16px;
+  position: relative;
+}
+
+.navbar-dark {
+  background-color: $bgDark;
+  background-image: linear-gradient(lighten($bgDark, 5%) 0%, $bgDark 90%);
+  color: $textLight;
+}
+
+.navbar-dark a {
+  color: $textLight;
+  text-shadow: 1px 1px 2px $transparentBlack;
+}
+
+.navbar-dark a:hover {
+  color: $linkColorActiveDark;
+}
+
+.navbar-brand {
+  padding: 5px 0px;
+  font-size: 1.25rem;
+  text-shadow: 2px 2px 1px $transparentBlack;
+}
+
+.footer {
+  border-top: 1px solid $secondaryBorder;
+  margin: 0;
+  padding: 16px 8px;
+}
+
+.flex {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.clickable:hover {
+  text-decoration: underline;
+}
+
+.strike {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.strike:hover {
+  text-decoration: line-through underline;
+}
+
+.card {
+  border: 1px solid $secondaryBorder;
+  border-radius: $borderRadius;
+  box-shadow: $shadow1;
+  margin: 16px 12px;
+  padding: 16px 20px;
+  min-width: 128px;
+  max-width: 640px;
+  text-align: left;
+  vertical-align: top;
+  flex-grow: 1;
+}
+
+.card-title {
+  margin-top: 0px;
+}
+
+.secret-card {
+  border: 1px dashed $transparentBlack;
+  padding: 4px 8px;
+}
+
+.list {
+  list-style-type: none;
+  font-size: 17px;
+  padding-left: 20px;
+  margin-bottom: 1rem;
+
+  li {
+    line-height: 1.1rem;
+    min-height: 1.5rem;
+  }
+}
+
+.alert {
+  border: 1px solid $danger;
+  border-radius: $borderRadius;
+  box-shadow: 1px 1px 5px rgba($danger, 0.3);
+  color: $danger;
+}
+
+.btn {
+  border-radius: $borderRadius;
+  box-shadow: 1px 1px 5px $transparentBlack;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.btn:active {
+  position: relative;
+  top: 1px;
+}
+
+.btn-primary {
+  box-shadow: 1px 1px 5px $transparentBlack, inset 0px 1px 0px 0px $primary3;
+  background: linear-gradient(to bottom, $primary2 5%, $primary 100%);
+  border: 1px solid $primaryBorder;
+  color: #fff;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 1px 1px 0px $transparentBlack8;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to top, $primary2 5%, $primary 100%);
+}
+
+.btn-primary:active {
+  box-shadow: 1px 1px 2px $transparentBlack, inset 0px 1px 0px 0px $primary3;
+}
+
+.btn-danger {
+  box-shadow: 1px 1px 5px $transparentBlack,
+    inset 0px 1px 0px 0px lighten($danger, 20%);
+  background: linear-gradient(to bottom, $danger 5%, darken($danger, 10%) 100%);
+  border: 1px solid $danger;
+  color: #fff;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 1px 1px 0px $transparentBlack8;
+  font-size: 0.75em;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(to top, $danger 5%, darken($danger, 10%) 100%);
+}
+
+.btn-outline {
+  background: linear-gradient(to bottom, #fff 5%, $primary4 100%);
+  color: #212121;
+  padding: 6px 24px;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: linear-gradient(to top, #fff 5%, $primary4 100%);
+}
+
+.btn-outline:active {
+  box-shadow: 1px 1px 2px $transparentBlack;
+}
+
+.btn-outline-primary {
+  border: 1px solid $primaryBorder;
+}
+
+.btn-danger-outline {
+  border: 1px solid $danger;
+  color: darken($danger, 50%);
+  font-size: 0.7em;
+}
+
+.btn-danger-outline:hover {
+  background: linear-gradient(to top, #fff 5%, $primary4 100%);
+}
+
+.large {
+  font-size: 24px;
+}
+
+.form-control {
+  border: 2px solid rgba($primary, 0.5);
+  border-radius: $borderRadius;
+  box-sizing: border-box;
+  display: block;
+  padding: 10px 12px;
+  margin: 1px 0 15px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.chat-box {
+  background-color: white;
+  border: 1px dashed $transparentBlack;
+  border-bottom: 0;
+  border-radius: $borderRadius $borderRadius 0 0;
+  margin-bottom: 0;
+  min-height: 12em;
+  padding: 0;
+}
+
+.chat-input {
+  border-radius: 0 0 $borderRadius $borderRadius;
+  border-top: 1px solid rgba($primary, 0.5);
+}
+
+.custom-select {
+  width: 100%;
+  font-size: 18px;
+}
