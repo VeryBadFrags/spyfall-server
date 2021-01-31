@@ -2,15 +2,29 @@
 
 A social deduction game using Node and WebSockets.
 
-## Build
+## Run with Node
+
+Install the Node nodules
 
 ```sh
 npm i
-npm run build
 ```
 
-## Run with Node
+Start the server
 
 ```sh
 npm start
+```
+
+## Run with Docker
+
+```sh
+docker-compose up
+```
+
+## Develop locally
+
+```sh
+npm i
+npm run dev
 ```
