@@ -38,15 +38,6 @@ body {
   background-size: cover;
 
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-  text-align: center;
-}
-
-hr {
-  background-color: $secondary1;
-  border: 0;
-  height: 2px;
-  margin: 24px 0;
 }
 
 h4 {
@@ -61,31 +52,6 @@ a {
 a:hover {
   color: $linkColorActive;
   text-decoration: underline;
-}
-
-.mt-0 {
-  margin-top: 0;
-}
-
-.container {
-  margin: 8px;
-  padding-bottom: 5rem;
-}
-
-.bg-light {
-  background-color: $bgLight;
-  background-image: linear-gradient(135deg, lighten($bgLight, 5%) 0%, darken($bgLight, 5%) 90%);
-  color: $textDark;
-}
-
-.navbar {
-  align-items: center;
-  box-shadow: 0px 1px 3px $transparentBlack;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 8px 16px;
-  position: relative;
 }
 
 .navbar-dark {
@@ -103,23 +69,10 @@ a:hover {
   color: $linkColorActiveDark;
 }
 
-.navbar-brand {
-  padding: 5px 0px;
-  font-size: 1.25rem;
-  text-shadow: 2px 2px 1px $transparentBlack;
-}
-
 .footer {
   border-top: 1px solid $secondaryBorder;
   margin: 0;
   padding: 16px 8px;
-}
-
-.flex {
-  align-items: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
 }
 
 .clickable {
@@ -140,23 +93,6 @@ a:hover {
   text-decoration: line-through underline;
 }
 
-.card {
-  border: 1px solid $secondaryBorder;
-  border-radius: $borderRadius;
-  box-shadow: $shadow1;
-  margin: 16px 12px;
-  padding: 16px 20px;
-  min-width: 128px;
-  max-width: 640px;
-  text-align: left;
-  vertical-align: top;
-  flex-grow: 1;
-}
-
-.card-title {
-  margin-top: 0px;
-}
-
 .secret-card {
   border: 1px dashed $transparentBlack;
   padding: 4px 8px;
@@ -174,120 +110,16 @@ a:hover {
   }
 }
 
-.alert {
-  border: 1px solid $danger;
-  border-radius: $borderRadius;
-  box-shadow: 1px 1px 5px rgba($danger, 0.3);
-  color: $danger;
-}
-
-.btn {
-  border-radius: $borderRadius;
-  box-shadow: 1px 1px 5px $transparentBlack;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  margin-bottom: 10px;
-  margin-top: 15px;
-  width: 100%;
-}
-
-.btn:active {
-  position: relative;
-  top: 1px;
-}
-
-.btn-primary {
-  box-shadow: 1px 1px 5px $transparentBlack, inset 0px 1px 0px 0px $primary3;
-  background: linear-gradient(to bottom, $primary2 5%, $primary 100%);
-  border: 1px solid $primaryBorder;
-  color: #fff;
-  padding: 6px 24px;
-  text-decoration: none;
-  text-shadow: 1px 1px 0px $transparentBlack8;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(to top, $primary2 5%, $primary 100%);
-}
-
-.btn-primary:active {
-  box-shadow: 1px 1px 2px $transparentBlack, inset 0px 1px 0px 0px $primary3;
-}
-
-.btn-danger {
-  box-shadow: 1px 1px 5px $transparentBlack,
-    inset 0px 1px 0px 0px lighten($danger, 20%);
-  background: linear-gradient(to bottom, $danger 5%, darken($danger, 10%) 100%);
-  border: 1px solid $danger;
-  color: #fff;
-  padding: 6px 24px;
-  text-decoration: none;
-  text-shadow: 1px 1px 0px $transparentBlack8;
-  font-size: 0.75em;
-}
-
-.btn-danger:hover {
-  background: linear-gradient(to top, $danger 5%, darken($danger, 10%) 100%);
-}
-
-.btn-outline {
-  background: linear-gradient(to bottom, #fff 5%, $primary4 100%);
-  color: #212121;
-  padding: 6px 24px;
-  text-decoration: none;
-}
-
-.btn-outline:hover {
-  background: linear-gradient(to top, #fff 5%, $primary4 100%);
-}
-
-.btn-outline:active {
-  box-shadow: 1px 1px 2px $transparentBlack;
-}
-
-.btn-outline-primary {
-  border: 1px solid $primaryBorder;
-}
-
-.btn-danger-outline {
-  border: 1px solid $danger;
-  color: darken($danger, 50%);
-  font-size: 0.7em;
-}
-
-.btn-danger-outline:hover {
-  background: linear-gradient(to top, #fff 5%, $primary4 100%);
-}
-
-.large {
-  font-size: 24px;
-}
-
-.form-control {
-  border: 2px solid rgba($primary, 0.5);
-  border-radius: $borderRadius;
-  box-sizing: border-box;
-  display: block;
-  padding: 10px 12px;
-  margin: 1px 0 15px;
-  font-size: 16px;
-  width: 100%;
-}
-
 .chat-box {
-  background-color: white;
-  border: 1px dashed $transparentBlack;
-  border-bottom: 0;
-  border-radius: $borderRadius $borderRadius 0 0;
-  margin-bottom: 0;
-  min-height: 12em;
-  padding: 0;
+  min-height: 13em;
 }
 
-.chat-input {
-  border-radius: 0 0 $borderRadius $borderRadius;
-  border-top: 1px solid rgba($primary, 0.5);
+.border-rounded-bottom-left {
+  border-radius: 0 0 0 $borderRadius;
+}
+
+.border-rounded-bottom-right {
+  border-radius: 0 0 $borderRadius 0;
 }
 
 .custom-select {

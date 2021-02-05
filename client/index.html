@@ -10,112 +10,161 @@
     <link rel="alternate icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕵️</text></svg>" />
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="spy.css">
 </head>
 
 <body>
 
-    <nav class="navbar navbar-dark">
-        <span class="navbar-brand">🕵️ Spyfall</span>
-        <a href="https://games.verybadfrags.com" target="_blank">🎮 More games</a>
+    <nav class="navbar navbar-expand navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1 shadow-lg">🕵️ Spyfall</span>
+            <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                <a href="https://games.verybadfrags.com" target="_blank">🎮 More games</a>
+            </div>
+        </div>
     </nav>
 
-    <div class="container">
-        <div id="error" class="card alert" style="display: none;"></div>
+    <div class="container mb-5">
+        <div id="error" class="card alert alert-danger mt-3" style="display: none;"></div>
 
-        <div class="flex">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4 mt-2">
+            
             <!-- Connect -->
-            <div id="connect-wrapper" class="card bg-light">
-                <form id="connect-form">
-                    <div>
-                        <label for="name-input">👤 Name</label>
-                        <input type="text" id="name-input" class="form-control" required autofocus maxlength="16">
+            <div class="col" id="connect-wrapper">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body">
+                        <form id="connect-form">
+                            <div class="mb-3">
+                                <label for="name-input" class="form-label">👤 Name</label>
+                                <input type="text" id="name-input" class="form-control" required autofocus
+                                    maxlength="16">
+                            </div class="mb-3">
+                            <div class="mb-3">
+                                <label for="lobby-input" class="form-label">🎲 Lobby code</label>
+                                <input type="text" id="lobby-input" class="form-control" pattern="[A-Za-z0-9]*"
+                                    title="Lobby Code" maxlength="8" autocomplete="off">
+                            </div>
+                            <div class="d-grid">
+                                <button type=" submit" id="create-lobby-button" class="btn btn-primary">🔌 Join
+                                    Lobby</button>
+                            </div>
+                        </form>
                     </div>
-                    <div>
-                        <label for="lobby-input">🎲 Lobby code</label>
-                        <input type="text" id="lobby-input" class="form-control" pattern="[A-Za-z0-9]*"
-                            title="Lobby Code" maxlength="8" autocomplete="off">
-                    </div>
-                    <button type="submit" id="create-lobby-button" class="btn btn-primary">🔌 Join Lobby</button>
-                </form>
+                </div>
             </div>
 
             <!-- Game chat -->
-            <div id="chat-wrapper" class="card bg-light" style="display: none;">
-                <div id="chat-box" class="chat-box">
-                    <ul id="events" class="list"></ul>
+            <div class="col" id="chat-wrapper" style="display: none;">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body">
+                        <div class="row g-0">
+                            <div id="chat-box" class="chat-box card bg-light border-bottom-0 rounded-0 rounded-top pt-3">
+                                <ul id="events" class="list"></ul>
+                            </div>
+                            <form id="talk-form">
+                                <div class="input-group">
+                                    <input type="text" id="chat-input" class="form-control border-rounded-bottom-left"
+                                        placeholder="Message..." autocomplete="off" required maxlength="64">
+                                    <button type="submit" id="chat-button" class="btn btn-primary border-rounded-bottom-right">✉️ Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <form id="talk-form" class="mt-0">
-                    <input type="text" id="chat-input" class="form-control chat-input" placeholder="Message..."
-                        autocomplete="off" required maxlength="64">
-                    <button type="submit" id="chat-button" class="btn btn-outline btn-outline-primary">✉️ Send</button>
-                </form>
             </div>
 
-            <!-- Game settings -->
-            <div id="players-wrapper" class="card bg-light" style="display: none;">
-                <h4 class="mt-0">👥 Players</h4>
-                <ul id="peers-list" class="list"></ul>
+            <!-- Players list -->
+            <div class="col" id="players-wrapper" style="display: none;">
+                <div class="card border-secondary shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title">👥 Players</h6>
+                        <ul id="peers-list" class="list"></ul>
 
-                <p>Lobby: <input id="lobby-display" readonly=true></input></p>
+                        <div class="mb-3">
+                            <label for="lobby-display" class="form-label">Lobby:</label>
+                            <input type="text" class="form-control" id="lobby-display" readonly>
+                        </div>
 
-                <h4 class="card-title">⚙️ New Game</h4>
-                <form id="new-game-form">
-                    <div>
-                        <input type="checkbox" id="ready-check" name="ready-check" required autocomplete="off">
-                        <label for="ready-check" class="clickable">Ready</label>
+                        <hr>
+
+                        <p class="card-title">⚙️ New Game</p>
+                        <form id="new-game-form">
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="ready-check" name="ready-check"
+                                    required autocomplete="off">
+                                <label for="ready-check" class="clickable form-check-label">Ready</label>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" id="start-button" class="btn btn-primary">🏁 Start</button>
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="d-grid">
+                            <button type="submit" id="leave-lobby-button" class="btn btn-sm btn-outline-danger">⬅️
+                                Leave lobby</button>
+                        </div>
                     </div>
-                    <button type="submit" id="start-button" class="btn btn-primary">🏁 Start</button>
-                </form>
-                <hr>
-                <button type="submit" id="leave-lobby-button" class="btn btn-outline btn-danger-outline">⬅️ Leave
-                    lobby</button>
+                </div>
             </div>
 
             <!-- List of Locations -->
-            <div class="card bg-light">
-                <h3 class="card-title">Locations</h3>
-                <ul id="locations-list" class="list">
-                </ul>
+            <div class="col">
+                <div class="card border-info shadow-sm">
+                    <div class="card-header">📍 Locations</div>
+                    <ul id="locations-list" class="list-group list-group-flush"></ul>
+                </div>
             </div>
 
         </div>
 
-        <div class="flex">
-            <!-- Rules -->
-            <div class="card bg-light">
-                <h3 class="card-title">📖 Rules</h3>
-                <button id="rules-button" class="btn btn-outline btn-outline-primary">👓 Show/Hide</button>
-                <div id="instructions" style="display: none;">
-                    <ul>
-                        <li>👥 3-10 Players</li>
-                        <li>⏱ 5 Minutes Rounds</li>
-                        <li>📱 1 Device per player</li>
-                    </ul>
-                    <ul>
-                        <li>All players are in the same location</li>
-                        <li>The spy has to guess the current location</li>
-                        <li>The other players have to guess who the spy is</li>
-                        <li>The first player picks another person and asks them a question about the location (Do
-                            people wear a uniform? Is there a specific color in this place? ...)</li>
-                        <li>The player who just answered the question asks the next question to another person</li>
-                    </ul>
-                    <h4 id="when-the-timer-ends">When the timer ends</h4>
-                    <ul>
-                        <li>Players vote to designate the spy<ul>
-                                <li>If the players have voted for the spy, the spy has one chance to guess the
-                                    location and win the game</li>
-                                <li>If the players have voted for an innocent, the spy wins</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <h4 id="at-any-time">At any time</h4>
-                    <ul>
-                        <li>The players can vote for a spy if they have a majority</li>
-                        <li>The spy can guess the location. The spy wins the game if he guessed correctly, or loses
-                            otherwise</li>
-                    </ul>
+        <hr>
 
+        <div class="row">
+            <!-- Rules -->
+            <div class="col">
+                <div class="card border-info shadow-sm">
+                    <div class="card-header">📖 Rules</div>
+                    <div class="card-body">
+                        <div class="d-grid">
+                            <button id="rules-button" class="btn btn-outline-primary">👓 Show/Hide</button>
+                        </div>
+                        <div id="instructions" style="display: none;">
+                            <ul>
+                                <li>👥 3-10 Players</li>
+                                <li>⏱ 5 Minutes Rounds</li>
+                                <li>📱 1 Device per player</li>
+                            </ul>
+                            <ul>
+                                <li>All players are in the same location</li>
+                                <li>The spy has to guess the current location</li>
+                                <li>The other players have to guess who the spy is</li>
+                                <li>The first player picks another person and asks them a question about the location
+                                    (Do
+                                    people wear a uniform? Is there a specific color in this place? ...)</li>
+                                <li>The player who just answered the question asks the next question to another person
+                                </li>
+                            </ul>
+                            <h4 id="when-the-timer-ends">When the timer ends</h4>
+                            <ul>
+                                <li>Players vote to designate the spy<ul>
+                                        <li>If the players have voted for the spy, the spy has one chance to guess the
+                                            location and win the game</li>
+                                        <li>If the players have voted for an innocent, the spy wins</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <h4 id="at-any-time">At any time</h4>
+                            <ul>
+                                <li>The players can vote for a spy if they have a majority</li>
+                                <li>The spy can guess the location. The spy wins the game if he guessed correctly, or
+                                    loses
+                                    otherwise</li>
+                            </ul>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 

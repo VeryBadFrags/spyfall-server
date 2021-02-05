@@ -87,7 +87,7 @@ function processMessage(data) {
         startGame(data);
     } else if (data.type === 'session-created') {
         lobbyDisplay.value = data.sessionId;
-        lobbyDisplay.style.width = `${lobbyDisplay.value.length}rem`;
+        lobbyDisplay.style.width = `${lobbyDisplay.value.length + 2}rem`;
     }
 }
 
@@ -248,7 +248,7 @@ let locationsListElement = document.getElementById('locations-list');
 locationsList.map(locationName => {
     let li = document.createElement("li");
     li.innerHTML = locationName;
-    li.classList.add('clickable');
+    li.classList.add('clickable', 'list-group-item', 'py-1');
     li.addEventListener('click', event => addRemoveClass(event.target, 'strike'));
     return li;
 }).forEach(li => {
