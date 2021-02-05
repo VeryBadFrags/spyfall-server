@@ -54,6 +54,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.navbar-brand {
+  text-shadow: 2px 2px 1px $transparentBlack;
+}
+
 .navbar-dark {
   background-color: $bgDark;
   background-image: linear-gradient(lighten($bgDark, 5%) 0%, $bgDark 90%);
@@ -67,12 +71,6 @@ a:hover {
 
 .navbar-dark a:hover {
   color: $linkColorActiveDark;
-}
-
-.footer {
-  border-top: 1px solid $secondaryBorder;
-  margin: 0;
-  padding: 16px 8px;
 }
 
 .clickable {

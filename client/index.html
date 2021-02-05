@@ -19,7 +19,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-primary shadow-sm">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1 shadow-lg">🕵️ Spyfall</span>
+            <span class="navbar-brand mb-0 h1">🕵️ Spyfall</span>
             <div class="navbar-nav me-auto mb-2 mb-lg-0">
                 <a href="https://games.verybadfrags.com" target="_blank">🎮 More games</a>
             </div>
@@ -30,7 +30,7 @@
         <div id="error" class="card alert alert-danger mt-3" style="display: none;"></div>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4 mt-2">
-            
+
             <!-- Connect -->
             <div class="col" id="connect-wrapper">
                 <div class="card border-primary shadow-sm">
@@ -60,14 +60,16 @@
                 <div class="card border-primary shadow-sm">
                     <div class="card-body">
                         <div class="row g-0">
-                            <div id="chat-box" class="chat-box card bg-light border-bottom-0 rounded-0 rounded-top pt-3">
+                            <div id="chat-box"
+                                class="chat-box card bg-light border-bottom-0 rounded-0 rounded-top pt-3">
                                 <ul id="events" class="list"></ul>
                             </div>
                             <form id="talk-form">
                                 <div class="input-group">
                                     <input type="text" id="chat-input" class="form-control border-rounded-bottom-left"
                                         placeholder="Message..." autocomplete="off" required maxlength="64">
-                                    <button type="submit" id="chat-button" class="btn btn-primary border-rounded-bottom-right">✉️ Send</button>
+                                    <button type="submit" id="chat-button"
+                                        class="btn btn-primary border-rounded-bottom-right">✉️ Send</button>
                                 </div>
                             </form>
                         </div>
@@ -117,11 +119,6 @@
                 </div>
             </div>
 
-        </div>
-
-        <hr>
-
-        <div class="row">
             <!-- Rules -->
             <div class="col">
                 <div class="card border-info shadow-sm">
@@ -146,7 +143,7 @@
                                 <li>The player who just answered the question asks the next question to another person
                                 </li>
                             </ul>
-                            <h4 id="when-the-timer-ends">When the timer ends</h4>
+                            <h6 id="when-the-timer-ends">When the timer ends</h6>
                             <ul>
                                 <li>Players vote to designate the spy<ul>
                                         <li>If the players have voted for the spy, the spy has one chance to guess the
@@ -155,7 +152,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <h4 id="at-any-time">At any time</h4>
+                            <h6 id="at-any-time">At any time</h6>
                             <ul>
                                 <li>The players can vote for a spy if they have a majority</li>
                                 <li>The spy can guess the location. The spy wins the game if he guessed correctly, or
@@ -172,14 +169,21 @@
 
     </div>
 
-    <footer class="footer bg-light">
-        <div>No internet? Play <a href="https://offline-spy.verybadfrags.com" target="_blank">📵🕵️ Offline Spyfall</a>
+    <footer class="navbar navbar-light bg-light border-top border-secondary rounded-0 pt-3 pb-5">
+        <div class="container">
+            <div class="row gy-2">
+                <div>No internet? Play <a href="https://offline-spy.verybadfrags.com" target="_blank">📵🕵️ Offline
+                        Spyfall</a>
+                </div>
+                <div>Suggestions, Feedback? <a href="mailto:spy@verybadfrags.com">spy@verybadfrags.com</a></div>
+                <div><a href="https://github.com/VeryBadFrags/online-spy" target="_blank" rel="noopener noreferrer">💾
+                        Source
+                        code
+                        on GitHub</a></div>
+                <div>Like this game? <a href="https://www.buymeacoffee.com/verybadfrags" target="_blank"
+                        rel="noopener noreferrer">Support VeryBadFrags</a></div>
+            </div>
         </div>
-        <p>Suggestions, Feedback? <a href="mailto:spy@verybadfrags.com">spy@verybadfrags.com</a></p>
-        <p><a href="https://github.com/VeryBadFrags/online-spy" target="_blank" rel="noopener noreferrer">💾 Source code
-                on GitHub</a></p>
-        <p>Like this game? <a href="https://www.buymeacoffee.com/verybadfrags" target="_blank"
-                rel="noopener noreferrer">Support VeryBadFrags</a></p>
     </footer>
 
     <script src="connection-manager.js"></script>
