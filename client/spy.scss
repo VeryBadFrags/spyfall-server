@@ -28,10 +28,6 @@ $danger: #b71c1c;
 
 $borderRadius: 4px;
 
-html {
-  min-height: 100%;
-}
-
 body {
   background-color: #fee2f8;
   background-image: linear-gradient(315deg, #fee2f8 0%, #dcf8ef 74%);
@@ -40,17 +36,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h4 {
-  margin-bottom: 0.7em;
-}
-
 a {
-  color: $linkColor;
   text-decoration: none;
 }
 
 a:hover {
-  color: $linkColorActive;
   text-decoration: underline;
 }
 
@@ -91,11 +81,6 @@ a:hover {
   text-decoration: line-through underline;
 }
 
-.secret-card {
-  border: 1px dashed $transparentBlack;
-  padding: 4px 8px;
-}
-
 .list {
   list-style-type: none;
   font-size: 17px;
@@ -109,7 +94,7 @@ a:hover {
 }
 
 .chat-box {
-  min-height: 13em;
+  min-height: 14em;
 }
 
 .border-rounded-bottom-left {
@@ -118,9 +103,4 @@ a:hover {
 
 .border-rounded-bottom-right {
   border-radius: 0 0 $borderRadius 0;
-}
-
-.custom-select {
-  width: 100%;
-  font-size: 18px;
 }
