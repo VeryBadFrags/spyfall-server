@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="spy.css">
 </head>
 
-<body>
+<body class="bg-secondary">
 
     <nav class="navbar navbar-expand navbar-dark bg-primary shadow-sm">
         <div class="container-fluid">
@@ -27,13 +27,13 @@
     </nav>
 
     <div class="container mb-5">
-        <div id="error" class="card alert alert-danger mt-3" style="display: none;"></div>
+        <div id="error" class="alert alert-danger mt-3" style="display: none;"></div>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-4 mt-2">
 
             <!-- Connect -->
             <div class="col" id="connect-wrapper">
-                <div class="card border-primary shadow-sm">
+                <div class="card text-dark bg-light border-primary shadow">
                     <div class="card-body">
                         <form id="connect-form">
                             <div class="mb-3">
@@ -57,7 +57,7 @@
 
             <!-- Game chat -->
             <div class="col" id="chat-wrapper" style="display: none;">
-                <div class="card border-primary shadow-sm">
+                <div class="card border-primary shadow">
                     <div class="card-body">
                         <div class="progress mb-2" style="height: 2.5em;">
                             <div class="progress-bar bg-info text-dark" id="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100"
@@ -83,7 +83,7 @@
 
             <!-- Players list -->
             <div class="col" id="players-wrapper" style="display: none;">
-                <div class="card border-secondary shadow-sm">
+                <div class="card border-secondary shadow">
                     <div class="card-header">⚙️ Settings</div>
                     <div class="card-body">
                         <h6 class="card-title">👥 Players</h6>
@@ -104,7 +104,7 @@
                                 <label for="ready-check" class="clickable form-check-label">Ready</label>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" id="start-button" class="btn btn-primary">🏁 Start</button>
+                                <button type="submit" id="start-button" class="btn btn-primary">▶️ Start</button>
                             </div>
                         </form>
                         <hr>
@@ -118,7 +118,7 @@
 
             <!-- List of Locations -->
             <div class="col">
-                <div class="card border-info shadow-sm">
+                <div class="card shadow">
                     <div class="card-header">📍 Locations</div>
                     <ul id="locations-list" class="list-group list-group-flush"></ul>
                 </div>
@@ -126,7 +126,7 @@
 
             <!-- Rules -->
             <div class="col">
-                <div class="card border-info shadow-sm">
+                <div class="card shadow">
                     <div class="card-header">📖 Rules</div>
                     <div class="card-body">
                         <div class="d-grid">
@@ -174,7 +174,7 @@
 
     </div>
 
-    <footer class="navbar navbar-light bg-light border-top border-secondary rounded-0 pt-3 pb-5">
+    <footer class="navbar navbar-light bg-light border-dark border-top rounded-0 pt-3 pb-5">
         <div class="container">
             <div class="row gy-2">
                 <div>No internet? Play <a href="https://offline-spy.verybadfrags.com" target="_blank">📵🕵️ Offline
