@@ -97,6 +97,8 @@ function startGame(data) {
     readyCheck.checked = false;
     resetClickableElements();
 
+    startTimer(5 * 60, progressBar);
+
     appendText('Game started');
     if (data.spy) {
         appendText(`🕵️ You are the spy, try to guess the current location`, null, 'red');
@@ -254,6 +256,35 @@ locationsList.map(locationName => {
 }).forEach(li => {
     locationsListElement.append(li);
 });
+
+const progressBar = document.getElementById('progress-bar');
+let intervalId;
+function startTimer(duration, display) {
+    clearInterval(intervalId);
+    var timer = duration;
+    setTimerDisplay(timer, duration, display);
+    intervalId = setInterval(function () {
+        timer--;
+        setTimerDisplay(timer, duration, display);
+        if (timer < 0) {
+            display.textContent = "🔔 Time's up! Who is the Spy?";
+            clearInterval(intervalId);
+        }
+    }, 1000);
+}
+
+function setTimerDisplay(timer, totalDuration, display) {
+    let minutes = parseInt(timer / 60, 10);
+    let seconds = parseInt(timer % 60, 10);
+
+    minutes = minutes < 10 ? ("0" + minutes) : minutes;
+    seconds = seconds < 10 ? ("0" + seconds) : seconds;
+
+    display.textContent = `⏱ ${minutes}:${seconds}`;
+    let progress = timer / totalDuration * 100;
+    display.style = `width: ${progress}%;`;
+    display.setAttribute('aria-valuenow', Math.round(progress));
+}
 
 document.getElementById('leave-lobby-button')
     .addEventListener('click', event => connectionManager.conn.close());
