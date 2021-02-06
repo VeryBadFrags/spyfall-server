@@ -9,9 +9,10 @@ class Client {
     }
 
     send(type, data) {
+        data.type = type;
         let msg = JSON.stringify(data);
         //console.log(`Sending message '${type}': ${msg}`);
-        this.socket.emit(type, msg);
+        this.socket.emit('event', msg);
     }
 }
 

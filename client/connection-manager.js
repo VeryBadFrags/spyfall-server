@@ -2,16 +2,13 @@ class ConnectionManager {
     constructor(messageCallback) {
         this.socket = null;
         this.peers = new Map();
-        this.sessionId = null;
-        this.messageCallback = messageCallback;
+        this.eventCallback = messageCallback;
     }
 
     connect(playerName, sessionId, connectionEstablishedCallback, connectionClosedCallback) {
         this.socket = io();
-        this.sessionId = sessionId;
 
-        console.log('Connection established');
-        this.initSession(playerName);
+        this.initSession(playerName, sessionId);
         connectionEstablishedCallback();
 
         this.socket.on('disconnect', () => {
@@ -19,25 +16,9 @@ class ConnectionManager {
             connectionClosedCallback();
         });
 
-        this.socket.on('session-created', event => {
-            let data = JSON.parse(event);
-            this.sessionId = data.sessionId;
-            this.messageCallback('session-created', data);
-        });
-
-        this.socket.on('session-broadcast', event => {
-            let data = JSON.parse(event);
-            this.messageCallback('session-broadcast', data);
-        });
-
-        this.socket.on('chat-event', event => {
-            let data = JSON.parse(event);
-            this.messageCallback('chat-event', data);
-        });
-
-        this.socket.on('start-game',event => {
-            let data = JSON.parse(event);
-            this.messageCallback('start-game', data);
+        this.socket.on('event', msg => {
+            let data = JSON.parse(msg);
+            this.eventCallback(data.type, data);
         });
     }
 
@@ -45,10 +26,10 @@ class ConnectionManager {
         this.socket.disconnect();
     }
 
-    initSession(playerName) {
-        if (this.sessionId) {
+    initSession(playerName, sessionId) {
+        if (sessionId) {
             this.send('join-session', {
-                sessionId: this.sessionId,
+                sessionId: sessionId,
                 playerName: playerName,
                 game: 'spy',
             });
