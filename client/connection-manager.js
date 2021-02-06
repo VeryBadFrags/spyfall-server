@@ -1,7 +1,6 @@
 class ConnectionManager {
     constructor(messageCallback) {
         this.socket = null;
-        this.peers = new Map();
         this.eventCallback = messageCallback;
     }
 
