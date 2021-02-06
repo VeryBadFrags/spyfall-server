@@ -14,11 +14,11 @@ module.exports = {
         sourceMap: false,
       }
     }],
-    ['@snowpack/plugin-babel', {
-      transformOptions: {
-        presets: ['@babel/preset-env']
-      }
-    }],
+    // ['@snowpack/plugin-babel', {
+    //   transformOptions: {
+    //     presets: ['@babel/preset-env']
+    //   }
+    // }],
     ["@snowpack/plugin-optimize", { minifyCSS: false }],
   ],
   packageOptions: {
