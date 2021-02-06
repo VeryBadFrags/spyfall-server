@@ -1,6 +1,6 @@
 class Client {
-    constructor(conn, id) {
-        this.conn = conn;
+    constructor(socket, id) {
+        this.socket = socket;
         this.id = id;
         this.name = null;
         this.session = null;
@@ -8,14 +8,10 @@ class Client {
         this.avatar = null;
     }
 
-    send(data) {
+    send(type, data) {
         let msg = JSON.stringify(data);
-        console.log(`Sending message ${msg}`);
-        this.conn.send(msg, function ack(err) {
-            if (err) {
-                console.error('Failed to send message to client', msg, err);
-            }
-        })
+        //console.log(`Sending message '${type}': ${msg}`);
+        this.socket.emit(type, msg);
     }
 }
 

@@ -22,8 +22,7 @@ class Session {
         client.avatar = avatar;
         client.name = `${avatar} ${client.name}`;
 
-        client.send({
-            type: 'session-created',
+        client.send('session-created', {
             sessionId: this.id
         });
         return true;
@@ -36,15 +35,14 @@ class Session {
         client.session = null;
         this.avatars.push(client.avatar);
     }
-    
-    broadcast(msg) {
-        this.clients.forEach(client => client.send(msg));
+
+    broadcast(type, msg) {
+        this.clients.forEach(client => client.send(type, msg));
     }
 
     broadcastPeers() {
         let clientsArray = Array.from(this.clients);
-        clientsArray.forEach(client => client.send({
-            type: 'session-broadcast',
+        clientsArray.forEach(client => client.send('session-broadcast', {
             sessionId: this.id,
             peers: {
                 you: client.id,

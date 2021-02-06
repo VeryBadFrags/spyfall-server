@@ -3,7 +3,6 @@ const connectionManager = new ConnectionManager(processMessage);
 const readyCheck = document.getElementById('ready-check');
 const chatInput = document.getElementById('chat-input');
 const lobbyInput = document.getElementById('lobby-input');
-const createLobbyButton = document.getElementById('create-lobby-button');
 const lobbyDisplay = document.getElementById('lobby-display');
 
 const locationsList = ["✈️💺 Airport",
@@ -36,7 +35,6 @@ function appendText(text, author, color) {
     if (author) {
         let authorElem = document.createElement('b');
         authorElem.innerText = `${author}: `;
-        console.log(authorElem);
         newLine.appendChild(authorElem);
     }
 
@@ -78,14 +76,17 @@ function showHide(elementId) {
     }
 }
 
-function processMessage(data) {
-    if (data.type === 'chat-event') {
+function processMessage(type, data) {
+    if (type === 'chat-event') {
+        console.log(data);
         appendText(data.message, data.author, data.color);
-    } else if (data.type === 'session-broadcast') {
+    } else if (type === 'session-broadcast') {
         displayPeers(data.peers.clients);
-    } else if (data.type === 'start-game') {
+    } else if (type === 'start-game') {
         startGame(data);
-    } else if (data.type === 'session-created') {
+    } else if (type === 'session-created') {
+        //TODO replace window.location.hash with ?code=
+        window.location.hash = data.sessionId;
         lobbyDisplay.value = data.sessionId;
         lobbyDisplay.style.width = `${lobbyDisplay.value.length + 2}rem`;
     }
@@ -189,18 +190,11 @@ function addRemoveClass(element, cssClass) {
 document.getElementById('connect-form').addEventListener('submit', event => {
     event.preventDefault();
 
-    let hostname = window.location.hostname;
-    let webSocketUrl;
-    if (hostname === 'localhost') {
-        webSocketUrl = `ws://localhost:9001`;
-    } else {
-        webSocketUrl = `wss://${hostname}/ws`;
-    }
-
     let playerName = document.getElementById('name-input');
-    connectionManager.connect(webSocketUrl, playerName.value, lobbyInput.value, connectionOpened, connectionClosed);
+    connectionManager.connect(playerName.value, lobbyInput.value, connectionOpened, connectionClosed);
 });
 
+const createLobbyButton = document.getElementById('create-lobby-button');
 function setLobbyButtonText() {
     if (lobbyInput.value && lobbyInput.value.length > 0) {
         createLobbyButton.innerText = '🔌 Join Lobby';
@@ -216,31 +210,19 @@ lobbyInput.addEventListener('input', () => {
 
 document.getElementById('talk-form').addEventListener('submit', event => {
     event.preventDefault();
-    connectionManager.send({
-        type: 'chat-event',
-        sessionId: connectionManager.sessionId,
-        message: chatInput.value,
-    });
+    connectionManager.send('chat-event', { message: chatInput.value });
     chatInput.value = '';
 });
 
 document.getElementById('rules-button').addEventListener('click', event => showHide('instructions'));
 
-// TODO check if we can deduce the session from the client on the server side
-readyCheck.addEventListener('change', event => connectionManager.send({
-    type: 'player-ready',
-    sessionId: connectionManager.sessionId,
-    ready: event.target.checked,
-}));
+readyCheck.addEventListener('change', event => connectionManager.send('player-ready', { ready: event.target.checked }));
 
 document.getElementById('new-game-form').addEventListener('submit', event => {
     resetErrors();
     event.preventDefault();
     if (readyCheck.checked) {
-        connectionManager.send({
-            type: 'start-game',
-            sessionId: connectionManager.sessionId,
-        });
+        connectionManager.send('start-game');
     } else {
         printError("You are not ready");
     }
@@ -287,6 +269,6 @@ function setTimerDisplay(timer, totalDuration, display) {
 }
 
 document.getElementById('leave-lobby-button')
-    .addEventListener('click', event => connectionManager.conn.close());
+    .addEventListener('click', event => connectionManager.disconnect());
 
 document.getElementById('chat-box').addEventListener('click', event => chatInput.focus());

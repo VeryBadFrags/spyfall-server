@@ -25,8 +25,7 @@ function startGame(session) {
     clientsArray.forEach((client, index) => {
         let isSpy = spyIndex === index;
         client.ready = false;
-        client.send({
-                type: 'start-game',
+        client.send('start-game', {
                 spy: isSpy,
                 location: isSpy ? '?' : location,
                 first: firstQuestion,

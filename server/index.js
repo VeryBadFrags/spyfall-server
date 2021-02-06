@@ -1,26 +1,22 @@
-const WebSocketServer = require('ws').Server;
-
 const Session = require('./session');
 const Client = require('./client');
 const SpyGame = require('./spy');
 
 // Express static site
-const http = require('http');
 const express = require('express');
-
 const app = express();
-const staticServer = http.createServer(app);
+const http = require('http').Server(app);
 
 const clientPath = `${__dirname}/../build`;
-const staticPort = 8081;
 app.use(express.static(clientPath));
 
-staticServer.listen(staticPort, () => {
+const staticPort = 8081;
+http.listen(staticPort, () => {
     console.log(`Serving Online Spy on http://localhost:${staticPort}`);
 });
 
-// WS
-const server = new WebSocketServer({ port: 9001 });
+// socket.io
+const io = require('socket.io')(http);
 const sessions = new Map;
 
 function createId(len = 8, chars = 'ABCDEFGHJKMNPQRSTWXYZ23456789') {
@@ -48,69 +44,73 @@ function getSession(id) {
     return sessions.get(id);
 }
 
-server.on('connection', conn => {
-    console.log('connection established');
-    let client = new createClient(conn);
+io.on('connection', socket => {
+    console.log('Connection established');
+    let client = new createClient(socket);
+    let session;
 
-    conn.on('message', msg => {
+    socket.on('create-session', msg => {
         let data = JSON.parse(msg);
-
-        if (data) {
-            console.log('Message received', msg);
-            if (data.type === 'create-session') {
-                client.name = data.playerName;
-                let session = createSession();
-                if (session.join(client)) {
-                    session.broadcastPeers();
-                } else {
-                    conn.close();
-                }
-            } else if (data.type === 'join-session') {
-                let session = getSession(data.sessionId) || createSession(data.sessionId);
-                client.name = data.playerName;
-                if (session.join(client)) {
-                    session.broadcastPeers();
-                } else {
-                    conn.close();
-                }
-            } else if (data.type === 'chat-event') {
-                let session = getSession(data.sessionId);
-                session.broadcast({
-                    type: 'chat-event',
-                    id: client.id,
-                    author: client.name,
-                    message: data.message
-                });
-            } else if (data.type === 'player-ready') {
-                let session = getSession(data.sessionId);
-                client.ready = data.ready;
-
-                session.broadcastPeers();
-            } else if (data.type === 'start-game') {
-                let session = getSession(data.sessionId);
-                let allReady = Array.from(session.clients).reduce((acc, cli) => acc && cli.ready, true);
-                if (allReady) {
-                    SpyGame.startGame(session);
-                } else {
-                    client.send({
-                        type: 'chat-event',
-                        message: 'All players must be ready',
-                        color: 'red',
-                    });
-                }
-            }
+        client.name = data.playerName;
+        session = createSession();
+        if (session.join(client)) {
+            session.broadcastPeers();
+        } else {
+            socket.disconnect();
         }
     });
 
-    conn.on('close', () => {
-        let session = client.session;
+    socket.on('join-session', msg => {
+        let data = JSON.parse(msg);
+        session = getSession(data.sessionId) || createSession(data.sessionId);
+        client.name = data.playerName;
+        if (session.join(client)) {
+            session.broadcastPeers();
+        } else {
+            socket.disconnect();
+        }
+    });
+
+    socket.on('chat-event', msg => {
+        let data = JSON.parse(msg);
+        if (!session) {
+            socket.disconnect();
+        } else {
+            session.broadcast('chat-event', {
+                id: client.id,
+                author: client.name,
+                message: data.message
+            });
+        }
+    });
+
+    socket.on('player-ready', msg => {
+        let data = JSON.parse(msg);
+        client.ready = data.ready;
+        session.broadcastPeers();
+    });
+
+    socket.on('start-game', msg => {
+        let allReady = Array.from(session.clients).reduce((acc, cli) => acc && cli.ready, true);
+        if (allReady) {
+            SpyGame.startGame(session);
+        } else {
+            client.send('chat-event', {
+                message: 'All players must be ready',
+                color: 'red',
+            });
+        }
+    });
+
+    socket.on('disconnect', () => {
         if (session) {
             session.leave(client);
             if (session.clients.size === 0) {
                 sessions.delete(session.id);
                 console.log('Sessions:', sessions);
+            } else {
+                session.broadcastPeers();
             }
-            session.broadcastPeers();
         }
     });
 });
