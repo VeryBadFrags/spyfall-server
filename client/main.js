@@ -30,6 +30,8 @@ const extendedLocationsList = ["🏝🥥 Desert Island",
 
 const eventsBox = document.getElementById('events');
 
+let intervalId;
+
 function appendText(text, author, color) {
     let newLine = document.createElement('li');
     if (author) {
@@ -78,7 +80,6 @@ function showHide(elementId) {
 
 function processMessage(type, data) {
     if (type === 'chat-event') {
-        console.log(data);
         appendText(data.message, data.author, data.color);
     } else if (type === 'session-broadcast') {
         displayPeers(data.peers.clients);
@@ -151,6 +152,7 @@ function resetAll() {
     lobbyElements.forEach(elem => showElement(elem, false));
     readyCheck.checked = false;
     resetClickableElements();
+    clearInterval(intervalId);
 
     window.scrollTo(0, 0);
 }
@@ -240,7 +242,6 @@ locationsList.map(locationName => {
 });
 
 const progressBar = document.getElementById('progress-bar');
-let intervalId;
 function startTimer(duration, display) {
     clearInterval(intervalId);
     var timer = duration;

@@ -27,15 +27,16 @@ function createId(len = 8, chars = 'ABCDEFGHJKMNPQRSTWXYZ23456789') {
     return id;
 }
 
-function createClient(conn, id = createId()) {
-    return new Client(conn, id);
+function createClient(socket) {
+    return new Client(socket);
 }
 
-function createSession(id = createId(4)) {
+function createSession(id = createId(5)) {
     if (sessions.has(id)) {
-        throw new Error(`Session ${id} already exists`);
+        console.error(`Session ${id} already exists`);
+        return null;
     }
-    let session = new Session(id);
+    let session = new Session(id, io);
     sessions.set(id, session);
     return session;
 }
@@ -45,37 +46,30 @@ function getSession(id) {
 }
 
 io.on('connection', socket => {
-    console.log('Connection established');
-    let client = new createClient(socket);
+    const client = new createClient(socket);
     let session;
 
-    socket.on('create-session', msg => {
-        let data = JSON.parse(msg);
-        client.name = data.playerName;
-        session = createSession();
-        if (session.join(client)) {
-            session.broadcastPeers();
+    socket.on('join-session', data => {
+        if (data.sessionId) {
+            session = getSession(data.sessionId) || createSession(data.sessionId);
         } else {
-            socket.disconnect();
+            session = createSession();
+        }
+        if (session) {
+            client.name = data.playerName;
+            if (session.join(client)) {
+                session.broadcastPeers();
+            } else {
+                socket.disconnect();
+            }
         }
     });
 
-    socket.on('join-session', msg => {
-        let data = JSON.parse(msg);
-        session = getSession(data.sessionId) || createSession(data.sessionId);
-        client.name = data.playerName;
-        if (session.join(client)) {
-            session.broadcastPeers();
-        } else {
-            socket.disconnect();
-        }
-    });
-
-    socket.on('chat-event', msg => {
-        let data = JSON.parse(msg);
+    socket.on('chat-event', data => {
         if (!session) {
             socket.disconnect();
         } else {
+            // TODO only broadcast to other clients
             session.broadcast('chat-event', {
                 id: client.id,
                 author: client.name,
@@ -84,10 +78,13 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('player-ready', msg => {
-        let data = JSON.parse(msg);
-        client.ready = data.ready;
-        session.broadcastPeers();
+    socket.on('player-ready', data => {
+        if (!session) {
+            socket.disconnect();
+        } else {
+            client.ready = data.ready;
+            session.broadcastPeers();
+        }
     });
 
     socket.on('start-game', msg => {

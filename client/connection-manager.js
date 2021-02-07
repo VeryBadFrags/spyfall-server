@@ -15,9 +15,8 @@ class ConnectionManager {
             connectionClosedCallback();
         });
 
-        this.socket.on('event', msg => {
-            let data = JSON.parse(msg);
-            this.eventCallback(data.type, data);
+        this.socket.on('message', msg => {
+            this.eventCallback(msg.type, msg);
         });
     }
 
@@ -26,24 +25,15 @@ class ConnectionManager {
     }
 
     initSession(playerName, sessionId) {
-        if (sessionId) {
-            this.send('join-session', {
-                sessionId: sessionId,
-                playerName: playerName,
-                game: 'spy',
-            });
-        } else {
-            console.log('create-session');
-            this.send('create-session', {
-                playerName: playerName,
-                game: 'spy',
-            });
-        }
+        this.send('join-session', {
+            sessionId: sessionId,
+            playerName: playerName,
+            game: 'spy',
+        });
     }
 
     send(type, data) {
-        let msg = JSON.stringify(data);
-        console.log(`Sending message ${type}: ${msg}`);
-        this.socket.emit(type, msg);
+        //console.log(`Sending message '${type}'`, data);
+        this.socket.emit(type, data);
     }
 }

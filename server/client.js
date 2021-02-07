@@ -1,18 +1,18 @@
 class Client {
-    constructor(socket, id) {
+    constructor(socket) {
         this.socket = socket;
-        this.id = id;
-        this.name = null;
-        this.session = null;
-        this.ready = false;
         this.avatar = null;
+        this.name = null;
+        this.ready = false;
+    }
+
+    joinRoom(id) {
+        this.socket.join(id);
     }
 
     send(type, data) {
         data.type = type;
-        let msg = JSON.stringify(data);
-        //console.log(`Sending message '${type}': ${msg}`);
-        this.socket.emit('event', msg);
+        this.socket.send(data);
     }
 }
 

@@ -1,18 +1,13 @@
-$bgBody: #cfd8dc;
-$bgLight: #fafafa;
 $bgDark: #1a237e;
-$bgDark2: #af8c9d;
+$bgDark2: darken(#537895, 10%);
 
 $textLight: invert($bgDark, 100%);
-$textDark: invert($bgLight, 100%);
 
 $linkColor: #03a9f4;
 $linkColorActive: #0277bd;
 $linkColorActiveDark: invert($bgDark);
 
 $transparentBlack: rgba(black, 0.3);
-$transparentBlack8: rgba(black, 0.8);
-$shadow1: 1px 1px 3px $transparentBlack;
 
 /* Shades of Light Blue */
 $primary: #0277bd;
@@ -30,6 +25,14 @@ $borderRadius: 4px;
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: $bgDark2;
+  background-image: linear-gradient(
+    to bottom right,
+    #09203f 20%,
+    $bgDark2 100%
+  );
+  background-size: cover;
+  background-repeat: none;
 }
 
 a {
