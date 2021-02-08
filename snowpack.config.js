@@ -19,7 +19,7 @@ module.exports = {
         presets: ['@babel/preset-env']
       }
     }],
-    //["@snowpack/plugin-optimize", { minifyCSS: false }],
+    ["@snowpack/plugin-optimize", { minifyCSS: false }],
   ],
   packageOptions: {
     /* ... */
