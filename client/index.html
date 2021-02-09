@@ -41,6 +41,7 @@
                                 <input type="text" id="name-input" class="form-control" required autofocus
                                     maxlength="16">
                             </div class="mb-3">
+                            <!-- Lobby input -->
                             <div class="mb-3">
                                 <label for="lobby-input" class="form-label">🎲 Lobby code</label>
                                 <input type="text" id="lobby-input" class="form-control" pattern="[A-Za-z0-9]*"
@@ -82,20 +83,22 @@
                 </div>
             </div>
 
-            <!-- Players list -->
+            <!-- Settings -->
             <div class="col" id="players-wrapper" style="display: none;">
                 <div class="card border-secondary shadow">
                     <div class="card-header">⚙️ Settings</div>
                     <div class="card-body">
-                        <h6 class="card-title">👥 Players</h6>
-                        <ul id="peers-list" class="list"></ul>
 
+                        <!-- Lobby code -->
                         <div class="row g-3 align-items-center mb-3">
-                            <div class="col-auto"><label for="lobby-display" class="col-form-label">Lobby</label>
-                            </div>
+                            <div class="col-auto"><label for="lobby-display" class="col-form-label">Lobby</label></div>
                             <div class="col-auto"><input type="text" class="form-control" id="lobby-display" readonly>
                             </div>
                         </div>
+
+                        <!-- Players list -->
+                        <h6 class="card-title">👥 Players</h6>
+                        <ul id="peers-list" class="list"></ul>
 
                         <hr>
 
