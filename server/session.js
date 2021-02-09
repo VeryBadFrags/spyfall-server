@@ -34,7 +34,6 @@ class Session {
 
     leave(client) {
         this.clients.delete(client);
-        client.session = null;
         this.avatars.push(client.avatar);
     }
 

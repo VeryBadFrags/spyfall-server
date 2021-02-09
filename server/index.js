@@ -56,6 +56,7 @@ io.on('connection', socket => {
             session = createSession();
         }
         if (session) {
+            console.log('Created session:', session.id);
             client.name = data.playerName;
             if (session.join(client)) {
                 session.broadcastPeers();
@@ -88,14 +89,18 @@ io.on('connection', socket => {
     });
 
     socket.on('start-game', msg => {
-        let allReady = Array.from(session.clients).reduce((acc, cli) => acc && cli.ready, true);
-        if (allReady) {
-            SpyGame.startGame(session);
+        if (!session) {
+            socket.disconnect();
         } else {
-            client.send('chat-event', {
-                message: 'All players must be ready',
-                color: 'red',
-            });
+            let allReady = Array.from(session.clients).reduce((acc, cli) => acc && cli.ready, true);
+            if (allReady) {
+                SpyGame.startGame(session);
+            } else {
+                client.send('chat-event', {
+                    message: 'All players must be ready',
+                    color: 'red',
+                });
+            }
         }
     });
 
@@ -104,7 +109,7 @@ io.on('connection', socket => {
             session.leave(client);
             if (session.clients.size === 0) {
                 sessions.delete(session.id);
-                console.log('Sessions:', sessions);
+                console.log('Sessions remaining:', sessions.size);
             } else {
                 session.broadcastPeers();
             }
