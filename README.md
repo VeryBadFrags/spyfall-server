@@ -5,7 +5,7 @@
 
 A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/). Built with Node and [socket.io](https://socket.io).
 
-[https://spy.verybadfrags.com](▶️ Play the game)
+[▶️ Play the game](https://spy.verybadfrags.com)
 
 ## Run with Node
 
