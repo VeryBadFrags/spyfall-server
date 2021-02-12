@@ -7,7 +7,7 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 
-const clientPath = `${__dirname}/../build`;
+const clientPath = 'build';
 app.use(express.static(clientPath));
 
 const staticPort = 8081;
@@ -88,7 +88,7 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('start-game', msg => {
+    socket.on('start-game', () => {
         if (!session) {
             socket.disconnect();
         } else {

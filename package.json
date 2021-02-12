@@ -8,7 +8,7 @@
     "dev": "npm-run-all -p watch:client watch:server",
     "build": "snowpack build",
     "start": "npm run build && node server",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint server",
     "watch:client": "watch 'snowpack build' client/",
     "watch:server": "nodemon -w server"
   },
@@ -16,6 +16,7 @@
   "author": "VeryBadFrags",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^7.19.0",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "watch": "^1.0.2"

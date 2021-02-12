@@ -1,37 +1,43 @@
-const locationsList = ["✈️💺 Airport",
-    "🏦💰 Bank",
-    "🎰💵 Casino",
-    "🎞🍿 Cinema",
-    "🦸🦹 Cosplay Convention",
-    "🛳🌊 Cruise Ship",
-    "⚽️🏟 Football Stadium",
-    "🌳🏕 Forest Camp",
-    "🏪🛒 Grocery Store",
-    "🏥🧑‍⚕️ Hospital",
-    "🏨🛏 Hotel",
-    "🌕🧑‍🚀 Moon Colony",
-    "🏛🖼 Museum",
-    "🏟🎸 Rock Concert",
-    "🚄🛤 Train Station",
-    "🏫🎓 University"
+const locationsList = [
+  "✈️💺 Airport",
+  "🏦💰 Bank",
+  "🎰💵 Casino",
+  "🎞🍿 Cinema",
+  "🦸🦹 Cosplay Convention",
+  "🛳🌊 Cruise Ship",
+  "⚽️🏟 Football Stadium",
+  "🌳🏕 Forest Camp",
+  "🏪🛒 Grocery Store",
+  "🏥🧑‍⚕️ Hospital",
+  "🏨🛏 Hotel",
+  "🌕🧑‍🚀 Moon Colony",
+  "🏛🖼 Museum",
+  "🏟🎸 Rock Concert",
+  "🚄🛤 Train Station",
+  "🏫🎓 University",
 ];
-// TODO broadcast locations when creating session
+
+function broadcastLocations(session) {
+  session.broadcast("locations", locationsList);
+}
 
 function startGame(session) {
-    let location = locationsList[Math.floor(Math.random() * locationsList.length)];
-    let clientsArray = Array.from(session.clients);
-    let spyIndex = Math.floor(Math.random() * clientsArray.length);
-    let firstQuestion = clientsArray[Math.floor(Math.random() * clientsArray.length)].name;
-    clientsArray.forEach((client, index) => {
-        let isSpy = spyIndex === index;
-        client.ready = false;
-        client.send('start-game', {
-                spy: isSpy,
-                location: isSpy ? '?' : location,
-                first: firstQuestion,
-            });
+  let location =
+    locationsList[Math.floor(Math.random() * locationsList.length)];
+  let clientsArray = Array.from(session.clients);
+  let spyIndex = Math.floor(Math.random() * clientsArray.length);
+  let firstQuestion =
+    clientsArray[Math.floor(Math.random() * clientsArray.length)].name;
+  clientsArray.forEach((client, index) => {
+    let isSpy = spyIndex === index;
+    client.ready = false;
+    client.send("start-game", {
+      spy: isSpy,
+      location: isSpy ? "?" : location,
+      first: firstQuestion,
     });
-    session.broadcastPeers();
+  });
+  session.broadcastPeers();
 }
 
 module.exports = { startGame };
