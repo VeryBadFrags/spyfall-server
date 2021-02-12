@@ -17,10 +17,6 @@ const locationsList = [
   "🏫🎓 University",
 ];
 
-function broadcastLocations(session) {
-  session.broadcast("locations", locationsList);
-}
-
 function startGame(session) {
   let location =
     locationsList[Math.floor(Math.random() * locationsList.length)];
@@ -34,6 +30,7 @@ function startGame(session) {
     client.send("start-game", {
       spy: isSpy,
       location: isSpy ? "?" : location,
+      locations: locationsList,
       first: firstQuestion,
     });
   });
