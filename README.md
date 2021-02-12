@@ -1,18 +1,15 @@
 # Online Spy
 
-A social deduction game using Node and WebSockets.
+A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/). Built with Node and [socket.io](https://socket.io).
+
+[https://spy.verybadfrags.com](▶️ Play the game)
 
 ## Run with Node
 
-Install the Node nodules
+Install the Node nodules and start the server
 
 ```sh
 npm i
-```
-
-Start the server
-
-```sh
 npm start
 ```
 
