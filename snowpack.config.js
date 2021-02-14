@@ -27,13 +27,4 @@ module.exports = {
     ],
     ["@snowpack/plugin-optimize"],
   ],
-  packageOptions: {
-    /* ... */
-  },
-  devOptions: {
-    /* ... */
-  },
-  buildOptions: {
-    /* ... */
-  },
 };
