@@ -1,7 +1,21 @@
-FROM node:lts-alpine
-ENV NODE_ENV=production
-WORKDIR /src
+FROM node:lts-alpine as base
+RUN apk add --update make rsync
+WORKDIR /home/node
+# Install npm dependencies
 COPY package*.json ./
-RUN npm ci --only=prod --no-optional && npm cache clean --force
+RUN npm i
+# Build
 COPY . ./
+RUN npm run build
+EXPOSE 8080
+
+# Production Image
+FROM node:lts-alpine as prod
+WORKDIR /home/node
+ENV NODE_ENV=production
+USER node
+COPY --from=base /home/node/build/ build/
+COPY package*.json ./
+COPY server/ server/
+RUN npm ci --only=prod --no-optional
 CMD npm start

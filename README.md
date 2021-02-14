@@ -22,6 +22,14 @@ npm start
 docker-compose up
 ```
 
+## Push to Docker Hub
+
+```sh
+docker-compose build
+docker image tag online-spy_web verybadfrags/online-spy
+docker push verybadfrags/online-spy
+```
+
 ## Develop locally
 
 ```sh
