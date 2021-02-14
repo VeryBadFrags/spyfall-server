@@ -1,39 +1,43 @@
-class ConnectionManager {
-    constructor(messageCallback) {
-        this.socket = null;
-        this.eventCallback = messageCallback;
-    }
+export default class ConnectionManager {
+  constructor(messageCallback) {
+    this.socket = null;
+    this.eventCallback = messageCallback;
+  }
 
-    connect(playerName, sessionId, connectionEstablishedCallback, connectionClosedCallback) {
-        this.socket = io();
+  connect(
+    playerName,
+    sessionId,
+    connectionEstablishedCallback,
+    connectionClosedCallback
+  ) {
+    this.socket = io();
 
-        this.initSession(playerName, sessionId);
-        connectionEstablishedCallback();
+    this.initSession(playerName, sessionId);
+    connectionEstablishedCallback();
 
-        this.socket.on('disconnect', () => {
-            console.log('Connection closed');
-            connectionClosedCallback();
-        });
+    this.socket.on("disconnect", () => {
+      console.log("Connection closed");
+      connectionClosedCallback();
+    });
 
-        this.socket.on('message', msg => {
-            this.eventCallback(msg.type, msg);
-        });
-    }
+    this.socket.on("message", (msg) => {
+      this.eventCallback(msg.type, msg);
+    });
+  }
 
-    disconnect() {
-        this.socket.disconnect();
-    }
+  disconnect() {
+    this.socket.disconnect();
+  }
 
-    initSession(playerName, sessionId) {
-        this.send('join-session', {
-            sessionId: sessionId,
-            playerName: playerName,
-            game: 'spy',
-        });
-    }
+  initSession(playerName, sessionId) {
+    this.send("join-session", {
+      sessionId: sessionId,
+      playerName: playerName,
+      game: "spy",
+    });
+  }
 
-    send(type, data) {
-        //console.log(`Sending message '${type}'`, data);
-        this.socket.emit(type, data);
-    }
+  send(type, data) {
+    this.socket.emit(type, data);
+  }
 }
