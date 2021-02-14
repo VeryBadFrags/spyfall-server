@@ -8,7 +8,7 @@ const app = express();
 const http = require('http').Server(app);
 
 const clientPath = 'build';
-app.use(express.static(clientPath));
+app.use(express.static(clientPath), express.static('node_modules/bootstrap/dist'));
 
 const staticPort = 8081;
 http.listen(staticPort, () => {
