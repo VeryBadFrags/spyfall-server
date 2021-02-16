@@ -242,8 +242,10 @@ function startTimer(duration, display) {
   intervalId = setInterval(function () {
     timer--;
     setTimerDisplay(timer, duration, display);
-    if (timer < 0) {
+    if (timer <= 0) {
       display.textContent = "🔔 Time's up! Who is the Spy?";
+      display.setAttribute("aria-valuenow", 0);
+      display.style = `width: 100%;`;
       clearInterval(intervalId);
     }
   }, 1000);
