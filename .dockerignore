@@ -1,6 +1,7 @@
+.github/
+node_modules/
 .editorconfig
 .git
 .gitignore
-node_modules/
 LICENSE
 README.md
