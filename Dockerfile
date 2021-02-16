@@ -3,8 +3,8 @@ RUN apk add --update make rsync
 WORKDIR /home/node
 # Install npm dependencies
 COPY package*.json ./
-RUN npm i
-# Build
+RUN npm ci
+# Build client
 COPY . ./
 RUN npm run build
 
@@ -16,6 +16,7 @@ USER node
 COPY --from=base /home/node/build/ build/
 COPY package*.json ./
 COPY server/ server/
+# Install prod dependencies dependencies
 RUN npm ci --only=prod --no-optional
 EXPOSE 8081
 CMD ["node", "server"]
