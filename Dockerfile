@@ -7,7 +7,6 @@ RUN npm i
 # Build
 COPY . ./
 RUN npm run build
-EXPOSE 8080
 
 # Production Image
 FROM node:lts-alpine as prod
@@ -18,4 +17,5 @@ COPY --from=base /home/node/build/ build/
 COPY package*.json ./
 COPY server/ server/
 RUN npm ci --only=prod --no-optional
-CMD npm start
+EXPOSE 8080
+CMD ["node", "server"]
