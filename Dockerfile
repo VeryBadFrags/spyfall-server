@@ -17,5 +17,5 @@ COPY --from=base /home/node/build/ build/
 COPY package*.json ./
 COPY server/ server/
 RUN npm ci --only=prod --no-optional
-EXPOSE 8080
+EXPOSE 8081
 CMD ["node", "server"]
