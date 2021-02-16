@@ -1,7 +1,11 @@
-.github/
-node_modules/
+.DS_Store
 .editorconfig
 .git
+.github/
 .gitignore
+build/
+docker-compose.yml
+Dockerfile
 LICENSE
+node_modules/
 README.md
