@@ -26,5 +26,11 @@ module.exports = {
       },
     ],
     ["@snowpack/plugin-optimize"],
+    [
+      '@snowpack/plugin-run-script',
+      {
+        cmd: 'cp node_modules/socket.io-client/dist/socket.io.min.js build/', // production build command
+      },
+    ],
   ],
 };
