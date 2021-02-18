@@ -7,7 +7,7 @@ const http = require("http").createServer();
 // socket.io
 const io = require("socket.io")(http, {
   cors: {
-    origin: "https://distracted-villani-c928ee.netlify.app",
+    origin: "https://spy.verybadfrags.com",
     methods: ["GET", "POST"],
   },
 });
