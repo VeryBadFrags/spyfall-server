@@ -8,10 +8,7 @@ const app = express();
 const http = require("http").Server(app);
 
 const clientPath = "build";
-app.use(
-  express.static(clientPath),
-  express.static("node_modules/bootstrap/dist")
-);
+app.use(express.static(clientPath));
 
 // socket.io
 const io = require("socket.io")(http, {
