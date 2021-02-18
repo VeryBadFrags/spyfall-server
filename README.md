@@ -29,7 +29,7 @@ npm run dev
 Run locally
 
 ```sh
-docker-compose up
+docker-compose up --build
 ```
 
 Push image to Docker Hub
@@ -47,3 +47,7 @@ docker stop online-spy
 docker rm online-spy
 docker run -d --restart unless-stopped --pull always -p 8081:8081 --name online-spy verybadfrags/online-spy
 ```
+
+## Server setup
+
+See [server_setup.md](docs/server_setup.md)
