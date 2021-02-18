@@ -2,13 +2,7 @@ const Session = require("./session");
 const Client = require("./client");
 const SpyGame = require("./spy");
 
-// Express static site
-const express = require("express");
-const app = express();
-const http = require("http").Server(app);
-
-const clientPath = "build";
-app.use(express.static(clientPath));
+const http = require("http").createServer();
 
 // socket.io
 const io = require("socket.io")(http, {
