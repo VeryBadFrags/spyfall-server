@@ -10,8 +10,6 @@ const http = require('http').Server(app);
 const clientPath = 'build';
 app.use(express.static(clientPath), express.static('node_modules/bootstrap/dist'));
 
-const listenPort = 8081;
-
 // socket.io
 const io = require('socket.io')(http);
 const sessions = new Map;
@@ -114,6 +112,8 @@ io.on('connection', socket => {
     });
 });
 
-http.listen(process.env.PORT || listenPort, () => {
-    console.log(`Serving Online Spy on http://localhost:${listenPort}`);
+const defaultPort = 8081;
+const actualPort = process.env.PORT || defaultPort;
+http.listen(actualPort, () => {
+    console.log(`Serving Online Spy on http://localhost:${actualPort}`);
 });
