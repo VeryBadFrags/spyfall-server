@@ -49,6 +49,7 @@ io.on("connection", (socket) => {
     } else {
       session = createSession();
     }
+    client.send("session-created", {sessionId: session.id});
     if (session) {
       console.log("Created session:", session.id);
       client.name = data.playerName;
