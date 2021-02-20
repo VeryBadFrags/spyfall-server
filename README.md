@@ -1,4 +1,4 @@
-# Online Spy
+# Online Spy - Server
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9271d1dc-174d-4df4-8e41-13d63b9dab73/deploy-status)](https://app.netlify.com/sites/distracted-villani-c928ee/deploys)
 [![Build status](https://img.shields.io/github/workflow/status/VeryBadFrags/online-spy/NodeCI)](https://github.com/VeryBadFrags/online-spy/actions?query=workflow%3ANodeCI)
