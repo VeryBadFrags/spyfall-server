@@ -26,3 +26,9 @@ heroku features:enable http-session-affinity
 - Go to Deploy tab
 - Connect App to GitHub repo
 - Deploy
+
+Check logs
+
+```sh
+heroku logs --tail
+```

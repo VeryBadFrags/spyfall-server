@@ -40,14 +40,6 @@ docker image tag online-spy_web verybadfrags/online-spy
 docker push verybadfrags/online-spy
 ```
 
-Deploy on remote server
-
-```sh
-docker stop online-spy
-docker rm online-spy
-docker run -d --restart unless-stopped --pull always -p 8081:8081 --name online-spy verybadfrags/online-spy
-```
-
 ## Server setup
 
 - Custom server: see [server_setup.md](docs/server_setup.md)
