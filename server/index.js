@@ -7,7 +7,10 @@ const http = require("http").createServer();
 // socket.io
 const io = require("socket.io")(http, {
   cors: {
-    origin: "https://spy.verybadfrags.com",
+    origin: [
+      "https://spy.verybadfrags.com",
+      "https://heuristic-bartik-850df8.netlify.app",
+    ],
     methods: ["GET", "POST"],
   },
 });
@@ -49,7 +52,7 @@ io.on("connection", (socket) => {
     } else {
       session = createSession();
     }
-    client.send("session-created", {sessionId: session.id});
+    client.send("session-created", { sessionId: session.id });
     if (session) {
       console.log("Created session:", session.id);
       client.name = data.playerName;
