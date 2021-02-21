@@ -1,7 +1,7 @@
 # Online Spy - Server
 
-[![Build status](https://img.shields.io/github/workflow/status/VeryBadFrags/online-spy/NodeCI)](https://github.com/VeryBadFrags/online-spy/actions?query=workflow%3ANodeCI)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/online-spy/blob/master/LICENSE)
+[![Build status](https://img.shields.io/github/workflow/status/VeryBadFrags/online-spy/CodeQL)](https://github.com/VeryBadFrags/online-spy-server/actions/workflows/codeql-analysis.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/online-spy-server/blob/master/LICENSE)
 
 A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/).
 
