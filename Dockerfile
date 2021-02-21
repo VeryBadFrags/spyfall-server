@@ -1,12 +1,8 @@
 FROM node:lts-alpine as base
-RUN apk add --update make rsync
 WORKDIR /home/node
 # Install npm dependencies
 COPY package*.json ./
-RUN npm ci
-# Build client
-COPY . ./
-RUN npm run build
+RUN npm ci --only=prod --no-optional
 
 # Production Image
 FROM node:lts-alpine as prod

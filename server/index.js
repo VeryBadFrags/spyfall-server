@@ -4,8 +4,7 @@ const SpyGame = require("./spy");
 
 const http = require("http").createServer();
 
-// socket.io
-const io = require("socket.io")(http, {
+const corsOptions = {
   cors: {
     origin: [
       "https://spy.verybadfrags.com",
@@ -13,7 +12,20 @@ const io = require("socket.io")(http, {
     ],
     methods: ["GET", "POST"],
   },
-});
+};
+
+
+const nodeEnv = process.env.NODE_ENV;
+console.log(`NODE_ENV=${nodeEnv}`);
+
+const localFrontEnd = "http://localhost:3000";
+if (nodeEnv === "dev") {
+    console.log(`Allowing cors for ${localFrontEnd}`)
+  corsOptions.cors.origin.push(localFrontEnd);
+}
+
+// socket.io
+const io = require("socket.io")(http, corsOptions);
 const sessions = new Map();
 
 function createId(len = 8, chars = "ABCDEFGHJKMNPQRSTWXYZ23456789") {
@@ -121,5 +133,5 @@ io.on("connection", (socket) => {
 const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
 http.listen(actualPort, () => {
-  console.log(`Serving Online Spy on http://localhost:${actualPort}`);
+  console.log(`Listening for requests on http://localhost:${actualPort}`);
 });
