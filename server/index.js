@@ -8,7 +8,7 @@ const corsOptions = {
   cors: {
     origin: [
       "https://spy.verybadfrags.com",
-      "https://distracted-villani-c928ee.netlify.app",
+      "https://heuristic-bartik-850df8.netlify.app",
     ],
     methods: ["GET", "POST"],
   },
