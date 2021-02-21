@@ -1,4 +1,4 @@
-# Online Spy
+# Online Spy - Server
 
 [![Build status](https://img.shields.io/github/workflow/status/VeryBadFrags/online-spy/NodeCI)](https://github.com/VeryBadFrags/online-spy/actions?query=workflow%3ANodeCI)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/online-spy/blob/master/LICENSE)
@@ -6,6 +6,8 @@
 A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/).
 
 Built with Node and [socket.io](https://socket.io).
+
+View the client code [here](https://github.com/VeryBadFrags/online-spy-client).
 
 [▶️ Play the game](https://spy.verybadfrags.com)
 
