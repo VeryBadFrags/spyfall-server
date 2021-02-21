@@ -14,13 +14,12 @@ const corsOptions = {
   },
 };
 
-
 const nodeEnv = process.env.NODE_ENV;
 console.log(`NODE_ENV=${nodeEnv}`);
 
 const localFrontEnd = "http://localhost:3000";
 if (nodeEnv === "dev") {
-    console.log(`Allowing cors for ${localFrontEnd}`)
+  console.log(`Allowing cors for ${localFrontEnd}`);
   corsOptions.cors.origin.push(localFrontEnd);
 }
 
@@ -59,6 +58,9 @@ io.on("connection", (socket) => {
   let session;
 
   socket.on("join-session", (data) => {
+    if (session) {
+      leaveSession(session, client);
+    }
     if (data.sessionId) {
       session = getSession(data.sessionId) || createSession(data.sessionId);
     } else {
@@ -118,17 +120,21 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    if (session) {
-      session.leave(client);
-      if (session.clients.size === 0) {
-        sessions.delete(session.id);
-        console.log("Sessions remaining:", sessions.size);
-      } else {
-        session.broadcastPeers();
-      }
-    }
+    leaveSession(session, client);
   });
 });
+
+function leaveSession(session, client) {
+  if (session) {
+    session.leave(client);
+    if (session.clients.size === 0) {
+      sessions.delete(session.id);
+      console.log("Sessions remaining:", sessions.size);
+    } else {
+      session.broadcastPeers();
+    }
+  }
+}
 
 const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
