@@ -1,4 +1,4 @@
-# Online Spy - Server
+# Spyfall - Server
 
 [![Build status](https://img.shields.io/github/workflow/status/VeryBadFrags/online-spy/CodeQL)](https://github.com/VeryBadFrags/online-spy-server/actions/workflows/codeql-analysis.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/online-spy-server/blob/master/LICENSE)
