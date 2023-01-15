@@ -49,7 +49,8 @@ export class Session {
     client.avatar = avatar;
     client.name = `${avatar} ${client.name}`;
 
-    client.send("session-created", {
+    client.send("message", {
+      type: "session-created",
       sessionId: this.id,
     });
     return true;
@@ -61,8 +62,9 @@ export class Session {
   }
 
   broadcast(type: string, data: any) {
+    console.log(`emit ${data} to ${this.id}`);
     data.type = type;
-    this.io.to(this.id).emit(data);
+    this.io.to(this.id).emit('message', data);
   }
 
   broadcastPeers() {
@@ -80,8 +82,6 @@ export class Session {
         }),
       },
     } as any;
-    this.io.to(this.id).emit(payload);
+    this.io.to(this.id).emit('message', payload);
   }
 }
-
-module.exports = Session;

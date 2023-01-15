@@ -1,6 +1,6 @@
-const Session = require("./session");
-const Client = require("./client");
-const SpyGame = require("./spy");
+import { Session } from "./session";
+import { Client } from "./client";
+import { startGame } from "./spy";
 
 const http = require("http").createServer();
 
@@ -66,7 +66,7 @@ io.on("connection", (socket) => {
     } else {
       session = createSession();
     }
-    client.send("session-created", { sessionId: session.id });
+    client.send("message", { type: "session-created", sessionId: session.id });
     if (session) {
       console.log("Created session:", session.id);
       client.name = data.playerName;
@@ -78,20 +78,20 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("chat-event", (data) => {
+  socket.on("chat-event", (data: any) => {
     if (!session) {
       socket.disconnect();
     } else {
       // TODO only broadcast to other clients
       session.broadcast("chat-event", {
-        id: client.id,
+        // id: client.id,
         author: client.name,
         message: data.message,
       });
     }
   });
 
-  socket.on("player-ready", (data) => {
+  socket.on("player-ready", (data: any) => {
     if (!session) {
       socket.disconnect();
     } else {
@@ -109,9 +109,10 @@ io.on("connection", (socket) => {
         true
       );
       if (allReady) {
-        SpyGame.startGame(session);
+        startGame(session, false);
       } else {
-        client.send("chat-event", {
+        client.send("message", {
+          type: "chat-event",
           message: "All players must be ready",
           color: "red",
         });
@@ -124,7 +125,7 @@ io.on("connection", (socket) => {
   });
 });
 
-function leaveSession(session, client) {
+function leaveSession(session: Session, client) {
   if (session) {
     session.leave(client);
     if (session.clients.size === 0) {

@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 
-class Client {
+export class Client {
   socket: Socket;
   avatar: string;
   name: string;
@@ -18,9 +18,6 @@ class Client {
   }
 
   send(type:string, data: any) {
-    data.type = type;
-    this.socket.send(data);
+    this.socket.emit(type, data);
   }
 }
-
-module.exports = Client;
