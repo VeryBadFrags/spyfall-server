@@ -15,7 +15,8 @@ sudo apt update && sudo apt install nginx -y
 Create the Nginx server block
 
 `/etc/nginx/sites-available/spy.verybadfrags.com`
-```
+
+```nginx
 server {
         listen 80;
         listen [::]:80;

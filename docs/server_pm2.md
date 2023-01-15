@@ -6,7 +6,7 @@ Run locally using Node and pm2.
 
 ### [Node](https://nodejs.org/)
 
-Get nvm: https://github.com/nvm-sh/nvm
+Get nvm: <https://github.com/nvm-sh/nvm>
 
 ```shell
 source ~/.bashrc
@@ -20,7 +20,7 @@ Get the source code from GitHub.
 ```shell
 git clone https://github.com/VeryBadFrags/online-spy.git
 cd online-spy
-npm i --only=prod
+npm ci --no-audit --only=prod --no-optional
 npm run build
 ```
 
@@ -36,12 +36,13 @@ pm2 save
 ## Update script
 
 `update_server.sh`
+
 ```shell
 #!/bin/bash
 
 cd online-spy
 git pull --recurse-submodules
-npm i --only=prod
+npm ci --no-audit --only=prod --no-optional
 make
 pm2 restart online-spy
 ```
