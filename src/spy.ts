@@ -1,3 +1,7 @@
+import { Client } from "socket.io/dist/client";
+import { EventEmitterReservedEventsMap } from "socket.io/dist/socket";
+import { Session } from "./session";
+
 const locations = [
   "✈️💺 Airport",
   "🏦💰 Bank",
@@ -24,8 +28,8 @@ const extendedLocations = [
   "🍽👩‍🍳 Restaurant",
 ];
 
-function startGame(session, extendedMode) {
-  const clientsArray = Array.from(session.clients);
+export function startGame(session: Session, extendedMode: boolean) {
+  const clientsArray = Array.from(session.clients) as any;
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
   const firstQuestion =
     clientsArray[Math.floor(Math.random() * clientsArray.length)].name;
@@ -39,7 +43,8 @@ function startGame(session, extendedMode) {
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;
     client.ready = false;
-    client.send("start-game", {
+    client.send("message", {
+      type: "start-game",
       spy: isSpy,
       location: isSpy ? "?" : currentLocation,
       locations: gameLocations,
@@ -48,5 +53,3 @@ function startGame(session, extendedMode) {
   });
   session.broadcastPeers();
 }
-
-module.exports = { startGame };

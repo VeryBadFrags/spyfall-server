@@ -1,22 +1,22 @@
 {
   "name": "online-spy",
   "version": "1.0.0",
-  "description": "",
+  "description": "Back-end for the Online Spy game",
   "private": true,
-  "main": "server/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev nodemon -w server",
-    "start": "node server",
-    "test": "eslint server"
+    "dev": "NODE_ENV=dev nodemon -w",
+    "build": "tsc",
+    "start": "npm run build && node dist"
   },
   "keywords": [],
   "author": "VeryBadFrags",
   "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "typescript": "^4.9.4"
+  },
   "dependencies": {
     "socket.io": "^4.5.4"
-  },
-  "devDependencies": {
-    "eslint": "^8.13.0",
-    "nodemon": "^2.0.7"
   }
 }
