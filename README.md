@@ -1,12 +1,13 @@
 # Spyfall - Server
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/online-spy-server/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/spyfall-server/blob/main/LICENSE)
 
 A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/).
 
-Built with Node and [socket.io](https://socket.io). Hosted on [Netlify](https://www.netlify.com) & [Render](https://render.com).
+Built with Node and [socket.io](https://socket.io).
+Hosted on [Netlify](https://www.netlify.com) & [Render](https://render.com).
 
-View the client code [here](https://github.com/VeryBadFrags/online-spy-client).
+View the client code [here](https://github.com/VeryBadFrags/spyfall-client).
 
 [▶️ Play the game](https://spy.verybadfrags.com)
 

@@ -18,7 +18,7 @@ nvm install --lts
 Get the source code from GitHub.
 
 ```shell
-git clone https://github.com/VeryBadFrags/online-spy.git
+git clone https://github.com/VeryBadFrags/spyfall-server.git
 cd online-spy
 npm ci --no-audit --only=prod --no-optional
 npm run build
