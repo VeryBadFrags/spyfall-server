@@ -5,7 +5,7 @@
 
 A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/).
 
-Built with Node and [socket.io](https://socket.io).
+Built with Node and [socket.io](https://socket.io). Hosted on [Netlify](https://www.netlify.com) & [Render](https://render.com).
 
 View the client code [here](https://github.com/VeryBadFrags/online-spy-client).
 
@@ -46,4 +46,3 @@ docker push verybadfrags/online-spy
 ## Server setup
 
 - Custom server: see [server_setup.md](docs/server_setup.md)
-- Netlify + Heroku: see [netlify_heroku_setup.md](docs/netlify_heroku_setup.md)
