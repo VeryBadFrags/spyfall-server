@@ -5,10 +5,9 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsc && NODE_ENV=dev nodemon -w",
+    "dev": "NODE_ENV=dev nodemon -w",
     "build": "tsc",
     "start": "npm run build && node dist"
-    // "test": "eslint src"
   },
   "keywords": [],
   "author": "VeryBadFrags",
