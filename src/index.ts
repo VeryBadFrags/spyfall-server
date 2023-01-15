@@ -105,7 +105,7 @@ io.on("connection", (socket) => {
       socket.disconnect();
     } else {
       const allReady = Array.from(session.clients).reduce(
-        (acc, cli) => acc && cli.ready,
+        (acc, cli: any) => acc && cli.ready,
         true
       );
       if (allReady) {

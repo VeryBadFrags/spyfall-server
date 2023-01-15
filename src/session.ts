@@ -1,5 +1,12 @@
-class Session {
-  constructor(id, io) {
+import { Server } from "socket.io";
+
+export class Session {
+  id: string;
+  io: Server;
+  clients: Set<any>;
+  avatars: Array<string>;
+
+  constructor(id: string, io: Server) {
     this.id = id;
     this.io = io;
     this.clients = new Set();
@@ -23,7 +30,7 @@ class Session {
     ];
   }
 
-  join(client) {
+  join(client: any) {
     if (this.clients.has(client)) {
       console.log("Error: Client already in session");
       return false;
@@ -53,9 +60,9 @@ class Session {
     this.avatars.push(client.avatar);
   }
 
-  broadcast(type, data) {
+  broadcast(type: string, data: any) {
     data.type = type;
-    this.io.to(this.id).send(data);
+    this.io.to(this.id).emit(data);
   }
 
   broadcastPeers() {
@@ -72,8 +79,8 @@ class Session {
           };
         }),
       },
-    };
-    this.io.to(this.id).send(payload);
+    } as any;
+    this.io.to(this.id).emit(payload);
   }
 }
 

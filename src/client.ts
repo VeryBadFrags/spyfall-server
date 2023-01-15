@@ -1,16 +1,23 @@
+import { Socket } from "socket.io";
+
 class Client {
-  constructor(socket) {
+  socket: Socket;
+  avatar: string;
+  name: string;
+  ready: boolean;
+
+  constructor(socket: Socket) {
     this.socket = socket;
     this.avatar = null;
     this.name = null;
     this.ready = false;
   }
 
-  joinRoom(id) {
+  joinRoom(id: string) {
     this.socket.join(id);
   }
 
-  send(type, data) {
+  send(type:string, data: any) {
     data.type = type;
     this.socket.send(data);
   }

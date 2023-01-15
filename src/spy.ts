@@ -1,3 +1,7 @@
+import { Client } from "socket.io/dist/client";
+import { EventEmitterReservedEventsMap } from "socket.io/dist/socket";
+import { Session } from "./session";
+
 const locations = [
   "✈️💺 Airport",
   "🏦💰 Bank",
@@ -24,8 +28,8 @@ const extendedLocations = [
   "🍽👩‍🍳 Restaurant",
 ];
 
-function startGame(session, extendedMode) {
-  const clientsArray = Array.from(session.clients);
+function startGame(session: Session, extendedMode) {
+  const clientsArray = Array.from(session.clients) as any;
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
   const firstQuestion =
     clientsArray[Math.floor(Math.random() * clientsArray.length)].name;
