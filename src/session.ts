@@ -64,7 +64,7 @@ export class Session {
   broadcast(type: string, data: any) {
     console.log(`emit ${data} to ${this.id}`);
     data.type = type;
-    this.io.to(this.id).emit('message', data);
+    this.io.to(this.id).emit("message", data);
   }
 
   broadcastPeers() {
@@ -72,16 +72,14 @@ export class Session {
     const payload = {
       type: "session-broadcast",
       sessionId: this.id,
-      peers: {
-        clients: clientsArray.map((cli) => {
-          return {
-            id: cli.id,
-            name: cli.name,
-            ready: cli.ready,
-          };
-        }),
-      },
+      peers: clientsArray.map((cli) => {
+        return {
+          id: cli.id,
+          name: cli.name,
+          ready: cli.ready,
+        };
+      }),
     } as any;
-    this.io.to(this.id).emit('message', payload);
+    this.io.to(this.id).emit("message", payload);
   }
 }
