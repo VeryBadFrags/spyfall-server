@@ -17,7 +17,7 @@ export class Client {
     this.socket.join(id);
   }
 
-  send(type:string, data: any) {
+  send(type: string, data: any) {
     this.socket.emit(type, data);
   }
 }

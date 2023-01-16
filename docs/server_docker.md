@@ -10,7 +10,7 @@ Run the game server inside Docker.
 wget -nv -O - https://get.docker.com/ | sh
 ```
 
-* https://docs.docker.com/engine/install/linux-postinstall/
+- https://docs.docker.com/engine/install/linux-postinstall/
 
 ### Start
 
@@ -19,6 +19,7 @@ docker run -d --restart unless-stopped --pull always -p 8081:8081 --name online-
 ```
 
 `update_server.sh`
+
 ```sh
 #!/bin/bash
 

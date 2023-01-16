@@ -7,13 +7,15 @@
   "scripts": {
     "dev": "NODE_ENV=dev nodemon -w",
     "build": "tsc",
-    "start": "npm run build && node dist"
+    "start": "npm run build && node dist",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "VeryBadFrags",
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "prettier": "2.8.3"
   },
   "dependencies": {
     "socket.io": "^4.5.4",
