@@ -1,4 +1,4 @@
-# Spyfall - Server
+# 🕵️ Spyfall - Server
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/spyfall-server/blob/main/LICENSE)
 
@@ -7,9 +7,9 @@ A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portf
 Built with Node and [socket.io](https://socket.io).
 Hosted on [Netlify](https://www.netlify.com) & [Render](https://render.com).
 
-View the client code [here](https://github.com/VeryBadFrags/spyfall-client).
-
 [▶️ Play the game](https://spy.verybadfrags.com)
+
+View the client code [here](https://github.com/VeryBadFrags/spyfall-client).
 
 ## Run with Node
 
@@ -33,14 +33,6 @@ Run locally
 
 ```sh
 docker-compose up --build
-```
-
-Push image to Docker Hub
-
-```sh
-docker-compose build
-docker image tag online-spy_web verybadfrags/online-spy
-docker push verybadfrags/online-spy
 ```
 
 ## Server setup
