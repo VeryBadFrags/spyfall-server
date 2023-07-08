@@ -62,7 +62,6 @@ export class Session {
   }
 
   broadcast(type: string, data: any) {
-    console.log(`emit ${data} to ${this.id}`);
     data.type = type;
     this.io.to(this.id).emit("message", data);
   }
