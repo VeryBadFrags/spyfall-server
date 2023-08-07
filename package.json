@@ -8,7 +8,8 @@
     "dev": "NODE_ENV=dev nodemon -w",
     "build": "tsc",
     "start": "npm run build && node dist",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "clean": "rm -rf dist/"
   },
   "keywords": [],
   "author": "VeryBadFrags",
