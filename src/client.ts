@@ -1,4 +1,5 @@
 import { Socket } from "socket.io";
+import { Payload } from "./payload";
 
 export class Client {
   socket: Socket;
@@ -8,8 +9,8 @@ export class Client {
 
   constructor(socket: Socket) {
     this.socket = socket;
-    this.avatar = null;
-    this.name = null;
+    this.avatar = "";
+    this.name = "New player";
     this.ready = false;
   }
 
@@ -17,7 +18,7 @@ export class Client {
     this.socket.join(id);
   }
 
-  send(type: string, data: any) {
+  send(type: string, data: Payload) {
     this.socket.emit(type, data);
   }
 }

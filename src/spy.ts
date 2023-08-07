@@ -1,6 +1,6 @@
-import { Client } from "socket.io/dist/client";
-import { EventEmitterReservedEventsMap } from "socket.io/dist/socket";
+import { Client } from "./client";
 import { Session } from "./session";
+import { EventTypes } from "./payload";
 
 const locations = [
   "✈️💺 Airport",
@@ -29,7 +29,7 @@ const extendedLocations = [
 ];
 
 export function startGame(session: Session, extendedMode: boolean) {
-  const clientsArray = Array.from(session.clients) as any;
+  const clientsArray = Array.from(session.clients) as Array<Client>;
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
   const firstQuestion =
     clientsArray[Math.floor(Math.random() * clientsArray.length)].name;
@@ -43,8 +43,7 @@ export function startGame(session: Session, extendedMode: boolean) {
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;
     client.ready = false;
-    client.send("message", {
-      type: "start-game",
+    client.send(EventTypes.StartGame, {
       spy: isSpy,
       location: isSpy ? "?" : currentLocation,
       locations: gameLocations,

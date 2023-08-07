@@ -1,6 +1,8 @@
 import { Session } from "./session";
 import { Client } from "./client";
 import { startGame } from "./spy";
+import { Socket } from "socket.io";
+import { EventTypes, Payload } from "./payload";
 
 const http = require("http").createServer();
 
@@ -35,29 +37,29 @@ function createId(len = 8, chars = "ABCDEFGHJKMNPQRSTWXYZ23456789") {
   return id;
 }
 
-function createClient(socket) {
+function createClient(socket: Socket) {
   return new Client(socket);
 }
 
-function createSession(id = createId(5)) {
-  if (sessions.has(id)) {
+function createSession(id = createId(5)): Session {
+  while (sessions.has(id)) {
     console.error(`Session ${id} already exists`);
-    return null;
+    id = createId(6); // TODO standardize session length
   }
   const session = new Session(id, io);
   sessions.set(id, session);
   return session;
 }
 
-function getSession(id) {
+function getSession(id: string): Session {
   return sessions.get(id);
 }
 
-io.on("connection", (socket) => {
+io.on("connection", (socket: Socket) => {
   const client = createClient(socket);
-  let session;
+  let session: Session;
 
-  socket.on("join-session", (data) => {
+  socket.on(EventTypes.ClientJoinSession, (data) => {
     if (session) {
       leaveSession(session, client);
     }
@@ -66,7 +68,8 @@ io.on("connection", (socket) => {
     } else {
       session = createSession();
     }
-    client.send("message", { type: "session-created", sessionId: session.id });
+    // TODO event SessionCreated is sent twice?
+    client.send(EventTypes.SessionCreated, { sessionId: session.id });
     if (session) {
       console.log("Created session:", session.id);
       client.name = data.playerName;
@@ -78,12 +81,12 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("chat-event", (data: any) => {
+  socket.on(EventTypes.ChatEvent, (data: Payload) => {
     if (!session) {
       socket.disconnect();
     } else {
       // TODO only broadcast to other clients
-      session.broadcast("chat-event", {
+      session.broadcast(EventTypes.ChatEvent, {
         // id: client.id,
         author: client.name,
         message: data.message,
@@ -105,14 +108,13 @@ io.on("connection", (socket) => {
       socket.disconnect();
     } else {
       const allReady = Array.from(session.clients).reduce(
-        (acc, cli: any) => acc && cli.ready,
+        (acc, cli: Client) => acc && cli.ready,
         true
       );
       if (allReady) {
         startGame(session, false);
       } else {
-        client.send("message", {
-          type: "chat-event",
+        client.send(EventTypes.ChatEvent, {
           message: "All players must be ready",
           color: "red",
         });
@@ -125,7 +127,7 @@ io.on("connection", (socket) => {
   });
 });
 
-function leaveSession(session: Session, client) {
+function leaveSession(session: Session, client: Client) {
   if (session) {
     session.leave(client);
     if (session.clients.size === 0) {

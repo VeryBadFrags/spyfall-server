@@ -1,9 +1,11 @@
 import { Server } from "socket.io";
+import { Client } from "./client";
+import { EventTypes, Payload } from "./payload";
 
 export class Session {
   id: string;
   io: Server;
-  clients: Set<any>;
+  clients: Set<Client>;
   avatars: Array<string>;
 
   constructor(id: string, io: Server) {
@@ -30,7 +32,7 @@ export class Session {
     ];
   }
 
-  join(client: any) {
+  join(client: Client) {
     if (this.clients.has(client)) {
       console.log("Error: Client already in session");
       return false;
@@ -46,39 +48,35 @@ export class Session {
     client.joinRoom(this.id);
 
     const avatar = this.avatars.shift();
-    client.avatar = avatar;
+    client.avatar = avatar ? avatar : '?';
     client.name = `${avatar} ${client.name}`;
 
-    client.send("message", {
-      type: "session-created",
+    client.send(EventTypes.SessionCreated, {
       sessionId: this.id,
     });
     return true;
   }
 
-  leave(client) {
+  leave(client: Client): void {
     this.clients.delete(client);
     this.avatars.push(client.avatar);
   }
 
-  broadcast(type: string, data: any) {
-    data.type = type;
-    this.io.to(this.id).emit("message", data);
+  broadcast(type: string, data: Payload) {
+    this.io.to(this.id).emit(type, data);
   }
 
   broadcastPeers() {
     const clientsArray = Array.from(this.clients);
     const payload = {
-      type: "session-broadcast",
       sessionId: this.id,
       peers: clientsArray.map((cli) => {
         return {
-          id: cli.id,
           name: cli.name,
           ready: cli.ready,
         };
       }),
-    } as any;
-    this.io.to(this.id).emit("message", payload);
+    } as Payload;
+    this.io.to(this.id).emit(EventTypes.SessionBroadcast, payload);
   }
 }
