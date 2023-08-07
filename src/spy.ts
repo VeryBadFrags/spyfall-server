@@ -1,6 +1,6 @@
 import { Client } from "./client";
 import { Session } from "./session";
-import { EventTypes } from "./payload";
+import { EventTypes } from "./types/event_types";
 
 const locations = [
   "✈️💺 Airport",
@@ -32,7 +32,7 @@ export function startGame(session: Session, extendedMode: boolean) {
   const clientsArray = Array.from(session.clients) as Array<Client>;
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
   const firstQuestion =
-    clientsArray[Math.floor(Math.random() * clientsArray.length)].name;
+    clientsArray[Math.floor(Math.random() * clientsArray.length)].data.name;
 
   const gameLocations = extendedMode
     ? [...locations, ...extendedLocations]
@@ -42,7 +42,7 @@ export function startGame(session: Session, extendedMode: boolean) {
 
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;
-    client.ready = false;
+    client.data.ready = false;
     client.send(EventTypes.StartGame, {
       spy: isSpy,
       location: isSpy ? "?" : currentLocation,

@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import { Client } from "./client";
-import { EventTypes, Payload } from "./payload";
+import { EventTypes } from "./types/event_types";
+import { Payload } from "./types/payload.type";
 
 export class Session {
   id: string;
@@ -48,8 +49,8 @@ export class Session {
     client.joinRoom(this.id);
 
     const avatar = this.avatars.shift();
-    client.avatar = avatar ? avatar : '?';
-    client.name = `${avatar} ${client.name}`;
+    client.data.avatar = avatar ? avatar : "?";
+    client.data.name = `${avatar} ${client.data.name}`; // TODO keep name and avatar separate
 
     client.send(EventTypes.SessionCreated, {
       sessionId: this.id,
@@ -59,7 +60,7 @@ export class Session {
 
   leave(client: Client): void {
     this.clients.delete(client);
-    this.avatars.push(client.avatar);
+    this.avatars.push(client.data.avatar);
   }
 
   broadcast(type: string, data: Payload) {
@@ -70,12 +71,7 @@ export class Session {
     const clientsArray = Array.from(this.clients);
     const payload = {
       sessionId: this.id,
-      peers: clientsArray.map((cli) => {
-        return {
-          name: cli.name,
-          ready: cli.ready,
-        };
-      }),
+      peers: clientsArray.map((cli) => cli.data),
     } as Payload;
     this.io.to(this.id).emit(EventTypes.SessionBroadcast, payload);
   }

@@ -2,7 +2,8 @@ import { Session } from "./session";
 import { Client } from "./client";
 import { startGame } from "./spy";
 import { Socket } from "socket.io";
-import { EventTypes, Payload } from "./payload";
+import { EventTypes } from "./types/event_types";
+import { Payload } from "./types/payload.type";
 
 const http = require("http").createServer();
 
@@ -72,7 +73,7 @@ io.on("connection", (socket: Socket) => {
     client.send(EventTypes.SessionCreated, { sessionId: session.id });
     if (session) {
       console.log("Created session:", session.id);
-      client.name = data.playerName;
+      client.data.name = data.playerName;
       if (session.join(client)) {
         session.broadcastPeers();
       } else {
@@ -88,27 +89,27 @@ io.on("connection", (socket: Socket) => {
       // TODO only broadcast to other clients
       session.broadcast(EventTypes.ChatEvent, {
         // id: client.id,
-        author: client.name,
+        author: client.data.name,
         message: data.message,
       });
     }
   });
 
-  socket.on("player-ready", (data: any) => {
+  socket.on(EventTypes.ClientReady, (data: any) => {
     if (!session) {
       socket.disconnect();
     } else {
-      client.ready = data.ready;
+      client.data.ready = data.ready;
       session.broadcastPeers();
     }
   });
 
-  socket.on("start-game", () => {
+  socket.on(EventTypes.StartGame, () => {
     if (!session) {
       socket.disconnect();
     } else {
       const allReady = Array.from(session.clients).reduce(
-        (acc, cli: Client) => acc && cli.ready,
+        (acc, cli: Client) => acc && cli.data.ready,
         true
       );
       if (allReady) {

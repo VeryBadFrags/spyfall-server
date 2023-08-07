@@ -1,4 +1,4 @@
-import { Client } from "./client";
+import { ClientData } from "./client_data.type";
 
 export type Payload = {
   sessionId?: string;
@@ -9,7 +9,7 @@ export type Payload = {
   author?: string;
 
   /** List of other players */
-  peers?: Array<Client>;
+  peers?: Array<ClientData>;
   /** The player who goes first */
   first?: string;
   /** If the player is the spy */
@@ -19,14 +19,3 @@ export type Payload = {
   /** List of all locations */
   locations?: string[];
 };
-
-export enum EventTypes {
-  // Outbound
-  SessionBroadcast = "session-broadcast",
-  SessionCreated = "session-created",
-  StartGame = "start-game",
-  // Inbound
-  ClientJoinSession = "join-session",
-  // Both
-  ChatEvent = "chat-event",
-}

@@ -1,17 +1,14 @@
 import { Socket } from "socket.io";
-import { Payload } from "./payload";
+import { ClientData } from "./types/client_data.type";
+import { Payload } from "./types/payload.type";
 
 export class Client {
   socket: Socket;
-  avatar: string;
-  name: string;
-  ready: boolean;
+  data: ClientData;
 
   constructor(socket: Socket) {
     this.socket = socket;
-    this.avatar = "";
-    this.name = "New player";
-    this.ready = false;
+    this.data = {avatar: "", name: "New Player", ready: false}
   }
 
   joinRoom(id: string) {
