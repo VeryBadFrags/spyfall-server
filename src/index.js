@@ -193,7 +193,7 @@ function leaveSession(session, client) {
   }
 }
 
-const defaultPort = 5173;
+const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
 http.listen(actualPort, () => {
   console.log(`Listening for requests on http://localhost:${actualPort}`);
