@@ -1,5 +1,7 @@
+import { ClientData } from "./client_data.js";
+
 /**
- * @typedef {Object} Payload
+ * @typedef {object} Payload
  * @property {string} [sessionId] - The session ID.
  * @property {string} [message] - The message.
  * @property {string} [color] - The color.
@@ -12,23 +14,6 @@
  */
 
 /**
- * @typedef {string} EventTypes
- **/
-/**
- * @enum {EventTypes}
+ * @type {Payload}
  */
-export const EventTypes = {
-  // Server
-  SessionBroadcast: "session-broadcast",
-  SessionCreated: "session-created",
-
-  // Client
-  Disconnect: "disconnect",
-
-  ClientJoinSession: "join-session",
-  ClientReady: "player-ready",
-
-  // Both
-  ChatEvent: "chat-event",
-  StartGame: "start-game",
-};
+export const Payload = {};

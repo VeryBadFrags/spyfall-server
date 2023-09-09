@@ -1,17 +1,10 @@
 import { Server } from "socket.io";
 import { Client } from "./client.js";
-import { EventTypes } from "./types.js";
-
-/**
- * @typedef {Object} ClientData
- * @property {string} avatar - The avatar of the client.
- * @property {string} name - The name of the client.
- * @property {boolean} ready - Indicates whether the client is ready.
- */
+import { EventTypes } from "./types/types.js";
+import { Payload } from "./types/payload.js";
 
 /**
  * @class
- * @constructor
  * @public
  */
 export class Session {
@@ -58,7 +51,7 @@ export class Session {
   /**
    *
    * @param {Client} client
-   * @returns {boolean}
+   * @returns {boolean} true if the client was able to join
    */
   join(client) {
     if (this.clients.has(client)) {

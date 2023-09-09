@@ -1,10 +1,11 @@
 import { Session } from "./session.js";
 import { Client } from "./client.js";
 import { startGame } from "./spy.js";
-import { Socket } from "socket.io";
-import { EventTypes } from "./types.js";
+import { Server, Socket } from "socket.io";
+import { EventTypes } from "./types/types.js";
 import { createServer } from "http";
-import { Server } from "socket.io";
+import { Payload } from "./types/payload.js";
+import { JoinSessionData } from "./types/join-session.js";
 
 const http = createServer();
 
@@ -31,6 +32,12 @@ if (nodeEnv === "dev") {
 const io = new Server(http, corsOptions);
 const sessions = new Map();
 
+/**
+ *
+ * @param {number} len The length of the ID
+ * @param {string} chars the characters to use
+ * @returns {string} The generated ID
+ */
 function createId(len = 8, chars = "ABCDEFGHJKMNPQRSTWXYZ23456789") {
   let id = "";
   for (let i = 0; i < len; i++) {
@@ -42,7 +49,7 @@ function createId(len = 8, chars = "ABCDEFGHJKMNPQRSTWXYZ23456789") {
 /**
  *
  * @param {Socket} socket
- * @returns {Client}
+ * @returns {Client} A Client wrapper for the Socket
  */
 function createClient(socket) {
   return new Client(socket);
@@ -51,7 +58,7 @@ function createClient(socket) {
 /**
  *
  * @param {string} id
- * @returns {Session}
+ * @returns {Session} The created Session
  */
 function createSession(id = createId(5)) {
   while (sessions.has(id)) {
@@ -66,7 +73,7 @@ function createSession(id = createId(5)) {
 /**
  *
  * @param {string} id
- * @returns {Session}
+ * @returns {Session} The corresponding Session
  */
 function getSession(id) {
   return sessions.get(id);
@@ -85,33 +92,37 @@ io.on(
      */
     let session;
 
-    socket.on(EventTypes.ClientJoinSession, (data) => {
-      //TODO type for data
-      if (session) {
-        leaveSession(session, client);
-      }
-      if (data.sessionId) {
-        session = getSession(data.sessionId) || createSession(data.sessionId);
-      } else {
-        session = createSession();
-      }
-      // TODO event SessionCreated is sent twice?
-      client.send(EventTypes.SessionCreated, { sessionId: session.id });
-      if (session) {
-        console.log("Created session:", session.id);
-        client.data.name = data.playerName;
-        if (session.join(client)) {
-          session.broadcastPeers();
-        } else {
-          socket.disconnect();
+    socket.on(
+      EventTypes.ClientJoinSession,
+      /**
+       * @param {JoinSessionData} data
+       */
+      (data) => {
+        if (session) {
+          leaveSession(session, client);
         }
-      }
-    });
+        if (data.sessionId) {
+          session = getSession(data.sessionId) || createSession(data.sessionId);
+        } else {
+          session = createSession();
+        }
+        // TODO event SessionCreated is sent twice?
+        client.send(EventTypes.SessionCreated, { sessionId: session.id });
+        if (session) {
+          console.log("Created session:", session.id);
+          client.data.name = data.playerName;
+          if (session.join(client)) {
+            session.broadcastPeers();
+          } else {
+            socket.disconnect();
+          }
+        }
+      },
+    );
 
     socket.on(
       EventTypes.ChatEvent,
       /**
-       *
        * @param {Payload} data
        */
       (data) => {
@@ -125,7 +136,7 @@ io.on(
             message: data.message,
           });
         }
-      }
+      },
     );
 
     socket.on(
@@ -142,7 +153,7 @@ io.on(
           client.data.ready = data.ready;
           session.broadcastPeers();
         }
-      }
+      },
     );
 
     socket.on(EventTypes.StartGame, () => {
@@ -154,10 +165,10 @@ io.on(
            *
            * @param {boolean} acc
            * @param {Client} cli
-           * @returns
+           * @returns {boolean} true if all clients are ready
            */
           (acc, cli) => acc && cli.data.ready,
-          true
+          true,
         );
         if (allReady) {
           startGame(session, false);
@@ -173,7 +184,7 @@ io.on(
     socket.on("disconnect", () => {
       leaveSession(session, client);
     });
-  }
+  },
 );
 
 /**
