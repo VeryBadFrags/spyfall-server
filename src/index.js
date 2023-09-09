@@ -4,7 +4,7 @@ import { startGame } from "./spy.js";
 import { Socket } from "socket.io";
 import { EventTypes } from "./types.js";
 import { createServer } from "http";
-import { Server } from 'socket.io';
+import { Server } from "socket.io";
 
 const http = createServer();
 
