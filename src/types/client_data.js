@@ -8,4 +8,4 @@
 /**
  * @type {ClientData}
  */
-export const ClientData = {}
+export const ClientData = {};
