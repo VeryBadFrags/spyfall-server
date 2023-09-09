@@ -15,20 +15,20 @@
  * @typedef {string} EventTypes
  **/
 /**
-* @enum {EventTypes}
-*/
+ * @enum {EventTypes}
+ */
 export const EventTypes = {
-    // Server
-    SessionBroadcast: "session-broadcast",
-    SessionCreated: "session-created",
+  // Server
+  SessionBroadcast: "session-broadcast",
+  SessionCreated: "session-created",
 
-    // Client
-    Disconnect: "disconnect",
+  // Client
+  Disconnect: "disconnect",
 
-    ClientJoinSession: "join-session",
-    ClientReady: "player-ready",
+  ClientJoinSession: "join-session",
+  ClientReady: "player-ready",
 
-    // Both
-    ChatEvent: "chat-event",
-    StartGame: "start-game",
+  // Both
+  ChatEvent: "chat-event",
+  StartGame: "start-game",
 };

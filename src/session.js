@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { Client } from "./client.js";
-import {EventTypes} from "./types.js";
+import { EventTypes } from "./types.js";
 
 /**
  * @typedef {Object} ClientData

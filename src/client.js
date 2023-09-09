@@ -32,7 +32,7 @@ export class Client {
   joinRoom(id) {
     this.socket.join(id);
   }
-  
+
   /**
    *
    * @param {string} type
