@@ -9,7 +9,7 @@
     "dev": "NODE_ENV=dev nodemon -w",
     "build": "",
     "lint": "eslint src/",
-    "start": "npm run build && node dist",
+    "start": "node src",
     "format": "prettier --write ."
   },
   "keywords": [],
