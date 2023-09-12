@@ -1,6 +1,6 @@
 import { ClientData } from "./client_data";
 
-export type Payload = {
+export interface Payload {
   sessionId?: string;
 
   message?: string;
@@ -18,4 +18,4 @@ export type Payload = {
   location?: string;
   /** List of all locations */
   locations?: string[];
-};
+}
