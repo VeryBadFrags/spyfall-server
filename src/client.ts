@@ -1,46 +1,30 @@
 // noinspection JSCheckFunctionSignatures
 
 import { Socket } from "socket.io";
-import { ClientData } from "./types/client_data.js";
-import { Payload } from "./types/payload.js";
+import { ClientData } from "./types/client_data";
+import { Payload } from "./types/payload";
 
 /**
  * @class
  * @public
  */
 export class Client {
-  /**
-   * @type {Socket}
-   */
-  socket;
-  /**
-   * @type {ClientData}
-   */
-  data;
+  socket: Socket;
+  data: ClientData;
 
   /**
-   *
    * @param {Socket} socket The socket.io Socket object
    */
-  constructor(socket) {
+  constructor(socket: Socket) {
     this.socket = socket;
     this.data = { avatar: "", name: "New Player", ready: false };
   }
 
-  /**
-   *
-   * @param {string} id
-   */
-  joinRoom(id) {
+  joinRoom(id: string) {
     this.socket.join(id);
   }
 
-  /**
-   *
-   * @param {string} type
-   * @param {Payload} data
-   */
-  send(type, data) {
+  send(type: string, data: Payload) {
     this.socket.emit(type, data);
   }
 }

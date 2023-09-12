@@ -1,11 +1,10 @@
-import { Session } from "./session.js";
-import { Client } from "./client.js";
-import { startGame } from "./spy.js";
+import { Session } from "./session";
+import { Client } from "./client";
+import { startGame } from "./spy";
 import { Server, Socket } from "socket.io";
-import { EventTypes } from "./types/types.js";
+import { EventTypes } from "./types/types";
 import { createServer } from "http";
-import { Payload } from "./types/payload.js";
-import { JoinSessionData } from "./types/join-session.js";
+import { JoinSessionData } from "./types/join-session";
 
 const http = createServer();
 
@@ -23,7 +22,7 @@ const nodeEnv = process.env.NODE_ENV;
 console.log(`NODE_ENV=${nodeEnv}`);
 
 const localFrontEnd = "http://localhost:3000";
-if (nodeEnv === "dev") {
+if (nodeEnv === "development") {
   console.log(`Allowing cors for ${localFrontEnd}`);
   corsOptions.cors.origin.push(localFrontEnd);
 }
@@ -33,12 +32,14 @@ const io = new Server(http, corsOptions);
 const sessions = new Map();
 
 /**
- *
  * @param {number} len The length of the ID
  * @param {string} chars the characters to use
  * @returns {string} The generated ID
  */
-function createId(len = 8, chars = "ABCDEFGHJKMNPQRSTWXYZ23456789") {
+function createId(
+  len: number = 8,
+  chars: string = "ABCDEFGHJKMNPQRSTWXYZ23456789",
+): string {
   let id = "";
   for (let i = 0; i < len; i++) {
     id += chars[(Math.random() * chars.length) | 0];
@@ -46,21 +47,11 @@ function createId(len = 8, chars = "ABCDEFGHJKMNPQRSTWXYZ23456789") {
   return id;
 }
 
-/**
- *
- * @param {Socket} socket
- * @returns {Client} A Client wrapper for the Socket
- */
-function createClient(socket) {
+function createClient(socket: Socket): Client {
   return new Client(socket);
 }
 
-/**
- *
- * @param {string} id
- * @returns {Session} The created Session
- */
-function createSession(id = createId(5)) {
+function createSession(id = createId(5)): Session {
   while (sessions.has(id)) {
     console.error(`Session ${id} already exists`);
     id = createId(6); // TODO standardize session length
@@ -75,7 +66,7 @@ function createSession(id = createId(5)) {
  * @param {string} id
  * @returns {Session} The corresponding Session
  */
-function getSession(id) {
+function getSession(id: string): Session {
   return sessions.get(id);
 }
 
@@ -85,40 +76,31 @@ io.on(
    *
    * @param {Socket} socket
    */
-  (socket) => {
+  (socket: Socket) => {
     const client = createClient(socket);
-    /**
-     * @type {Session}
-     */
-    let session;
+    let session: Session;
 
-    socket.on(
-      EventTypes.ClientJoinSession,
-      /**
-       * @param {JoinSessionData} data
-       */
-      (data) => {
-        if (session) {
-          leaveSession(session, client);
-        }
-        if (data.sessionId) {
-          session = getSession(data.sessionId) || createSession(data.sessionId);
+    socket.on(EventTypes.ClientJoinSession, (data: JoinSessionData) => {
+      if (session) {
+        leaveSession(session, client);
+      }
+      if (data.sessionId) {
+        session = getSession(data.sessionId) || createSession(data.sessionId);
+      } else {
+        session = createSession();
+      }
+      // TODO event SessionCreated is sent twice?
+      client.send(EventTypes.SessionCreated, { sessionId: session.id });
+      if (session) {
+        console.log("Created session:", session.id);
+        client.data.name = data.playerName;
+        if (session.join(client)) {
+          session.broadcastPeers();
         } else {
-          session = createSession();
+          socket.disconnect();
         }
-        // TODO event SessionCreated is sent twice?
-        client.send(EventTypes.SessionCreated, { sessionId: session.id });
-        if (session) {
-          console.log("Created session:", session.id);
-          client.data.name = data.playerName;
-          if (session.join(client)) {
-            session.broadcastPeers();
-          } else {
-            socket.disconnect();
-          }
-        }
-      },
-    );
+      }
+    });
 
     socket.on(
       EventTypes.ChatEvent,
@@ -187,12 +169,7 @@ io.on(
   },
 );
 
-/**
- *
- * @param {Session} session
- * @param {Client} client
- */
-function leaveSession(session, client) {
+function leaveSession(session: Session, client: Client) {
   if (session) {
     session.leave(client);
     if (session.clients.size === 0) {

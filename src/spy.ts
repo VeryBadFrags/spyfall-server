@@ -1,5 +1,5 @@
-import { Session } from "./session.js";
-import { EventTypes } from "./types/types.js";
+import { Session } from "./session";
+import { EventTypes } from "./types/types";
 
 const locations = [
   "✈️💺 Airport",
@@ -27,11 +27,7 @@ const extendedLocations = [
   "🍽👩‍🍳 Restaurant",
 ];
 
-/**
- * @param {Session} session
- * @param {boolean} extendedMode
- */
-export function startGame(session, extendedMode) {
+export function startGame(session: Session, extendedMode: boolean) {
   const clientsArray = Array.from(session.clients);
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
   const firstQuestion =

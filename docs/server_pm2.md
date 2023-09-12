@@ -26,10 +26,12 @@ npm run build
 
 ### [pm2](https://www.npmjs.com/package/pm2)
 
+- TODO this is outdated
+
 ```shell
 npm install pm2@latest -g
 pm2 startup
-pm2 start server/index.js --name online-spy
+pm2 start server/index.ts --name online-spy
 pm2 save
 ```
 

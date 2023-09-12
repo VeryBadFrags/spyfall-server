@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
-import { Client } from "./client.js";
-import { EventTypes } from "./types/types.js";
-import { Payload } from "./types/payload.js";
+import { Client } from "./client";
+import { EventTypes } from "./types/types";
+import { Payload } from "./types/payload";
 
 /**
  * @class
@@ -9,22 +9,11 @@ import { Payload } from "./types/payload.js";
  */
 export class Session {
   id;
-  /**
-   * @type {Server}
-   */
-  io;
-  /**
-   * @type {Set<Client>}
-   */
-  clients;
+  io: Server;
+  clients: Set<Client>;
   avatars;
 
-  /**
-   *
-   * @param {string} id
-   * @param {Server} io
-   */
-  constructor(id, io) {
+  constructor(id: string, io: Server) {
     this.id = id;
     this.io = io;
     this.clients = new Set();
@@ -53,7 +42,7 @@ export class Session {
    * @param {Client} client
    * @returns {boolean} true if the client was able to join
    */
-  join(client) {
+  join(client: Client): boolean {
     if (this.clients.has(client)) {
       console.log("Error: Client already in session");
       return false;
@@ -78,24 +67,16 @@ export class Session {
     return true;
   }
 
-  /**
-   *
-   * @param {Client} client
-   */
-  leave(client) {
+  leave(client: Client): void {
     this.clients.delete(client);
     this.avatars.push(client.data.avatar);
   }
 
-  /**
-   * @param {string} type
-   * @param {Payload} data
-   */
-  broadcast(type, data) {
+  broadcast(type: string, data: Payload): void {
     this.io.to(this.id).emit(type, data);
   }
 
-  broadcastPeers() {
+  broadcastPeers(): void {
     const clientsArray = Array.from(this.clients);
     const payload = {
       sessionId: this.id,

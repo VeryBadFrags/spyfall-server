@@ -1,27 +1,28 @@
 {
   "name": "online-spy",
   "version": "1.0.0",
-  "type": "module",
   "description": "Back-end for the Online Spy game",
   "private": true,
-  "main": "dist/index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "dev": "NODE_ENV=dev nodemon -w",
-    "build": "",
+    "dev": "NODE_ENV=development nodemon -w src/index.ts",
+    "build": "tsc",
     "lint": "eslint src/",
-    "start": "node src",
-    "format": "prettier --write ."
+    "start": "npm run build && node dist",
+    "format": "prettier --write .",
+    "clean": "rm -rf dist/"
   },
   "keywords": [],
   "author": "VeryBadFrags",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.49.0",
-    "eslint-plugin-jsdoc": "^46.5.1",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "ts-node": "^10.9.1"
   },
   "dependencies": {
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "typescript": "^5.2.2"
   }
 }
