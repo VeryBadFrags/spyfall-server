@@ -5,13 +5,13 @@ default: dev
 
 # Targets and their respective commands
 build: node_modules
-	pnpm run build
+	npm run build
 
 dev: node_modules
-	pnpm run dev
+	npm run dev
 
 clean:
-	pnpm run clean
+	npm run clean
 
 help:
 	@echo "Available targets:"
@@ -25,4 +25,4 @@ help:
 
 # Install dependencies if 'node_modules' is missing
 node_modules: pnpm-lock.yaml
-	pnpm install
+	npm install
