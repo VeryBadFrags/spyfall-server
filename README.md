@@ -11,20 +11,18 @@ Hosted on [Netlify](https://www.netlify.com) & [Render](https://render.com).
 
 View the client code [here](https://github.com/VeryBadFrags/spyfall-client).
 
-## Run with Node
+## Run
 
 Install the Node nodules and start the server
 
 ```sh
-npm i
-npm start
+make start
 ```
 
 ## Develop locally
 
 ```sh
-npm i
-npm run dev
+make dev
 ```
 
 ## Server setup
@@ -35,5 +33,4 @@ npm run dev
 
 ```shell
 ln -s .gitignore .dockerignore
-ln -s .gitignore .prettierignore
 ```
