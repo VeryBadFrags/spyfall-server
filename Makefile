@@ -1,7 +1,6 @@
 # Makefile for Node.js project
 
-# Define your default target (the one that runs when you just type "make" without arguments)
-.DEFAULT_GOAL: help
+.DEFAULT_GOAL := help
 
 .PHONY: help
 help:
