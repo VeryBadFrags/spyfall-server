@@ -6,7 +6,8 @@
 help:
 	@echo "Available targets:"
 	@echo "  make build   - Run build"
-	@echo "  make dev     - Run dev"
+	@echo "  make dev     - Run in Dev mode"
+	@echo "  make start   - Run in Prod mode"
 	@echo "  make clean   - Clean up project"
 	@echo "  make help    - Display this help message"
 
@@ -18,6 +19,10 @@ build: node_modules
 .PHONY: dev
 dev: node_modules
 	npm run dev
+
+.PHONY: start
+start: node_modules
+	npm start
 
 .PHONY: clean
 clean:
