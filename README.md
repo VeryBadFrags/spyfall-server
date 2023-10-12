@@ -27,14 +27,6 @@ npm i
 npm run dev
 ```
 
-## Docker
-
-Run locally
-
-```sh
-docker-compose up --build
-```
-
 ## Server setup
 
 - Custom server: see [server_setup.md](docs/server_setup.md)
