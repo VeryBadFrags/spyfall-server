@@ -8,6 +8,7 @@ help:
 	@echo "  make build   - Run build"
 	@echo "  make dev     - Run in Dev mode"
 	@echo "  make start   - Run in Prod mode"
+	@echo "  make format  - Format code using Prettier"
 	@echo "  make clean   - Clean up project"
 	@echo "  make help    - Display this help message"
 
@@ -23,6 +24,10 @@ dev: node_modules
 .PHONY: start
 start: node_modules
 	npm start
+
+.PHONY: format
+format:
+	npm run format
 
 .PHONY: clean
 clean:
