@@ -10,7 +10,7 @@ Run the game server inside Docker.
 wget -nv -O - https://get.docker.com/ | sh
 ```
 
-- https://docs.docker.com/engine/install/linux-postinstall/
+- <https://docs.docker.com/engine/install/linux-postinstall/>
 
 ### Start
 

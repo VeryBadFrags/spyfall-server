@@ -1,6 +1,6 @@
 # Server setup
 
-Steps required to setup the server on spy.verybadfrags.com
+Steps required to setup the server on <spy.verybadfrags.com>
 
 Ubuntu 20.04 LTS
 

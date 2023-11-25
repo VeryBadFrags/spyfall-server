@@ -1,15 +1,17 @@
 # 🕵️ Spyfall - Server
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/VeryBadFrags/spyfall-server/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/).
 
-Built with Node and [socket.io](https://socket.io).
+[♟️ Play the game](https://spy.verybadfrags.com)
+
+---
+
+🛠️ Built with Node and [socket.io](https://socket.io).
 Hosted on [Netlify](https://www.netlify.com) & [Render](https://render.com).
 
-[▶️ Play the game](https://spy.verybadfrags.com)
-
-View the client code [here](https://github.com/VeryBadFrags/spyfall-client).
+💾 View the client source code [here](https://github.com/VeryBadFrags/spyfall-client).
 
 ## Run
 
@@ -19,18 +21,14 @@ Install the Node nodules and start the server
 make start
 ```
 
-## Develop locally
+## Run locally
 
 ```sh
 make dev
 ```
 
+Run `make` to view all available commands.
+
 ## Server setup
 
-- Custom server: see [server_setup.md](docs/server_setup.md)
-
-## Ignore files
-
-```shell
-ln -s .gitignore .dockerignore
-```
+You can run a custom server with either [pm2](https://pm2.keymetrics.io) or Docker. See [server_setup.md](docs/server_setup.md)

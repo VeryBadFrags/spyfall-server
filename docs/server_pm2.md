@@ -4,7 +4,7 @@ Run locally using Node and pm2.
 
 ## Setup
 
-### [Node](https://nodejs.org/)
+### Get [Node](https://nodejs.org/)
 
 Get nvm: <https://github.com/nvm-sh/nvm>
 
@@ -13,7 +13,7 @@ source ~/.bashrc
 nvm install --lts
 ```
 
-### Server code
+### Get the Server code
 
 Get the source code from GitHub.
 
@@ -24,14 +24,12 @@ npm ci --no-audit --only=prod --no-optional
 npm run build
 ```
 
-### [pm2](https://www.npmjs.com/package/pm2)
-
-- TODO this is outdated
+### Get [pm2](https://www.npmjs.com/package/pm2)
 
 ```shell
-npm install pm2@latest -g
+npm install pm2 -g
 pm2 startup
-pm2 start server/index.ts --name online-spy
+npm build && pm2 start dist/index.js --name online-spy
 pm2 save
 ```
 
@@ -45,7 +43,7 @@ pm2 save
 cd online-spy
 git pull --recurse-submodules
 npm ci --no-audit --only=prod --no-optional
-make
+make build
 pm2 restart online-spy
 ```
 
