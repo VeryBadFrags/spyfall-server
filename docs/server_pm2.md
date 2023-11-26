@@ -43,7 +43,7 @@ pm2 save
 cd online-spy
 git pull --recurse-submodules
 npm ci --no-audit --only=prod --no-optional
-make build
+npm run build
 pm2 restart online-spy
 ```
 
