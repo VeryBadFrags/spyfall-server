@@ -119,11 +119,6 @@ io.on(
 
     socket.on(
       EventTypes.ClientReady,
-      /**
-       *
-       * @param {any} data
-       * TODO do not use any
-       */
       (data) => {
         if (!session) {
           socket.disconnect();
