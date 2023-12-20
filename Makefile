@@ -25,6 +25,10 @@ dev: node_modules
 start: node_modules
 	pnpm start
 
+.PHONY: lint
+lint:
+	pnpm run lint
+
 .PHONY: format
 format:
 	pnpm run format
