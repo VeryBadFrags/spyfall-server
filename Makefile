@@ -15,28 +15,28 @@ help:
 # Targets and their respective commands
 .PHONY: build
 build: node_modules
-	npm run build
+	pnpm run build
 
 .PHONY: dev
 dev: node_modules
-	npm run dev
+	pnpm run dev
 
 .PHONY: start
 start: node_modules
-	npm start
+	pnpm start
 
 .PHONY: lint
 lint:
-	npm run lint
+	pnpm run lint
 
 .PHONY: format
 format:
-	npm run format
+	pnpm run format
 
 .PHONY: clean
 clean:
-	npm run clean
+	pnpm run clean
 
 # Install dependencies if 'node_modules' is missing
 node_modules: package-lock.json
-	npm install
+	pnpm install
