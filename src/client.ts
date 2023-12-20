@@ -2,7 +2,9 @@
 
 import { Socket } from "socket.io";
 import { ClientData } from "./types/client_data";
-import { Payload } from "./types/payload";
+import { Payload } from "./types/Payload";
+import { EventTypes } from "./types/EventTypes";
+import { ChatPayload } from "./types/ChatPayload";
 
 /**
  * @class
@@ -24,7 +26,12 @@ export class Client {
     this.socket.join(id);
   }
 
-  send(type: string, data: Payload) {
+  send(type: EventTypes, data: Payload) {
+    this.socket.emit(type, data);
+  }
+
+  // TODO consolidate with send
+  sendChat(type: EventTypes, data: ChatPayload) {
     this.socket.emit(type, data);
   }
 }

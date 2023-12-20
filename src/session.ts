@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
 import { Client } from "./client";
-import { EventTypes } from "./types/types";
-import { Payload } from "./types/payload";
+import { EventTypes } from "./types/EventTypes";
+import { ChatPayload } from "./types/ChatPayload";
 
 /**
  * @class
@@ -72,7 +72,12 @@ export class Session {
     this.avatars.push(client.data.avatar);
   }
 
-  broadcast(type: string, data: Payload): void {
+  /**
+   * Send a message to all session clients.
+   * @param type 
+   * @param data 
+   */
+  broadcastChat(type: EventTypes, data: ChatPayload): void {
     this.io.to(this.id).emit(type, data);
   }
 

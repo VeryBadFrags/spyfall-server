@@ -1,5 +1,5 @@
 import { Session } from "./session";
-import { EventTypes } from "./types/types";
+import { EventTypes } from "./types/EventTypes";
 
 const locations = [
   "✈️💺 Airport",

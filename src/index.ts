@@ -2,9 +2,10 @@ import { Session } from "./session";
 import { Client } from "./client";
 import { startGame } from "./spy";
 import { Server, Socket } from "socket.io";
-import { EventTypes } from "./types/types";
+import { EventTypes } from "./types/EventTypes";
 import { createServer } from "http";
 import { JoinSessionData } from "./types/join-session";
+import { ChatPayload } from "./types/ChatPayload";
 
 const http = createServer();
 
@@ -102,24 +103,16 @@ io.on(
       }
     });
 
-    socket.on(
-      EventTypes.ChatEvent,
-      /**
-       * @param {Payload} data
-       */
-      (data) => {
-        if (!session) {
-          socket.disconnect();
-        } else {
-          // TODO only broadcast to other clients
-          session.broadcast(EventTypes.ChatEvent, {
-            // id: client.id,
-            author: client.data.name,
-            message: data.message,
-          });
-        }
-      },
-    );
+    socket.on(EventTypes.ChatEvent, (data: ChatPayload) => {
+      if (!session) {
+        socket.disconnect();
+      } else {
+        session.broadcastChat(EventTypes.ChatEvent, {
+          author: client.data.name,
+          message: data.message,
+        });
+      }
+    });
 
     socket.on(
       EventTypes.ClientReady,
@@ -155,7 +148,7 @@ io.on(
         if (allReady) {
           startGame(session, false);
         } else {
-          client.send(EventTypes.ChatEvent, {
+          client.sendChat(EventTypes.ChatEvent, {
             message: "All players must be ready",
             color: "red",
           });
