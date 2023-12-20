@@ -2,7 +2,7 @@ import { Server } from "socket.io";
 import { Client } from "./client";
 import { EventTypes } from "./types/eventTypes";
 import { ChatPayload } from "./types/chatPayload.type";
-import { SessionStatusPayload } from "./types/sessionStatusPayload.type";
+import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
 
 /**
  * @class
@@ -64,7 +64,7 @@ export class Session {
 
     client.sendSessionInfo(EventTypes.SessionCreated, {
       sessionId: this.id,
-    } as SessionStatusPayload);
+    } as LobbyStatusPayload);
     return true;
   }
 
@@ -87,7 +87,7 @@ export class Session {
     const payload = {
       sessionId: this.id,
       peers: clientsArray.map((cli) => cli.data),
-    } as SessionStatusPayload;
+    } as LobbyStatusPayload;
     this.io.to(this.id).emit(EventTypes.SessionBroadcast, payload);
   }
 }

@@ -1,10 +1,10 @@
 export type GamePayload = {
   /** The player who goes first */
-  first?: string;
+  first: string;
   /** If the player is the spy */
-  spy?: boolean;
+  spy: boolean;
   /** The current location */
-  location?: string;
+  location: string;
   /** List of all locations */
-  locations?: string[];
+  locations: Array<string>;
 };

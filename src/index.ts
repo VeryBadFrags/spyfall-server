@@ -6,7 +6,7 @@ import { EventTypes } from "./types/eventTypes";
 import { createServer } from "http";
 import { JoinSessionData } from "./types/joinSession.type";
 import { ChatPayload } from "./types/chatPayload.type";
-import { SessionStatusPayload } from "./types/sessionStatusPayload.type";
+import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
 
 const http = createServer();
 
@@ -94,7 +94,7 @@ io.on(
       // TODO event SessionCreated is sent twice?
       client.sendSessionInfo(EventTypes.SessionCreated, {
         sessionId: session.id,
-      } as SessionStatusPayload);
+      } as LobbyStatusPayload);
       if (session) {
         console.log("Created session:", session.id);
         client.data.name = data.playerName;

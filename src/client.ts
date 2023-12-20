@@ -3,7 +3,7 @@ import { ClientData } from "./types/clientData.type";
 import { EventTypes } from "./types/eventTypes";
 import { ChatPayload } from "./types/chatPayload.type";
 import { GamePayload } from "./types/gamePayload.type";
-import { SessionStatusPayload } from "./types/sessionStatusPayload.type";
+import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
 
 /**
  * @class
@@ -25,7 +25,7 @@ export class Client {
     this.socket.join(id);
   }
 
-  sendSessionInfo(type: EventTypes, data: SessionStatusPayload) {
+  sendSessionInfo(type: EventTypes, data: LobbyStatusPayload) {
     this.socket.emit(type, data);
   }
 
