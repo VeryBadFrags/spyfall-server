@@ -1,5 +1,5 @@
 import { Session } from "./session";
-import { EventTypes } from "./types/EventTypes";
+import { GamePayload } from "./types/gamePayload.type";
 
 const locations = [
   "✈️💺 Airport",
@@ -42,12 +42,12 @@ export function startGame(session: Session, extendedMode: boolean) {
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;
     client.data.ready = false;
-    client.send(EventTypes.StartGame, {
+    client.sendStartGame({
       spy: isSpy,
       location: isSpy ? "?" : currentLocation,
       locations: gameLocations,
       first: firstQuestion,
-    });
+    } as GamePayload);
   });
   session.broadcastPeers();
 }

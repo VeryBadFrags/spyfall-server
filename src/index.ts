@@ -2,10 +2,11 @@ import { Session } from "./session";
 import { Client } from "./client";
 import { startGame } from "./spy";
 import { Server, Socket } from "socket.io";
-import { EventTypes } from "./types/EventTypes";
+import { EventTypes } from "./types/eventTypes";
 import { createServer } from "http";
-import { JoinSessionData } from "./types/join-session";
-import { ChatPayload } from "./types/ChatPayload";
+import { JoinSessionData } from "./types/joinSession.type";
+import { ChatPayload } from "./types/chatPayload.type";
+import { SessionStatusPayload } from "./types/sessionStatusPayload.type";
 
 const http = createServer();
 
@@ -91,7 +92,9 @@ io.on(
         session = createSession();
       }
       // TODO event SessionCreated is sent twice?
-      client.send(EventTypes.SessionCreated, { sessionId: session.id });
+      client.sendSessionInfo(EventTypes.SessionCreated, {
+        sessionId: session.id,
+      } as SessionStatusPayload);
       if (session) {
         console.log("Created session:", session.id);
         client.data.name = data.playerName;
@@ -136,19 +139,13 @@ io.on(
         socket.disconnect();
       } else {
         const allReady = Array.from(session.clients).reduce(
-          /**
-           *
-           * @param {boolean} acc
-           * @param {Client} cli
-           * @returns {boolean} true if all clients are ready
-           */
-          (acc, cli) => acc && cli.data.ready,
+          (acc: boolean, cli: Client): boolean => acc && cli.data.ready,
           true,
         );
         if (allReady) {
           startGame(session, false);
         } else {
-          client.sendChat(EventTypes.ChatEvent, {
+          client.sendChat({
             message: "All players must be ready",
             color: "red",
           });

@@ -1,10 +1,9 @@
-// noinspection JSCheckFunctionSignatures
-
 import { Socket } from "socket.io";
-import { ClientData } from "./types/client_data";
-import { Payload } from "./types/Payload";
-import { EventTypes } from "./types/EventTypes";
-import { ChatPayload } from "./types/ChatPayload";
+import { ClientData } from "./types/clientData.type";
+import { EventTypes } from "./types/eventTypes";
+import { ChatPayload } from "./types/chatPayload.type";
+import { GamePayload } from "./types/gamePayload.type";
+import { SessionStatusPayload } from "./types/sessionStatusPayload.type";
 
 /**
  * @class
@@ -26,12 +25,15 @@ export class Client {
     this.socket.join(id);
   }
 
-  send(type: EventTypes, data: Payload) {
+  sendSessionInfo(type: EventTypes, data: SessionStatusPayload) {
     this.socket.emit(type, data);
   }
 
-  // TODO consolidate with send
-  sendChat(type: EventTypes, data: ChatPayload) {
-    this.socket.emit(type, data);
+  sendStartGame(data: GamePayload) {
+    this.socket.emit(EventTypes.StartGame, data);
+  }
+
+  sendChat(data: ChatPayload) {
+    this.socket.emit(EventTypes.ChatEvent, data);
   }
 }

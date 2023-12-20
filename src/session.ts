@@ -1,7 +1,8 @@
 import { Server } from "socket.io";
 import { Client } from "./client";
-import { EventTypes } from "./types/EventTypes";
-import { ChatPayload } from "./types/ChatPayload";
+import { EventTypes } from "./types/eventTypes";
+import { ChatPayload } from "./types/chatPayload.type";
+import { SessionStatusPayload } from "./types/sessionStatusPayload.type";
 
 /**
  * @class
@@ -61,9 +62,9 @@ export class Session {
     client.data.avatar = avatar ? avatar : "?";
     client.data.name = `${avatar} ${client.data.name}`; // TODO keep name and avatar separate
 
-    client.send(EventTypes.SessionCreated, {
+    client.sendSessionInfo(EventTypes.SessionCreated, {
       sessionId: this.id,
-    });
+    } as SessionStatusPayload);
     return true;
   }
 
@@ -74,8 +75,8 @@ export class Session {
 
   /**
    * Send a message to all session clients.
-   * @param type 
-   * @param data 
+   * @param type
+   * @param data
    */
   broadcastChat(type: EventTypes, data: ChatPayload): void {
     this.io.to(this.id).emit(type, data);
@@ -86,7 +87,7 @@ export class Session {
     const payload = {
       sessionId: this.id,
       peers: clientsArray.map((cli) => cli.data),
-    };
+    } as SessionStatusPayload;
     this.io.to(this.id).emit(EventTypes.SessionBroadcast, payload);
   }
 }
