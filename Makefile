@@ -6,8 +6,9 @@
 help:
 	@echo "Available targets:"
 	@echo "  make dev     - Run in Dev mode"
-	@echo "  make build   - Transpile to js into the dist/ folder"
+	@echo "  make build   - Build project"
 	@echo "  make start   - Run in Prod mode"
+	@echo "  make lint    - Run eslint"
 	@echo "  make format  - Format code using Prettier"
 	@echo "  make clean   - Remove the dist/ folder"
 	@echo "  make help    - Display this help message"
