@@ -1,9 +1,9 @@
-import { Socket } from "socket.io";
-import { ClientData } from "./types/clientData.type";
+import type { Socket } from "socket.io";
+import type { ClientData } from "./types/clientData.type";
 import { EventTypes } from "./types/eventTypes";
-import { ChatPayload } from "./types/chatPayload.type";
-import { GamePayload } from "./types/gamePayload.type";
-import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
+import type { ChatPayload } from "./types/chatPayload.type";
+import type { GamePayload } from "./types/gamePayload.type";
+import type { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
 
 /**
  * @class
