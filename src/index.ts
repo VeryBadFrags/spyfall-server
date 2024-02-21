@@ -23,7 +23,7 @@ const corsOptions = {
 const nodeEnv = process.env.NODE_ENV;
 console.log(`NODE_ENV=${nodeEnv}`);
 
-const localFrontEnd = "http://localhost:3000";
+const localFrontEnd = "http://localhost:5173";
 if (nodeEnv === "development") {
   console.log(`Allowing cors for ${localFrontEnd}`);
   corsOptions.cors.origin.push(localFrontEnd);
