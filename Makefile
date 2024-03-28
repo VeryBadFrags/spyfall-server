@@ -27,11 +27,11 @@ start: node_modules
 	pnpm start
 
 .PHONY: lint
-lint:
+lint: node_modules
 	pnpm run lint
 
 .PHONY: format
-format:
+format: node_modules
 	pnpm run format
 
 .PHONY: clean

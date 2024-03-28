@@ -12,7 +12,7 @@
   "forwardPorts": [8081],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install"
+  "postCreateCommand": "make node_modules"
 
   // Configure tool-specific properties.
   // "customizations": {},
