@@ -16,15 +16,16 @@
   "author": "VeryBadFrags",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "eslint": "^8.56.0",
-    "nodemon": "^3.0.3",
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "ts-node": "^10.9.2"
   },
   "dependencies": {
-    "socket.io": "^4.7.4",
-    "typescript": "^5.3.3"
+    "socket.io": "^4.7.5",
+    "typescript": "^5.4.4"
   }
 }

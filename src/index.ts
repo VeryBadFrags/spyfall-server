@@ -23,8 +23,8 @@ const corsOptions = {
 const nodeEnv = process.env.NODE_ENV;
 console.log(`NODE_ENV=${nodeEnv}`);
 
-const localFrontEnd = "http://localhost:5173";
 if (nodeEnv === "development") {
+  const localFrontEnd = "http://127.0.0.1:5173";
   console.log(`Allowing cors for ${localFrontEnd}`);
   corsOptions.cors.origin.push(localFrontEnd);
 }
@@ -169,5 +169,5 @@ function leaveSession(session: Session, client: Client) {
 const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
 http.listen(actualPort, () => {
-  console.log(`Listening for requests on http://localhost:${actualPort}`);
+  console.log(`Listening for requests on http://127.0.0.1:${actualPort}`);
 });
