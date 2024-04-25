@@ -23,14 +23,6 @@ Hosted on [Netlify](https://www.netlify.com) & [Render](https://render.com).
 
 ## Run locally
 
-### With [pnpm](https://pnpm.io)
-
-```sh
-make dev
-```
-
-Run `make` to view all available commands.
-
 ### With [npm](https://www.npmjs.com)
 
 ```sh
