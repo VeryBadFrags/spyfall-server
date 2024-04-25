@@ -1,7 +1,7 @@
 import { Session } from "./session";
 import { Client } from "./client";
 import { startGame } from "./spy";
-import { Server, Socket } from "socket.io";
+import { Server, ServerOptions, Socket } from "socket.io";
 import { EventTypes } from "./types/eventTypes";
 import { createServer } from "http";
 import { JoinSessionData } from "./types/joinSession.type";
@@ -10,26 +10,19 @@ import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
 
 const http = createServer();
 
-const corsOptions = {
+console.log(`NODE_ENV=${process.env.NODE_ENV}`);
+
+// socket.io
+
+const frontend = process.env.CORS_ALLOW;
+console.log(`Allowing cors for ${frontend}`);
+const corsOptions: Partial<ServerOptions> = {
   cors: {
-    origin: [
-      "https://spy.verybadfrags.com",
-      "https://heuristic-bartik-850df8.netlify.app", // TODO move to config
-    ],
+    origin: frontend,
     methods: ["GET", "POST"],
   },
 };
 
-const nodeEnv = process.env.NODE_ENV;
-console.log(`NODE_ENV=${nodeEnv}`);
-
-if (nodeEnv === "development") {
-  const localFrontEnd = "http://127.0.0.1:5173";
-  console.log(`Allowing cors for ${localFrontEnd}`);
-  corsOptions.cors.origin.push(localFrontEnd);
-}
-
-// socket.io
 const io = new Server(http, corsOptions);
 const sessions = new Map();
 
@@ -117,17 +110,14 @@ io.on(
       }
     });
 
-    socket.on(
-      EventTypes.ClientReady,
-      (data) => {
-        if (!session) {
-          socket.disconnect();
-        } else {
-          client.data.ready = data.ready;
-          session.broadcastPeers();
-        }
-      },
-    );
+    socket.on(EventTypes.ClientReady, (data) => {
+      if (!session) {
+        socket.disconnect();
+      } else {
+        client.data.ready = data.ready;
+        session.broadcastPeers();
+      }
+    });
 
     socket.on(EventTypes.StartGame, () => {
       if (!session) {
@@ -169,5 +159,5 @@ function leaveSession(session: Session, client: Client) {
 const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
 http.listen(actualPort, () => {
-  console.log(`Listening for requests on http://127.0.0.1:${actualPort}`);
+  console.log(`Listening for requests on http://localhost:${actualPort}`);
 });
