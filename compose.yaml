@@ -1,0 +1,8 @@
+services:
+  backend:
+    build: .
+    environment:
+      - NODE_ENV=development
+      - CORS_ALLOW=http://localhost:5173
+    ports:
+      - 8081:8081
