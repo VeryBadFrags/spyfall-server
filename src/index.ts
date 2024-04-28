@@ -10,12 +10,12 @@ import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
 
 const http = createServer();
 
-console.log(`NODE_ENV=${process.env.NODE_ENV}`);
+console.log(`[setup] NODE_ENV=${process.env.NODE_ENV}`);
 
 // socket.io
 
 const frontend = process.env.CORS_ALLOW;
-console.log(`Allowing cors for ${frontend}`);
+console.log(`[setup] Allowing cors for ${frontend}`);
 const corsOptions: Partial<ServerOptions> = {
   cors: {
     origin: frontend,
@@ -48,7 +48,7 @@ function createClient(socket: Socket): Client {
 
 function createSession(id = createId(5)): Session {
   while (sessions.has(id)) {
-    console.error(`Session ${id} already exists`);
+    console.error(`[error] Session ${id} already exists`);
     id = createId(6); // TODO standardize session length
   }
   const session = new Session(id, io);
@@ -89,8 +89,10 @@ io.on(
         sessionId: session.id,
       } as LobbyStatusPayload);
       if (session) {
-        console.log("Created session:", session.id);
         client.data.name = data.playerName;
+        console.log(
+          `type=${EventTypes.ClientJoinSession} session=${session.id} client=${client.data.name} total-sessions=${sessions.size}`,
+        );
         if (session.join(client)) {
           session.broadcastPeers();
         } else {
@@ -103,6 +105,9 @@ io.on(
       if (!session) {
         socket.disconnect();
       } else {
+        console.log(
+          `type=${EventTypes.ChatEvent} session=${session.id} client="${client.data.name}" msg="${data.message}"`,
+        );
         session.broadcastChat(EventTypes.ChatEvent, {
           author: client.data.name,
           message: data.message,
@@ -149,7 +154,9 @@ function leaveSession(session: Session, client: Client) {
     session.leave(client);
     if (session.clients.size === 0) {
       sessions.delete(session.id);
-      console.log("Sessions remaining:", sessions.size);
+      console.log(
+        `type=session-deleted session=${session.id} total-sessions=${sessions.size}`,
+      );
     } else {
       session.broadcastPeers();
     }
@@ -159,5 +166,7 @@ function leaveSession(session: Session, client: Client) {
 const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
 http.listen(actualPort, () => {
-  console.log(`Listening for requests on http://localhost:${actualPort}`);
+  console.log(
+    `[setup] Listening for requests on http://localhost:${actualPort}`,
+  );
 });

@@ -45,12 +45,12 @@ export class Session {
    */
   join(client: Client): boolean {
     if (this.clients.has(client)) {
-      console.log("Error: Client already in session");
+      console.log("[error] Client already in session");
       return false;
     }
 
     if (this.avatars.length === 0) {
-      console.error("The game is full");
+      console.error("[error] The game is full");
       return false;
     }
 

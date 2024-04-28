@@ -1,4 +1,5 @@
 import { Session } from "./session";
+import { EventTypes } from "./types/eventTypes";
 import { GamePayload } from "./types/gamePayload.type";
 
 const locations = [
@@ -38,6 +39,8 @@ export function startGame(session: Session, extendedMode: boolean) {
     : locations;
   const currentLocation =
     gameLocations[Math.floor(Math.random() * locations.length)];
+
+  console.log(`type=${EventTypes.StartGame} session=${session.id}`);
 
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;

@@ -33,6 +33,10 @@ export class Client {
     this.socket.emit(EventTypes.StartGame, data);
   }
 
+  /**
+   * Send a chat event to the player
+   * @param data
+   */
   sendChat(data: ChatPayload) {
     this.socket.emit(EventTypes.ChatEvent, data);
   }
