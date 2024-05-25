@@ -13,17 +13,16 @@ help:
 	@echo "  make clean   - Remove the dist/ folder"
 	@echo "  make help    - Display this help message"
 
-# Targets and their respective commands
-.PHONY: build
-build: node_modules
-	npm run build
-
 .PHONY: dev
 dev: node_modules
 	npm run dev
 
+.PHONY: build
+build: node_modules
+	npm run build
+
 .PHONY: start
-start: node_modules
+start: node_modules dist/
 	npm start
 
 .PHONY: lint
@@ -38,6 +37,10 @@ format: node_modules
 clean:
 	npm run clean
 
+dist/: src/
+	make build
+
 # Install dependencies if 'node_modules' is missing
-node_modules: package-lock.json
+node_modules: package-lock.json package.json
 	npm install
+	touch node_modules/
