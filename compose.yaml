@@ -3,3 +3,4 @@ services:
     image: ghcr.io/verybadfrags/spyfall-server:main
     ports:
       - 8081:8081
+    restart: always
