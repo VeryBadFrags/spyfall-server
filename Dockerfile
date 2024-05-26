@@ -3,7 +3,7 @@ FROM node:lts-alpine as install
 WORKDIR /usr/src/app
 COPY package*.json ./
 # Install prod dependencies only
-RUN npm ci --only=prod --no-optional
+RUN npm ci --production --no-optional
 
 # 2. Build into dist/
 FROM node:lts-alpine as build
