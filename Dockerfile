@@ -6,7 +6,7 @@ RUN npm ci --production --no-optional
 COPY . ./
 RUN npm run build
 
-# 3. Run
+# 2. Run
 FROM node:lts-alpine as run
 WORKDIR /usr/src/app
 USER node
