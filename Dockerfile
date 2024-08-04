@@ -2,7 +2,7 @@
 FROM node:lts-alpine as build
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm ci --production --no-optional
+RUN npm ci --omit=dev --omit=optional
 COPY . ./
 RUN npm run build
 
