@@ -1,3 +1,4 @@
+# Deno - See https://github.com/denoland/deno_docker
 FROM denoland/deno:2.0.2
 EXPOSE 8081
 WORKDIR /app
@@ -7,5 +8,6 @@ COPY deno.json deno.lock .
 RUN deno install
 
 COPY . .
+RUN deno cache src/main.ts
 
 CMD ["deno", "task", "start"]
