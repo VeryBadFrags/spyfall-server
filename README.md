@@ -31,5 +31,5 @@ make dev
 ### With [Docker](https://www.docker.com)
 
 ```sh
-docker compose -f compose-dev.yaml up -w
+make docker-dev
 ```
