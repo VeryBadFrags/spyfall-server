@@ -1,9 +1,8 @@
 .github/
-dist/
 docs/
 
 .git
 .gitignore
-.prettier*
-*.md
+.markdownlint.json
 compose.yaml
+*.md
