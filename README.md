@@ -22,7 +22,7 @@ A multiplayer social deduction game inspired by
 
 ## Run locally
 
-### With [Deno](https://deno.com),
+### With [Deno](https://deno.com)
 
 ```sh
 make dev
