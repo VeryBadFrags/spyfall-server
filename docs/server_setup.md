@@ -70,4 +70,5 @@ sudo apt install unattended-upgrades
 sudo apt install fail2ban
 ```
 
-Proceed with either [server_pm2.md](server_pm2.md) or [server_docker.md](server_docker.md).
+Proceed with either [server_pm2.md](server_pm2.md) or
+[server_docker.md](server_docker.md).
