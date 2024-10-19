@@ -2,8 +2,7 @@
   "tasks": {
     "dev": "deno run --watch --allow-read --allow-env --allow-net --env-file='.env.development' src/index.ts"
   },
-  "imports": {
-  },
+  "imports": { "socket.io": "npm:socket.io@^4.8.0" },
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,

@@ -1,7 +1,8 @@
 {
   "version": "4",
   "specifiers": {
-    "npm:socket.io@*": "4.8.0"
+    "npm:socket.io@*": "4.8.0",
+    "npm:socket.io@^4.8.0": "4.8.0"
   },
   "npm": {
     "@socket.io/component-emitter@3.1.2": {
@@ -125,5 +126,10 @@
     "ws@8.17.1": {
       "integrity": "sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ=="
     }
+  },
+  "workspace": {
+    "dependencies": [
+      "npm:socket.io@^4.8.0"
+    ]
   }
 }
