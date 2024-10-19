@@ -2,7 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
-A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portfolio-item/spyfall/).
+A multiplayer social deduction game inspired by
+[Spyfall](https://hwint.ru/portfolio-item/spyfall/).
 
 [♟️ Play the game](https://spy.verybadfrags.com)
 
@@ -14,8 +15,8 @@ A multiplayer social deduction game inspired by [Spyfall](https://hwint.ru/portf
 ## Stack
 
 🛠️ Built with [Node](https://nodejs.org/en),
-[Typescript](https://www.typescriptlang.org),
-and [socket.io](https://socket.io).
+[Typescript](https://www.typescriptlang.org), and
+[socket.io](https://socket.io).
 
 - [💾 View the client source code](https://github.com/VeryBadFrags/spyfall-client)
 
@@ -29,5 +30,5 @@ npm run dev
 
 ## Server setup
 
-You can run a custom server with either [pm2](https://pm2.keymetrics.io) or Docker.
-See [server_setup.md](docs/server_setup.md).
+You can run a custom server with either [pm2](https://pm2.keymetrics.io) or
+Docker. See [server_setup.md](docs/server_setup.md).
