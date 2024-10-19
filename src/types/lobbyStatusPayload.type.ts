@@ -1,4 +1,4 @@
-import { ClientData } from "./clientData.type";
+import { ClientData } from "./clientData.type.ts";
 
 export type LobbyStatusPayload = {
   sessionId: string;

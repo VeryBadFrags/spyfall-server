@@ -1,12 +1,13 @@
-import { Session } from "./session";
-import { Client } from "./client";
-import { startGame } from "./spy";
-import { Server, ServerOptions, Socket } from "socket.io";
-import { EventTypes } from "./types/eventTypes";
-import { createServer } from "http";
-import { JoinSessionData } from "./types/joinSession.type";
-import { ChatPayload } from "./types/chatPayload.type";
-import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
+import { Session } from "./session.ts";
+import { Client } from "./client.ts";
+import { startGame } from "./spy.ts";
+import { Server, ServerOptions, Socket } from "npm:socket.io";
+import { EventTypes } from "./types/eventTypes.ts";
+import { JoinSessionData } from "./types/joinSession.type.ts";
+import { ChatPayload } from "./types/chatPayload.type.ts";
+import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
+import { createServer } from "node:http";
+import process from "node:process";
 
 const http = createServer();
 
@@ -57,7 +58,6 @@ function createSession(id = createId(5)): Session {
 }
 
 /**
- *
  * @param {string} id
  * @returns {Session} The corresponding Session
  */
@@ -68,7 +68,6 @@ function getSession(id: string): Session {
 io.on(
   "connection",
   /**
-   *
    * @param {Socket} socket
    */
   (socket: Socket) => {

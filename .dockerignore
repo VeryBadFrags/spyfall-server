@@ -1,8 +1,6 @@
-.devcontainer/
 .github/
 dist/
 docs/
-node_modules/
 
 .git
 .gitignore

@@ -8,14 +8,13 @@ help:
 	@echo "  make dev     - Run in Dev mode"
 	@echo "  make build   - Build project"
 	@echo "  make start   - Run in Prod mode"
-	@echo "  make lint    - Run eslint"
-	@echo "  make format  - Format code using Prettier"
-	@echo "  make clean   - Remove the dist/ folder"
+	@echo "  make lint    - Lint the code"
+	@echo "  make format  - Format the code"
 	@echo "  make help    - Display this help message"
 
 .PHONY: dev
-dev: node_modules
-	npm run dev
+dev:
+	deno task dev
 
 .PHONY: build
 build: node_modules
@@ -26,16 +25,12 @@ start: node_modules dist/
 	npm start
 
 .PHONY: lint
-lint: node_modules
-	npm run lint
+lint:
+	deno lint
 
 .PHONY: format
-format: node_modules
-	npm run format
-
-.PHONY: clean
-clean:
-	npm run clean
+format:
+	deno fmt
 
 dist/: src/
 	make build
