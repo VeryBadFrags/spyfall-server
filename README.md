@@ -14,7 +14,7 @@ A multiplayer social deduction game inspired by
 
 ## Stack
 
-🛠️ Built with [Node](https://nodejs.org/en),
+🛠️ Built with [Deno](https://deno.com),
 [Typescript](https://www.typescriptlang.org), and
 [socket.io](https://socket.io).
 
@@ -22,13 +22,8 @@ A multiplayer social deduction game inspired by
 
 ## Run locally
 
-### With [npm](https://www.npmjs.com)
+### With [Deno](https://deno.com),
 
 ```sh
-npm run dev
+make dev
 ```
-
-## Server setup
-
-You can run a custom server with either [pm2](https://pm2.keymetrics.io) or
-Docker. See [server_setup.md](docs/server_setup.md).
