@@ -27,3 +27,9 @@ A multiplayer social deduction game inspired by
 ```sh
 make dev
 ```
+
+### With Docker
+
+```sh
+docker compose -f compose-dev.yaml up -w
+```
