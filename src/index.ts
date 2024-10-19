@@ -1,7 +1,7 @@
 import { Session } from "./session.ts";
 import { Client } from "./client.ts";
 import { startGame } from "./spy.ts";
-import { Server, ServerOptions, Socket } from "npm:socket.io";
+import { Server, ServerOptions, Socket } from "socket.io";
 import { EventTypes } from "./types/eventTypes.ts";
 import { JoinSessionData } from "./types/joinSession.type.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";

@@ -1,4 +1,4 @@
-import type { Socket } from "npm:socket.io";
+import type { Socket } from "socket.io";
 import type { ClientData } from "./types/clientData.type.ts";
 import { EventTypes } from "./types/eventTypes.ts";
 import type { ChatPayload } from "./types/chatPayload.type.ts";
