@@ -1,6 +1,6 @@
-import { Session } from "./session";
-import { EventTypes } from "./types/eventTypes";
-import { GamePayload } from "./types/gamePayload.type";
+import { Session } from "./session.ts";
+import { EventTypes } from "./types/eventTypes.ts";
+import { GamePayload } from "./types/gamePayload.type.ts";
 
 const locations = [
   "✈️💺 Airport",

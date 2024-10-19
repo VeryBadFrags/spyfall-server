@@ -1,8 +1,8 @@
-import { Server } from "socket.io";
-import { Client } from "./client";
-import { EventTypes } from "./types/eventTypes";
-import { ChatPayload } from "./types/chatPayload.type";
-import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
+import { Server } from "npm:socket.io";
+import { Client } from "./client.ts";
+import { EventTypes } from "./types/eventTypes.ts";
+import { ChatPayload } from "./types/chatPayload.type.ts";
+import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
 
 /**
  * @class
@@ -39,7 +39,6 @@ export class Session {
   }
 
   /**
-   *
    * @param {Client} client
    * @returns {boolean} true if the client was able to join
    */
