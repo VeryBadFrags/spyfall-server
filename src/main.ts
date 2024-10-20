@@ -11,20 +11,18 @@ import process from "node:process";
 
 const http = createServer();
 
-console.log(`[setup] NODE_ENV=${process.env.NODE_ENV}`);
-
 // socket.io
 
-const frontend = process.env.CORS_ALLOW;
-console.log(`[setup] Allowing cors for ${frontend}`);
-const corsOptions: Partial<ServerOptions> = {
+const corsOrigins = process.env.CORS_ALLOW?.split(",");
+console.log(`[setup] Allowing cors for [${corsOrigins}]`);
+const serverOptions: Partial<ServerOptions> = {
   cors: {
-    origin: frontend,
+    origin: corsOrigins,
     methods: ["GET", "POST"],
   },
 };
 
-const io = new Server(http, corsOptions);
+const io = new Server(http, serverOptions);
 const sessions = new Map();
 
 /**
