@@ -3,7 +3,7 @@
     "dev": "deno run --watch --allow-read --allow-env --allow-net --env-file='.env.development' src/main.ts",
     "start": "deno run --allow-read --allow-env --allow-net --env-file='.env.prod' src/main.ts"
   },
-  "imports": { "socket.io": "npm:socket.io@^4.8.0" },
+  "imports": { "socket.io": "npm:socket.io@^4.8.1" },
   "compilerOptions": {
     "noImplicitReturns": true
   }

@@ -1,8 +1,7 @@
 {
   "version": "4",
   "specifiers": {
-    "npm:socket.io@*": "4.8.0",
-    "npm:socket.io@^4.8.0": "4.8.0"
+    "npm:socket.io@^4.8.1": "4.8.1"
   },
   "npm": {
     "@socket.io/component-emitter@3.1.2": {
@@ -23,8 +22,8 @@
         "undici-types"
       ]
     },
-    "@types/node@22.7.7": {
-      "integrity": "sha512-SRxCrrg9CL/y54aiMCG3edPKdprgMVGDXjA3gB8UmmBW5TcXzRUYAh8EWzTnSJFAd1rgImPELza+A3bJ+qxz8Q==",
+    "@types/node@22.8.1": {
+      "integrity": "sha512-k6Gi8Yyo8EtrNtkHXutUu2corfDf9su95VYVP10aGYMMROM6SAItZi0w1XszA6RtWTHSVp5OeFof37w0IEqCQg==",
       "dependencies": [
         "undici-types"
       ]
@@ -63,7 +62,7 @@
       "dependencies": [
         "@types/cookie",
         "@types/cors",
-        "@types/node@22.7.7",
+        "@types/node@22.8.1",
         "accepts",
         "base64id",
         "cookie",
@@ -105,8 +104,8 @@
         "debug"
       ]
     },
-    "socket.io@4.8.0": {
-      "integrity": "sha512-8U6BEgGjQOfGz3HHTYaC/L1GaxDCJ/KM0XTkJly0EhZ5U/du9uNEZy4ZgYzEzIqlx2CMm25CrCqr1ck899eLNA==",
+    "socket.io@4.8.1": {
+      "integrity": "sha512-oZ7iUCxph8WYRHHcjBEc9unw3adt5CmSNlppj/5Q4k2RIrhl8Z5yY2Xr4j9zj0+wzVZ0bxmYoGSzKJnRl6A4yg==",
       "dependencies": [
         "accepts",
         "base64id",
@@ -129,7 +128,7 @@
   },
   "workspace": {
     "dependencies": [
-      "npm:socket.io@^4.8.0"
+      "npm:socket.io@^4.8.1"
     ]
   }
 }
