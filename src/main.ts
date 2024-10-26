@@ -1,45 +1,20 @@
 import { Session } from "./session.ts";
 import { Client } from "./client.ts";
 import { startGame } from "./spy.ts";
-import { Server, ServerOptions, Socket } from "socket.io";
+import { Socket } from "socket.io";
 import { EventTypes } from "./types/eventTypes.ts";
 import { JoinSessionData } from "./types/joinSession.type.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
 import { createServer } from "node:http";
 import process from "node:process";
+import { initSocketIO } from "./socketio.ts";
+import { createId } from "./utils.ts";
 
-const http = createServer();
+const server = createServer();
 
-// socket.io
-
-const corsOrigins = process.env.CORS_ALLOW?.split(",");
-console.log(`[setup] Allowing cors for [${corsOrigins}]`);
-const serverOptions: Partial<ServerOptions> = {
-  cors: {
-    origin: corsOrigins,
-    methods: ["GET", "POST"],
-  },
-};
-
-const io = new Server(http, serverOptions);
+const io = initSocketIO(server);
 const sessions = new Map();
-
-/**
- * @param {number} len The length of the ID
- * @param {string} chars the characters to use
- * @returns {string} The generated ID
- */
-function createId(
-  len: number = 8,
-  chars: string = "ABCDEFGHJKMNPQRSTWXYZ23456789",
-): string {
-  let id = "";
-  for (let i = 0; i < len; i++) {
-    id += chars[(Math.random() * chars.length) | 0];
-  }
-  return id;
-}
 
 function createClient(socket: Socket): Client {
   return new Client(socket);
@@ -55,19 +30,12 @@ function createSession(id = createId(5)): Session {
   return session;
 }
 
-/**
- * @param {string} id
- * @returns {Session} The corresponding Session
- */
 function getSession(id: string): Session {
   return sessions.get(id);
 }
 
 io.on(
   "connection",
-  /**
-   * @param {Socket} socket
-   */
   (socket: Socket) => {
     const client = createClient(socket);
     let session: Session;
@@ -162,7 +130,7 @@ function leaveSession(session: Session, client: Client) {
 
 const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
-http.listen(actualPort, () => {
+server.listen(actualPort, () => {
   console.log(
     `[setup] Listening for requests on http://localhost:${actualPort}`,
   );
