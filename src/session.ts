@@ -3,6 +3,7 @@ import { Client } from "./client.ts";
 import { EventTypes } from "./types/eventTypes.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
+import { logEvent } from "./log.ts";
 
 /**
  * @class
@@ -13,6 +14,7 @@ export class Session {
   io: Server;
   clients: Set<Client>;
   avatars;
+  gamesPlayed = 0;
 
   constructor(id: string, io: Server) {
     this.id = id;
@@ -44,7 +46,7 @@ export class Session {
    */
   join(client: Client): boolean {
     if (this.clients.has(client)) {
-      console.log("[error] Client already in session");
+      console.error("[error] Client already in session");
       return false;
     }
 
@@ -67,9 +69,30 @@ export class Session {
     return true;
   }
 
-  leave(client: Client): void {
+  removeClient(client: Client): void {
     this.clients.delete(client);
     this.avatars.push(client.data.avatar);
+    this.broadcastPeers();
+    logEvent({
+      room: this.id,
+      player: client.data.name,
+      type: EventTypes.Disconnect,
+      playersCount: this.clients.size,
+    });
+    this.broadcastChat(EventTypes.ChatEvent, {
+      message: `${client.data.name} disconnected`,
+    });
+  }
+
+  startGame() {
+    this.broadcastPeers();
+    this.gamesPlayed++;
+    logEvent({
+      room: this.id,
+      type: EventTypes.StartGame,
+      playersCount: this.clients.size,
+      gamesPlayed: this.gamesPlayed,
+    });
   }
 
   /**

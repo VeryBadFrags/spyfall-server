@@ -4,12 +4,12 @@
  * @returns {string} The generated ID
  */
 export function createId(
-    len: number = 8,
-    chars: string = "ABCDEFGHJKMNPQRSTWXYZ23456789",
+  len: number = 8,
+  chars: string = "ABCDEFGHJKMNPQRSTWXYZ23456789",
 ): string {
-    let id = "";
-    for (let i = 0; i < len; i++) {
-        id += chars[(Math.random() * chars.length) | 0];
-    }
-    return id;
+  let id = "";
+  for (let i = 0; i < len; i++) {
+    id += chars[(Math.random() * chars.length) | 0];
+  }
+  return id;
 }

@@ -10,6 +10,7 @@ import { createServer } from "node:http";
 import process from "node:process";
 import { initSocketIO } from "./socketio.ts";
 import { createId } from "./utils.ts";
+import { logEvent } from "./log.ts";
 
 const server = createServer();
 
@@ -55,9 +56,12 @@ io.on(
       } as LobbyStatusPayload);
       if (session) {
         client.data.name = data.playerName;
-        console.log(
-          `type=${EventTypes.ClientJoinSession} room=${session.id} client=${client.data.name} total-rooms=${sessions.size}`,
-        );
+        logEvent({
+          room: session.id,
+          player: client.data.name,
+          type: EventTypes.ClientJoinSession,
+          totalRooms: sessions.size,
+        });
         if (session.join(client)) {
           session.broadcastPeers();
         } else {
@@ -70,9 +74,12 @@ io.on(
       if (!session) {
         socket.disconnect();
       } else {
-        console.log(
-          `type=${EventTypes.ChatEvent} room=${session.id} client="${client.data.name}" msg="${data.message}"`,
-        );
+        logEvent({
+          room: session.id,
+          player: client.data.name,
+          type: EventTypes.ChatEvent,
+          msg: data.message,
+        });
         session.broadcastChat(EventTypes.ChatEvent, {
           author: client.data.name,
           message: data.message,
@@ -116,15 +123,14 @@ io.on(
 
 function leaveSession(session: Session, client: Client) {
   if (session) {
-    session.leave(client);
-    console.log(`type=leave-room room=${session.id} client=${client.data.name}`);
+    session.removeClient(client);
     if (session.clients.size === 0) {
       sessions.delete(session.id);
-      console.log(
-        `type=room-deleted room=${session.id} total-rooms=${sessions.size}`,
-      );
-    } else {
-      session.broadcastPeers();
+      logEvent({
+        room: session.id,
+        type: EventTypes.SessionDeleted,
+        totalRooms: sessions.size,
+      });
     }
   }
 }

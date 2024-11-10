@@ -2,6 +2,7 @@ export enum EventTypes {
   // Server
   SessionBroadcast = "session-broadcast",
   SessionCreated = "session-created",
+  SessionDeleted = "session-deleted",
 
   // Client
   Disconnect = "disconnect",

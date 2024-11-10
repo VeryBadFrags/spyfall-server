@@ -1,5 +1,4 @@
 import { Session } from "./session.ts";
-import { EventTypes } from "./types/eventTypes.ts";
 import { GamePayload } from "./types/gamePayload.type.ts";
 
 const locations = [
@@ -31,7 +30,7 @@ const extendedLocations = [
 export function startGame(session: Session, extendedMode: boolean) {
   const clientsArray = Array.from(session.clients);
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
-  const firstQuestion =
+  const firstPlayer =
     clientsArray[Math.floor(Math.random() * clientsArray.length)].data.name;
 
   const gameLocations = extendedMode
@@ -40,8 +39,6 @@ export function startGame(session: Session, extendedMode: boolean) {
   const currentLocation =
     gameLocations[Math.floor(Math.random() * locations.length)];
 
-  console.log(`type=${EventTypes.StartGame} room=${session.id}`);
-
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;
     client.data.ready = false;
@@ -49,8 +46,8 @@ export function startGame(session: Session, extendedMode: boolean) {
       spy: isSpy,
       location: isSpy ? "?" : currentLocation,
       locations: gameLocations,
-      first: firstQuestion,
+      first: firstPlayer,
     } as GamePayload);
   });
-  session.broadcastPeers();
+  session.startGame();
 }
