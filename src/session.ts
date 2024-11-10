@@ -4,6 +4,9 @@ import { EventTypes } from "./types/eventTypes.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
 import { logEvent } from "./log.ts";
+import { roundDurationSeconds } from "./constants.ts";
+import { TimePayload } from "./types/timePayload.type.ts";
+import { getTimeInSeconds } from "./utils/time.ts";
 
 /**
  * @class
@@ -15,6 +18,7 @@ export class Session {
   clients: Set<Client>;
   avatars;
   gamesPlayed = 0;
+  roundStartTime = 0;
 
   constructor(id: string, io: Server) {
     this.id = id;
@@ -87,12 +91,20 @@ export class Session {
   startGame() {
     this.broadcastPeers();
     this.gamesPlayed++;
+    this.roundStartTime = getTimeInSeconds();
     logEvent({
       room: this.id,
       type: EventTypes.StartGame,
       playersCount: this.clients.size,
       gamesPlayed: this.gamesPlayed,
     });
+    this.broadcastTime();
+  }
+
+  getTimeLeftSeconds() {
+    const currentTime = getTimeInSeconds();
+    const elapsed = currentTime - this.roundStartTime;
+    return roundDurationSeconds - elapsed;
   }
 
   /**
@@ -102,6 +114,7 @@ export class Session {
    */
   broadcastChat(type: EventTypes, data: ChatPayload): void {
     this.io.to(this.id).emit(type, data);
+    this.broadcastTime();
   }
 
   broadcastPeers(): void {
@@ -111,5 +124,14 @@ export class Session {
       peers: clientsArray.map((cli) => cli.data),
     } as LobbyStatusPayload;
     this.io.to(this.id).emit(EventTypes.SessionBroadcast, payload);
+    this.broadcastTime();
+  }
+
+  broadcastTime(): void {
+    const timeLeftSeconds = this.getTimeLeftSeconds();
+    this.io.to(this.id).emit(EventTypes.Time, {
+      durationSec: roundDurationSeconds,
+      timeLeftSec: timeLeftSeconds,
+    } as TimePayload);
   }
 }

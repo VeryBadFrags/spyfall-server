@@ -3,6 +3,7 @@ export enum EventTypes {
   SessionBroadcast = "session-broadcast",
   SessionCreated = "session-created",
   SessionDeleted = "session-deleted",
+  Time = "time",
 
   // Client
   Disconnect = "disconnect",
