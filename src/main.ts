@@ -21,7 +21,7 @@ function createClient(socket: Socket): Client {
   return new Client(socket);
 }
 
-function createSession(id = createId(5)): Session {
+function createSession(id = createId(4)): Session {
   while (sessions.has(id)) {
     console.error(`[error] Session ${id} already exists`);
     id = createId(6); // TODO standardize session length
@@ -105,7 +105,8 @@ io.on(
           true,
         );
         if (allReady) {
-          startGame(session, false);
+          const customLocations = new Set<string>(); // TODO add support for custom locations
+          startGame(session, customLocations);
         } else {
           client.sendChat({
             message: "All players must be ready",

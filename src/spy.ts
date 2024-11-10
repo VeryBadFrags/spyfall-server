@@ -24,19 +24,15 @@ const locations = [
   "🏫🎓 University",
 ];
 
-const customLocations = new Set<string>();
-
-export function startGame(session: Session, extendedMode: boolean) {
+export function startGame(session: Session, customLocations: Set<string>) {
   const clientsArray = Array.from(session.clients);
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
   const firstPlayer =
     clientsArray[Math.floor(Math.random() * clientsArray.length)].data.name;
 
-  const gameLocations = extendedMode
-    ? [...locations, ...customLocations]
-    : locations;
-  const currentLocation =
-    gameLocations[Math.floor(Math.random() * locations.length)];
+  const gameLocations = [...locations, ...customLocations];
+  const currentLocationIndex = Math.floor(Math.random() * locations.length);
+  const currentLocation = gameLocations[currentLocationIndex];
 
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;
