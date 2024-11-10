@@ -8,24 +8,23 @@ const locations = [
   "🎞🍿 Cinema",
   "🦸🦹 Cosplay Convention",
   "🛳🌊 Cruise Ship",
+  "🏝🥥 Desert Island",
   "⚽️🏟 Football Stadium",
   "🌳🏕 Forest Camp",
   "🏪🛒 Grocery Store",
   "🏥🧑‍⚕️ Hospital",
   "🏨🛏 Hotel",
   "🌕🧑‍🚀 Moon Colony",
+  "⛰🥾 Mountain Hike",
   "🏛🖼 Museum",
+  "🏤📮 Post Office",
+  "🍽👩‍🍳 Restaurant",
   "🏟🎸 Rock Concert",
   "🚄🛤 Train Station",
   "🏫🎓 University",
 ];
 
-const extendedLocations = [
-  "🏝🥥 Desert Island",
-  "⛰🥾 Mountain Hike",
-  "🏤📮 Post Office",
-  "🍽👩‍🍳 Restaurant",
-];
+const customLocations = new Set<string>();
 
 export function startGame(session: Session, extendedMode: boolean) {
   const clientsArray = Array.from(session.clients);
@@ -34,7 +33,7 @@ export function startGame(session: Session, extendedMode: boolean) {
     clientsArray[Math.floor(Math.random() * clientsArray.length)].data.name;
 
   const gameLocations = extendedMode
-    ? [...locations, ...extendedLocations]
+    ? [...locations, ...customLocations]
     : locations;
   const currentLocation =
     gameLocations[Math.floor(Math.random() * locations.length)];
