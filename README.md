@@ -1,6 +1,7 @@
 # 🕵️ Spyfall - Server
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+[![Docker Build & Publish](https://github.com/VeryBadFrags/spyfall-server/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/VeryBadFrags/spyfall-server/actions/workflows/docker-publish.yml)
 
 A multiplayer social deduction game inspired by
 [Spyfall](https://hwint.ru/portfolio-item/spyfall/).
