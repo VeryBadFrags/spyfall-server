@@ -40,7 +40,7 @@ export function startGame(session: Session, extendedMode: boolean) {
   const currentLocation =
     gameLocations[Math.floor(Math.random() * locations.length)];
 
-  console.log(`type=${EventTypes.StartGame} session=${session.id}`);
+  console.log(`type=${EventTypes.StartGame} room=${session.id}`);
 
   clientsArray.forEach((client, index) => {
     const isSpy = spyIndex === index;

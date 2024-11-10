@@ -56,7 +56,7 @@ io.on(
       if (session) {
         client.data.name = data.playerName;
         console.log(
-          `type=${EventTypes.ClientJoinSession} session=${session.id} client=${client.data.name} total-sessions=${sessions.size}`,
+          `type=${EventTypes.ClientJoinSession} room=${session.id} client=${client.data.name} total-rooms=${sessions.size}`,
         );
         if (session.join(client)) {
           session.broadcastPeers();
@@ -71,7 +71,7 @@ io.on(
         socket.disconnect();
       } else {
         console.log(
-          `type=${EventTypes.ChatEvent} session=${session.id} client="${client.data.name}" msg="${data.message}"`,
+          `type=${EventTypes.ChatEvent} room=${session.id} client="${client.data.name}" msg="${data.message}"`,
         );
         session.broadcastChat(EventTypes.ChatEvent, {
           author: client.data.name,
@@ -117,10 +117,11 @@ io.on(
 function leaveSession(session: Session, client: Client) {
   if (session) {
     session.leave(client);
+    console.log(`type=leave-room room=${session.id} client=${client.data.name}`);
     if (session.clients.size === 0) {
       sessions.delete(session.id);
       console.log(
-        `type=session-deleted session=${session.id} total-sessions=${sessions.size}`,
+        `type=room-deleted room=${session.id} total-rooms=${sessions.size}`,
       );
     } else {
       session.broadcastPeers();
