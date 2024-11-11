@@ -19,7 +19,7 @@ export class Player {
    */
   constructor(socket: Socket) {
     this.socket = socket;
-    this.data = { id: socket.id, avatar: "", name: "New Player", ready: false };
+    this.data = { avatar: "", name: "New Player", ready: false };
   }
 
   joinRoom(id: string) {

@@ -53,7 +53,6 @@ io.on(
       // TODO event SessionCreated is sent twice?
       client.sendSessionInfo(EventTypes.SessionCreated, {
         sessionId: session.id,
-        identity: client.data.avatar,
       } as LobbyStatusPayload);
       if (session) {
         client.data.name = data.playerName;
@@ -82,7 +81,7 @@ io.on(
           msg: data.message,
         });
         session.broadcastChat({
-          author: client.data.name,
+          author: client.data,
           message: data.message,
         });
       }
