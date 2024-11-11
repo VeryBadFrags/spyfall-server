@@ -72,6 +72,7 @@ export class Session {
 
     client.sendSessionInfo(EventTypes.SessionCreated, {
       sessionId: this.id,
+      identity: avatar,
     } as LobbyStatusPayload);
     return true;
   }

@@ -15,11 +15,11 @@ export class Player {
   data: ClientData;
 
   /**
-   * @param {Socket} socket The socket.io Socket object
+   * @param {Socket} socket The socket.io client socket
    */
   constructor(socket: Socket) {
     this.socket = socket;
-    this.data = { avatar: "", name: "New Player", ready: false };
+    this.data = { id: socket.id, avatar: "", name: "New Player", ready: false };
   }
 
   joinRoom(id: string) {

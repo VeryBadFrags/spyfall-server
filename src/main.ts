@@ -53,6 +53,7 @@ io.on(
       // TODO event SessionCreated is sent twice?
       client.sendSessionInfo(EventTypes.SessionCreated, {
         sessionId: session.id,
+        identity: client.data.avatar,
       } as LobbyStatusPayload);
       if (session) {
         client.data.name = data.playerName;
@@ -101,7 +102,7 @@ io.on(
         socket.disconnect();
       } else {
         const allReady = Array.from(session.players).reduce(
-          (acc: boolean, cli: Player): boolean => acc && cli.data.ready,
+          (acc: boolean, player: Player): boolean => acc && player.data.ready,
           true,
         );
         if (allReady) {
