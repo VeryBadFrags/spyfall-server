@@ -9,9 +9,20 @@ export function createId(
 ): string {
   let id = "";
   for (let i = 0; i < len; i++) {
-    id += possibleChars[Math.floor(Math.random() * possibleChars.length)];
+    id += possibleChars[getRandomIndexInArray(possibleChars.length)];
   }
   return id;
+}
+
+export function getRandomIndexInArray(arraySize: number) {
+  return Math.floor(Math.random() * arraySize);
+}
+
+export function shuffleArray(array: Array<number | string>) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
 export function getTimeInSeconds() {

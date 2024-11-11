@@ -1,4 +1,4 @@
-import {ClientData} from "./clientData.type.ts";
+import { ClientData } from "./clientData.type.ts";
 
 export type ChatPayload = {
   /** The message to send */

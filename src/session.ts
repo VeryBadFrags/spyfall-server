@@ -4,7 +4,7 @@ import { EventTypes } from "./types/eventTypes.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
 import { logEvent } from "./log.ts";
-import { roundDurationSeconds } from "./constants.ts";
+import { allAvatars, roundDurationSeconds } from "./constants.ts";
 import { TimePayload } from "./types/timePayload.type.ts";
 import { getTimeInSeconds } from "./utils.ts";
 
@@ -27,24 +27,8 @@ export class Session {
     this.id = id;
     this.io = io;
     this.players = new Set();
-    this.avatars = [
-      "🐱",
-      "🐶",
-      "🦊",
-      "🐭",
-      "🐼",
-      "🐧",
-      "🐰",
-      "🐯",
-      "🦖",
-      "🦉",
-      "🐻",
-      "🐠",
-      "🦩",
-      "🐢",
-      "🐬",
-      "🦆",
-    ];
+    this.avatars = [...allAvatars];
+    // shuffleArray(this.avatars);
   }
 
   /**
