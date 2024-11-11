@@ -6,7 +6,7 @@ import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
 import { logEvent } from "./log.ts";
 import { roundDurationSeconds } from "./constants.ts";
 import { TimePayload } from "./types/timePayload.type.ts";
-import { getTimeInSeconds } from "./utils/time.ts";
+import { getTimeInSeconds } from "./utils.ts";
 
 /**
  * @class
@@ -83,7 +83,7 @@ export class Session {
       type: EventTypes.Disconnect,
       playersCount: this.clients.size,
     });
-    this.broadcastChat(EventTypes.ChatEvent, {
+    this.broadcastChat({
       message: `${client.data.name} disconnected`,
     });
   }
@@ -108,12 +108,10 @@ export class Session {
   }
 
   /**
-   * Send a message to all session clients.
-   * @param type
-   * @param data
+   * Send a message to all players in the room.
    */
-  broadcastChat(type: EventTypes, data: ChatPayload): void {
-    this.io.to(this.id).emit(type, data);
+  broadcastChat(chat: ChatPayload): void {
+    this.io.to(this.id).emit(EventTypes.ChatEvent, chat);
     this.broadcastTime();
   }
 

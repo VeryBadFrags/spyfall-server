@@ -80,7 +80,7 @@ io.on(
           type: EventTypes.ChatEvent,
           msg: data.message,
         });
-        session.broadcastChat(EventTypes.ChatEvent, {
+        session.broadcastChat({
           author: client.data.name,
           message: data.message,
         });
