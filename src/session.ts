@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { Client } from "./client.ts";
+import { Player } from "./player.ts";
 import { EventTypes } from "./types/eventTypes.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
@@ -13,17 +13,20 @@ import { getTimeInSeconds } from "./utils.ts";
  * @public
  */
 export class Session {
+  /** The ID of the socket.io room */
   id;
   io: Server;
-  clients: Set<Client>;
+  players: Set<Player>;
   avatars;
+  /** How many games have been started in this room */
   gamesPlayed = 0;
+  /** The EPOCH time the round started */
   roundStartTime = 0;
 
   constructor(id: string, io: Server) {
     this.id = id;
     this.io = io;
-    this.clients = new Set();
+    this.players = new Set();
     this.avatars = [
       "🐱",
       "🐶",
@@ -45,11 +48,11 @@ export class Session {
   }
 
   /**
-   * @param {Client} client
+   * @param {Player} client
    * @returns {boolean} true if the client was able to join
    */
-  join(client: Client): boolean {
-    if (this.clients.has(client)) {
+  join(client: Player): boolean {
+    if (this.players.has(client)) {
       console.error("[error] Client already in session");
       return false;
     }
@@ -59,7 +62,7 @@ export class Session {
       return false;
     }
 
-    this.clients.add(client);
+    this.players.add(client);
     // Join the socket.io room
     client.joinRoom(this.id);
 
@@ -73,15 +76,15 @@ export class Session {
     return true;
   }
 
-  removeClient(client: Client): void {
-    this.clients.delete(client);
+  removeClient(client: Player): void {
+    this.players.delete(client);
     this.avatars.push(client.data.avatar);
     this.broadcastPeers();
     logEvent({
       room: this.id,
       player: client.data.name,
       type: EventTypes.Disconnect,
-      playersCount: this.clients.size,
+      playersCount: this.players.size,
     });
     this.broadcastChat({
       message: `${client.data.name} disconnected`,
@@ -95,7 +98,7 @@ export class Session {
     logEvent({
       room: this.id,
       type: EventTypes.StartGame,
-      playersCount: this.clients.size,
+      playersCount: this.players.size,
       gamesPlayed: this.gamesPlayed,
     });
     this.broadcastTime();
@@ -116,7 +119,7 @@ export class Session {
   }
 
   broadcastPeers(): void {
-    const clientsArray = Array.from(this.clients);
+    const clientsArray = Array.from(this.players);
     const payload = {
       sessionId: this.id,
       peers: clientsArray.map((cli) => cli.data),

@@ -1,5 +1,5 @@
 import { Session } from "./session.ts";
-import { Client } from "./client.ts";
+import { Player } from "./player.ts";
 import { startGame } from "./spy.ts";
 import { Socket } from "socket.io";
 import { EventTypes } from "./types/eventTypes.ts";
@@ -17,8 +17,8 @@ const server = createServer();
 const io = initSocketIO(server);
 const sessions = new Map();
 
-function createClient(socket: Socket): Client {
-  return new Client(socket);
+function createClient(socket: Socket): Player {
+  return new Player(socket);
 }
 
 function createSession(id = createId(4)): Session {
@@ -100,8 +100,8 @@ io.on(
       if (!session) {
         socket.disconnect();
       } else {
-        const allReady = Array.from(session.clients).reduce(
-          (acc: boolean, cli: Client): boolean => acc && cli.data.ready,
+        const allReady = Array.from(session.players).reduce(
+          (acc: boolean, cli: Player): boolean => acc && cli.data.ready,
           true,
         );
         if (allReady) {
@@ -122,10 +122,10 @@ io.on(
   },
 );
 
-function leaveSession(session: Session, client: Client) {
+function leaveSession(session: Session, client: Player) {
   if (session) {
     session.removeClient(client);
-    if (session.clients.size === 0) {
+    if (session.players.size === 0) {
       sessions.delete(session.id);
       logEvent({
         room: session.id,

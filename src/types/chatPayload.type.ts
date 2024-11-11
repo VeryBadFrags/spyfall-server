@@ -5,4 +5,6 @@ export type ChatPayload = {
   color?: string;
   /** The author of the message */
   author?: string;
+  /** If the author is the receiving player */
+  isSelf?: boolean;
 };

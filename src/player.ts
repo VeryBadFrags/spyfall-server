@@ -9,7 +9,8 @@ import type { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
  * @class
  * @public
  */
-export class Client {
+export class Player {
+  /** The socket.io client socket */
   socket: Socket;
   data: ClientData;
 

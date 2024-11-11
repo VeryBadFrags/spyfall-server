@@ -25,7 +25,7 @@ const locations = [
 ];
 
 export function startGame(session: Session, customLocations: Set<string>) {
-  const clientsArray = Array.from(session.clients);
+  const clientsArray = Array.from(session.players);
   const spyIndex = Math.floor(Math.random() * clientsArray.length);
   const firstPlayer =
     clientsArray[Math.floor(Math.random() * clientsArray.length)].data.name;
