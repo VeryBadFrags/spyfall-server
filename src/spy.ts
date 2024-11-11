@@ -1,5 +1,8 @@
 import { Session } from "./session.ts";
 import { GamePayload } from "./types/gamePayload.type.ts";
+import { logEvent } from "./log.ts";
+import { EventTypes } from "./types/eventTypes.ts";
+import {getRandomIndexInArray} from "./utils.ts";
 
 const locations = [
   "✈️💺 Airport",
@@ -29,16 +32,26 @@ const locations = [
 
 export function startGame(session: Session, customLocations: Set<string>) {
   const clientsArray = Array.from(session.players);
-  const spyIndex = Math.floor(Math.random() * clientsArray.length);
+  const spyIndex = getRandomIndexInArray(clientsArray.length);
   const firstPlayer =
-    clientsArray[Math.floor(Math.random() * clientsArray.length)].data.name;
+    clientsArray[getRandomIndexInArray(clientsArray.length)].data.name;
 
   const gameLocations = [...locations, ...customLocations];
-  const currentLocationIndex = Math.floor(Math.random() * locations.length);
+  const currentLocationIndex = getRandomIndexInArray(locations.length);
   const currentLocation = gameLocations[currentLocationIndex];
 
+  // There is a 1/1000 chance that everyone is a spy!
+  const isAllSpies = Math.random() < 0.001;
+  if (isAllSpies) {
+    logEvent({
+      room: session.id,
+      type: EventTypes.StartGame,
+      msg: "All spies!",
+    });
+  }
+
   clientsArray.forEach((client, index) => {
-    const isSpy = spyIndex === index;
+    const isSpy = isAllSpies || (spyIndex === index);
     client.data.ready = false;
     client.sendStartGame({
       spy: isSpy,

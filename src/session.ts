@@ -13,14 +13,15 @@ import { getTimeInSeconds } from "./utils.ts";
  * @public
  */
 export class Session {
-  /** The ID of the socket.io room */
+  /** ID of the room */
   id;
+  /** Socket.io Server */
   io: Server;
   players: Set<Player>;
   avatars;
   /** How many games have been started in this room */
   gamesPlayed = 0;
-  /** The EPOCH time the round started */
+  /** EPOCH time the round started */
   roundStartTime = 0;
 
   constructor(id: string, io: Server) {
