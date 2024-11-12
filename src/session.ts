@@ -101,7 +101,6 @@ export class Session {
    */
   broadcastChat(chat: ChatPayload): void {
     this.io.to(this.id).emit(EventTypes.ChatEvent, chat);
-    this.broadcastTime();
   }
 
   broadcastPeers(): void {
@@ -111,7 +110,6 @@ export class Session {
       peers: clientsArray.map((cli) => cli.data),
     } as LobbyStatusPayload;
     this.io.to(this.id).emit(EventTypes.SessionBroadcast, payload);
-    this.broadcastTime();
   }
 
   broadcastTime(): void {
