@@ -24,7 +24,7 @@ function createClient(socket: Socket): Player {
 function createSession(id = createId(4)): Session {
   while (sessions.has(id)) {
     console.error(`[error] Session ${id} already exists`);
-    id = createId(6); // TODO standardize session length
+    id = createId();
   }
   const session = new Session(id, io);
   sessions.set(id, session);
