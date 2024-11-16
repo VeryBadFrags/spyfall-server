@@ -1,11 +1,11 @@
-import { ClientEvents } from "./types/clientEvents.ts";
-import { ServerEvents } from "./types/serverEvents.ts";
+import { ClientEvent } from "./types/clientEvent.ts";
+import { ServerEvent } from "./types/serverEvent.ts";
 
 type logPayload = {
   room: string;
   player?: string;
   /** The type of event */
-  type: ServerEvents | ClientEvents;
+  type: ServerEvent | ClientEvent;
 
   /** The chat message sent */
   msg?: string;

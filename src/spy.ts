@@ -1,7 +1,7 @@
 import { Session } from "./session.ts";
 import { GamePayload } from "./types/gamePayload.type.ts";
 import { logEvent } from "./log.ts";
-import { ServerEvents } from "./types/serverEvents.ts";
+import { ServerEvent } from "./types/serverEvent.ts";
 import { getRandomIndexInArray } from "./utils.ts";
 
 const locations = [
@@ -45,7 +45,7 @@ export function startGame(session: Session, customLocations: Set<string>) {
   if (isAllSpies) {
     logEvent({
       room: session.id,
-      type: ServerEvents.StartGame,
+      type: ServerEvent.StartGame,
       msg: "All spies!",
     });
   }

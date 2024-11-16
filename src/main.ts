@@ -2,8 +2,8 @@ import { Session } from "./session.ts";
 import { Player } from "./player.ts";
 import { startGame } from "./spy.ts";
 import { Socket } from "socket.io";
-import { ClientEvents } from "./types/clientEvents.ts";
-import { ServerEvents } from "./types/serverEvents.ts";
+import { ClientEvent } from "./types/clientEvent.ts";
+import { ServerEvent } from "./types/serverEvent.ts";
 import { JoinSessionData } from "./types/joinSession.type.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
@@ -42,7 +42,7 @@ io.on(
     const client = createClient(socket);
     let session: Session;
 
-    socket.on(ClientEvents.ClientJoinSession, (data: JoinSessionData) => {
+    socket.on(ClientEvent.JoinSession, (data: JoinSessionData) => {
       if (session) {
         leaveSession(session, client);
       }
@@ -52,7 +52,7 @@ io.on(
         session = createSession();
       }
       // TODO event SessionCreated is sent twice?
-      client.sendSessionInfo(ServerEvents.SessionCreated, {
+      client.sendSessionInfo(ServerEvent.SessionCreated, {
         sessionId: session.id,
       } as LobbyStatusPayload);
       if (session) {
@@ -60,7 +60,7 @@ io.on(
         logEvent({
           room: session.id,
           player: client.data.name,
-          type: ClientEvents.ClientJoinSession,
+          type: ClientEvent.JoinSession,
           totalRooms: sessions.size,
         });
         if (session.join(client)) {
@@ -71,14 +71,14 @@ io.on(
       }
     });
 
-    socket.on(ClientEvents.ChatEvent, (data: ChatPayload) => {
+    socket.on(ClientEvent.ChatEvent, (data: ChatPayload) => {
       if (!session) {
         socket.disconnect();
       } else {
         logEvent({
           room: session.id,
           player: client.data.name,
-          type: ServerEvents.ChatEvent,
+          type: ServerEvent.ChatEvent,
           msg: data.message,
         });
         session.broadcastChat({
@@ -88,7 +88,7 @@ io.on(
       }
     });
 
-    socket.on(ClientEvents.ClientReady, (data) => {
+    socket.on(ClientEvent.ClientReady, (data) => {
       if (!session) {
         socket.disconnect();
       } else {
@@ -97,7 +97,7 @@ io.on(
       }
     });
 
-    socket.on(ClientEvents.StartGame, () => {
+    socket.on(ClientEvent.StartGame, () => {
       if (!session) {
         socket.disconnect();
       } else {
@@ -117,7 +117,7 @@ io.on(
       }
     });
 
-    socket.on(ClientEvents.Disconnect, () => {
+    socket.on(ClientEvent.Disconnect, () => {
       leaveSession(session, client);
     });
   },
@@ -130,7 +130,7 @@ function leaveSession(session: Session, client: Player) {
       sessions.delete(session.id);
       logEvent({
         room: session.id,
-        type: ServerEvents.SessionDeleted,
+        type: ServerEvent.SessionDeleted,
         totalRooms: sessions.size,
       });
     }

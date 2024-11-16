@@ -1,4 +1,4 @@
-export enum ServerEvents {
+export enum ServerEvent {
   SessionBroadcast = "session-broadcast",
   SessionCreated = "session-created",
   SessionDeleted = "session-deleted",

@@ -1,13 +1,13 @@
 import { Server } from "socket.io";
 import { Player } from "./player.ts";
-import { ServerEvents } from "./types/serverEvents.ts";
+import { ServerEvent } from "./types/serverEvent.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
 import { logEvent } from "./log.ts";
 import { allAvatars, roundDurationSeconds } from "./constants.ts";
 import { TimePayload } from "./types/timePayload.type.ts";
 import { getTimeInSeconds } from "./utils.ts";
-import { ClientEvents } from "./types/clientEvents.ts";
+import { ClientEvent } from "./types/clientEvent.ts";
 
 /**
  * @class
@@ -56,7 +56,7 @@ export class Session {
     client.data.avatar = avatar ? avatar : "?";
     client.data.name = `${avatar} ${client.data.name}`; // TODO keep name and avatar separate
 
-    client.sendSessionInfo(ServerEvents.SessionCreated, {
+    client.sendSessionInfo(ServerEvent.SessionCreated, {
       sessionId: this.id,
       identity: avatar,
     } as LobbyStatusPayload);
@@ -70,7 +70,7 @@ export class Session {
     logEvent({
       room: this.id,
       player: client.data.name,
-      type: ClientEvents.Disconnect,
+      type: ClientEvent.Disconnect,
       playersCount: this.players.size,
     });
     this.broadcastChat({
@@ -84,7 +84,7 @@ export class Session {
     this.roundStartTime = getTimeInSeconds();
     logEvent({
       room: this.id,
-      type: ServerEvents.StartGame,
+      type: ServerEvent.StartGame,
       playersCount: this.players.size,
       gamesPlayed: this.gamesPlayed,
     });
@@ -101,7 +101,7 @@ export class Session {
    * Send a message to all players in the room.
    */
   broadcastChat(chat: ChatPayload): void {
-    this.io.to(this.id).emit(ServerEvents.ChatEvent, chat);
+    this.io.to(this.id).emit(ServerEvent.ChatEvent, chat);
   }
 
   broadcastPeers(): void {
@@ -110,12 +110,12 @@ export class Session {
       sessionId: this.id,
       peers: clientsArray.map((cli) => cli.data),
     } as LobbyStatusPayload;
-    this.io.to(this.id).emit(ServerEvents.SessionBroadcast, payload);
+    this.io.to(this.id).emit(ServerEvent.SessionBroadcast, payload);
   }
 
   broadcastTime(): void {
     const timeLeftSeconds = this.getTimeLeftSeconds();
-    this.io.to(this.id).emit(ServerEvents.Time, {
+    this.io.to(this.id).emit(ServerEvent.Time, {
       durationSec: roundDurationSeconds,
       timeLeftSec: timeLeftSeconds,
     } as TimePayload);
