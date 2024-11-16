@@ -1,6 +1,6 @@
 import type { Socket } from "socket.io";
 import type { ClientData } from "./types/clientData.type.ts";
-import { EventTypes } from "./types/eventTypes.ts";
+import { ServerEvents } from "./types/serverEvents.ts";
 import type { ChatPayload } from "./types/chatPayload.type.ts";
 import type { GamePayload } from "./types/gamePayload.type.ts";
 import type { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
@@ -26,12 +26,12 @@ export class Player {
     this.socket.join(id);
   }
 
-  sendSessionInfo(type: EventTypes, data: LobbyStatusPayload) {
+  sendSessionInfo(type: ServerEvents, data: LobbyStatusPayload) {
     this.socket.emit(type, data);
   }
 
   sendStartGame(data: GamePayload) {
-    this.socket.emit(EventTypes.StartGame, data);
+    this.socket.emit(ServerEvents.StartGame, data);
   }
 
   /**
@@ -39,6 +39,6 @@ export class Player {
    * @param data
    */
   sendChat(data: ChatPayload) {
-    this.socket.emit(EventTypes.ChatEvent, data);
+    this.socket.emit(ServerEvents.ChatEvent, data);
   }
 }

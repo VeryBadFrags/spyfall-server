@@ -1,17 +1,9 @@
-export enum EventTypes {
-  // Server
+export enum ServerEvents {
   SessionBroadcast = "session-broadcast",
   SessionCreated = "session-created",
   SessionDeleted = "session-deleted",
   Time = "time",
 
-  // Client
-  Disconnect = "disconnect",
-
-  ClientJoinSession = "join-session",
-  ClientReady = "player-ready",
-
-  // Both
   ChatEvent = "chat-event",
   StartGame = "start-game",
 }
