@@ -4,7 +4,7 @@ import { startGame } from "./spy.ts";
 import { Socket } from "socket.io";
 import { ClientEvent } from "./types/clientEvent.ts";
 import { ServerEvent } from "./types/serverEvent.ts";
-import { JoinSessionData } from "./types/joinSession.type.ts";
+import { JoinSessionPayload } from "./types/joinSession.type.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
 import { createServer } from "node:http";
@@ -42,19 +42,23 @@ io.on(
     const client = createClient(socket);
     let session: Session;
 
-    socket.on(ClientEvent.JoinSession, (data: JoinSessionData) => {
+    socket.on(ClientEvent.JoinSession, (data: JoinSessionPayload) => {
       if (session) {
         leaveSession(session, client);
       }
+
+      // TODO add moderator logic here
       if (data.sessionId) {
         session = getSession(data.sessionId) || createSession(data.sessionId);
       } else {
         session = createSession();
       }
+
       // TODO event SessionCreated is sent twice?
       client.sendSessionInfo(ServerEvent.SessionCreated, {
         sessionId: session.id,
       } as LobbyStatusPayload);
+
       if (session) {
         client.data.name = data.playerName;
         logEvent({
