@@ -9,8 +9,8 @@ A multiplayer social deduction game inspired by
 [♟️ Play the game](https://spyfall.verybadfrags.com)
 
 <details>
-<summary>🖥️ Game screenshot</summary>
-<img alt="Game screenshot" src="docs/spyfall-example-01.png"/>
+    <summary>🖥️ Game screenshot</summary>
+    <img alt="Game screenshot" src="docs/spyfall-example-01.png"/>
 </details>
 
 ## Stack
@@ -22,6 +22,13 @@ A multiplayer social deduction game inspired by
 - [💾 View the client source code](https://github.com/VeryBadFrags/spyfall-client)
 
 ## Run locally
+
+### With [mise](https://mise.jdx.dev)
+
+```sh
+mise install # only required once
+mise dev
+```
 
 ### With [Deno](https://deno.com)
 
