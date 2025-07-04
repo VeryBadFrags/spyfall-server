@@ -51,7 +51,7 @@ export function startGame(session: Session, customLocations: Set<string>) {
   }
 
   clientsArray.forEach((client, index) => {
-    const isSpy = isAllSpies || (spyIndex === index);
+    const isSpy = isAllSpies || spyIndex === index;
     client.data.ready = false;
     client.sendStartGame({
       spy: isSpy,

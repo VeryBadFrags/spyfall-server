@@ -36,92 +36,89 @@ function getSession(id: string): Session {
   return sessions.get(id);
 }
 
-io.on(
-  "connection",
-  (socket: Socket) => {
-    const client = createClient(socket);
-    let session: Session;
+io.on("connection", (socket: Socket) => {
+  const client = createClient(socket);
+  let session: Session;
 
-    socket.on(ClientEvent.JoinSession, (data: JoinSessionData) => {
-      if (session) {
-        leaveSession(session, client);
-      }
-      if (data.sessionId) {
-        session = getSession(data.sessionId) || createSession(data.sessionId);
-      } else {
-        session = createSession();
-      }
-      // TODO event SessionCreated is sent twice?
-      client.sendSessionInfo(ServerEvent.SessionCreated, {
-        sessionId: session.id,
-      } as LobbyStatusPayload);
-      if (session) {
-        client.data.name = data.playerName;
-        logEvent({
-          room: session.id,
-          player: client.data.name,
-          type: ClientEvent.JoinSession,
-          totalRooms: sessions.size,
-        });
-        if (session.join(client)) {
-          session.broadcastPeers();
-        } else {
-          socket.disconnect();
-        }
-      }
-    });
-
-    socket.on(ClientEvent.ChatEvent, (data: ChatPayload) => {
-      if (!session) {
-        socket.disconnect();
-      } else {
-        logEvent({
-          room: session.id,
-          player: client.data.name,
-          type: ServerEvent.ChatEvent,
-          msg: data.message,
-        });
-        session.broadcastChat({
-          author: client.data,
-          message: data.message,
-        });
-      }
-    });
-
-    socket.on(ClientEvent.ClientReady, (data) => {
-      if (!session) {
-        socket.disconnect();
-      } else {
-        client.data.ready = data.ready;
-        session.broadcastPeers();
-      }
-    });
-
-    socket.on(ClientEvent.StartGame, () => {
-      if (!session) {
-        socket.disconnect();
-      } else {
-        const allReady = Array.from(session.players).reduce(
-          (acc: boolean, player: Player): boolean => acc && player.data.ready,
-          true,
-        );
-        if (allReady) {
-          const customLocations = new Set<string>(); // TODO add support for custom locations
-          startGame(session, customLocations);
-        } else {
-          client.sendChat({
-            message: "All players must be ready",
-            color: "red",
-          });
-        }
-      }
-    });
-
-    socket.on(ClientEvent.Disconnect, () => {
+  socket.on(ClientEvent.JoinSession, (data: JoinSessionData) => {
+    if (session) {
       leaveSession(session, client);
-    });
-  },
-);
+    }
+    if (data.sessionId) {
+      session = getSession(data.sessionId) || createSession(data.sessionId);
+    } else {
+      session = createSession();
+    }
+    // TODO event SessionCreated is sent twice?
+    client.sendSessionInfo(ServerEvent.SessionCreated, {
+      sessionId: session.id,
+    } as LobbyStatusPayload);
+    if (session) {
+      client.data.name = data.playerName;
+      logEvent({
+        room: session.id,
+        player: client.data.name,
+        type: ClientEvent.JoinSession,
+        totalRooms: sessions.size,
+      });
+      if (session.join(client)) {
+        session.broadcastPeers();
+      } else {
+        socket.disconnect();
+      }
+    }
+  });
+
+  socket.on(ClientEvent.ChatEvent, (data: ChatPayload) => {
+    if (!session) {
+      socket.disconnect();
+    } else {
+      logEvent({
+        room: session.id,
+        player: client.data.name,
+        type: ServerEvent.ChatEvent,
+        msg: data.message,
+      });
+      session.broadcastChat({
+        author: client.data,
+        message: data.message,
+      });
+    }
+  });
+
+  socket.on(ClientEvent.ClientReady, (data) => {
+    if (!session) {
+      socket.disconnect();
+    } else {
+      client.data.ready = data.ready;
+      session.broadcastPeers();
+    }
+  });
+
+  socket.on(ClientEvent.StartGame, () => {
+    if (!session) {
+      socket.disconnect();
+    } else {
+      const allReady = Array.from(session.players).reduce(
+        (acc: boolean, player: Player): boolean => acc && player.data.ready,
+        true,
+      );
+      if (allReady) {
+        const customLocations = new Set<string>(); // TODO add support for custom locations
+        startGame(session, customLocations);
+      } else {
+        client.sendChat({
+          message: "All players must be ready",
+          color: "red",
+        });
+      }
+    }
+  });
+
+  socket.on(ClientEvent.Disconnect, () => {
+    leaveSession(session, client);
+  });
+});
 
 function leaveSession(session: Session, client: Player) {
   if (session) {
