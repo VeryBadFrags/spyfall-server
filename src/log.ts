@@ -1,5 +1,5 @@
-import { ClientEvent } from "./types/clientEvent.ts";
-import { ServerEvent } from "./types/serverEvent.ts";
+import { ClientEvent } from "./types/clientEvent";
+import { ServerEvent } from "./types/serverEvent";
 
 type logPayload = {
   room: string;

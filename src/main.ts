@@ -1,17 +1,17 @@
-import { Session } from "./session.ts";
-import { Player } from "./player.ts";
-import { startGame } from "./spy.ts";
+import { Session } from "./session";
+import { Player } from "./player";
+import { startGame } from "./spy";
 import { Socket } from "socket.io";
-import { ClientEvent } from "./types/clientEvent.ts";
-import { ServerEvent } from "./types/serverEvent.ts";
-import { JoinSessionData } from "./types/joinSession.type.ts";
-import { ChatPayload } from "./types/chatPayload.type.ts";
-import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
+import { ClientEvent } from "./types/clientEvent";
+import { ServerEvent } from "./types/serverEvent";
+import { JoinSessionData } from "./types/joinSession.type";
+import { ChatPayload } from "./types/chatPayload.type";
+import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type";
 import { createServer } from "node:http";
 import process from "node:process";
-import { initSocketIO } from "./socketio.ts";
-import { createId } from "./utils.ts";
-import { logEvent } from "./log.ts";
+import { initSocketIO } from "./socketio";
+import { createId } from "./utils";
+import { logEvent } from "./log";
 
 const server = createServer();
 

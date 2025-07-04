@@ -1,8 +1,8 @@
-import { Session } from "./session.ts";
-import { GamePayload } from "./types/gamePayload.type.ts";
-import { logEvent } from "./log.ts";
-import { ServerEvent } from "./types/serverEvent.ts";
-import { getRandomIndexInArray } from "./utils.ts";
+import { Session } from "./session";
+import { GamePayload } from "./types/gamePayload.type";
+import { logEvent } from "./log";
+import { ServerEvent } from "./types/serverEvent";
+import { getRandomIndexInArray } from "./utils";
 
 const locations = [
   "✈️💺 Airport",
