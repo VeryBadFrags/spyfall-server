@@ -11,19 +11,19 @@ help:
 
 .PHONY: dev
 dev:
-	deno task dev
+	pnpm run dev
 
 .PHONY: start
 start:
-	deno task start
+	pnpm run start
 
 .PHONY: lint
 lint:
-	deno lint
+	pnpm run lint
 
 .PHONY: format
 format:
-	deno fmt
+	pnpm run format
 
 .PHONY: docker-dev
 docker-dev:
