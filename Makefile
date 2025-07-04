@@ -13,8 +13,12 @@ help:
 dev:
 	pnpm run dev
 
+.PHONY: build
+build:
+	pnpm run build
+
 .PHONY: start
-start:
+start: build
 	pnpm run start
 
 .PHONY: lint
