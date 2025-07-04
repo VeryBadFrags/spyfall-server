@@ -21,8 +21,6 @@ A multiplayer social deduction game inspired by
 
 - [💾 View the client source code](https://github.com/VeryBadFrags/spyfall-client)
 
-## Setup
-
 ## Run locally
 
 ### With [mise](https://mise.jdx.dev)
