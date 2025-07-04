@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN corepack enable
 
-# 2. Install & build
+# 2. Install dependencies & build dist
 FROM base as build
 WORKDIR /usr/src/app
 RUN pnpm install --prod
@@ -16,8 +16,8 @@ FROM base as run
 WORKDIR /usr/src/app
 USER node
 ENV NODE_ENV=production
-EXPOSE 8081
 COPY .env.prod .
 COPY --from=build /usr/src/app/node_modules/ ./node_modules
 COPY --from=build /usr/src/app/dist/ ./dist
+EXPOSE 8081
 CMD ["pnpm", "run", "start"]
