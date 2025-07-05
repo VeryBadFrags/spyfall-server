@@ -29,4 +29,4 @@ jobs:
         continue-on-error: true
 
       - name: Run Build
-        run: "deno task build"
+        run: "deno compile -o dist src/main.ts"
