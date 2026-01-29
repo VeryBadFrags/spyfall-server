@@ -6,11 +6,11 @@ import { getRandomIndexInArray } from "./utils.ts";
 
 const locations = [
   "✈️💺 Airport",
-  // "🎡🎢 Amusement Park",
+  "🎡🎢 Amusement Park",
   "🏦💰 Bank",
   "🎰💵 Casino",
   "🎞🍿 Cinema",
-  // "🎪🤡 Circus Show",
+  "🎪🤡 Circus Show",
   "🦸🦹 Cosplay Convention",
   "🛳🌊 Cruise Ship",
   "🏝🥥 Desert Island",
@@ -19,7 +19,7 @@ const locations = [
   "🏪🛒 Grocery Store",
   "🏥🧑‍⚕️ Hospital",
   "🏨🛏 Hotel",
-  // "⛸️🧊 Ice Rink",
+  "⛸️🧊 Ice Rink",
   "🌕🧑‍🚀 Moon Colony",
   "⛰🥾 Mountain Hike",
   "🏛🖼 Museum",
