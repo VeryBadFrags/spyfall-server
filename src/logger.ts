@@ -19,6 +19,7 @@ function log(level: LogLevel, message: string, data?: Record<string, unknown>) {
       break;
     case "debug":
       console.debug(content);
+      break;
     default:
       console.log(content);
   }

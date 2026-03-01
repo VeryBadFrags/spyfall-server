@@ -1,9 +1,9 @@
 import { Server } from "socket.io";
-import { Player, ChatPayload, LobbyStatusPayload } from "./player.ts";
-import { ServerEvent, ClientEvent } from "./events.ts";
+import { ChatPayload, LobbyStatusPayload, Player } from "./player.ts";
+import { ClientEvent, ServerEvent } from "./events.ts";
 import { logEvent, LogField, logger } from "./logger.ts";
 import { allAvatars, roundDurationSeconds } from "./constants.ts";
-import { getTimeInSeconds } from "./utils.ts";
+import { getTimeInSeconds } from "./utils/time.ts";
 
 type TimePayload = {
   /** The total length of a round in seconds */

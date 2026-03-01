@@ -2,7 +2,7 @@ import { Session } from "./session.ts";
 import { GamePayload } from "./player.ts";
 import { logEvent, LogField } from "./logger.ts";
 import { ServerEvent } from "./events.ts";
-import { getRandomIndexInArray } from "./utils.ts";
+import { getRandomIndexInArray } from "./utils/random.ts";
 
 const locations = [
   "✈️💺 Airport",

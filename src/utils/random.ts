@@ -24,7 +24,3 @@ export function shuffleArray(array: Array<number | string>) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
-
-export function getTimeInSeconds() {
-  return Math.round(Date.now() / 1000);
-}
