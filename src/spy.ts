@@ -1,6 +1,6 @@
 import { Session } from "./session.ts";
 import { GamePayload } from "./types/gamePayload.type.ts";
-import { logEvent } from "./log.ts";
+import { logEvent, LogField } from "./logger.ts";
 import { ServerEvent } from "./types/serverEvent.ts";
 import { getRandomIndexInArray } from "./utils.ts";
 
@@ -46,7 +46,7 @@ export function startGame(session: Session, customLocations: Set<string>) {
     logEvent({
       room: session.id,
       type: ServerEvent.StartGame,
-      msg: "All spies!",
+      data: { [LogField.Msg]: "All spies!" },
     });
   }
 

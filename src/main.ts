@@ -11,7 +11,7 @@ import { createServer } from "node:http";
 import process from "node:process";
 import { initSocketIO } from "./socketio.ts";
 import { createId } from "./utils.ts";
-import { logEvent } from "./log.ts";
+import { logEvent, LogField, logger } from "./logger.ts";
 
 const server = createServer();
 
@@ -24,7 +24,7 @@ function createClient(socket: Socket): Player {
 
 function createSession(id = createId(4)): Session {
   while (sessions.has(id)) {
-    console.error(`[error] Session ${id} already exists`);
+    logger.error("Session already exists", { room: id });
     id = createId();
   }
   const session = new Session(id, io);
@@ -61,7 +61,7 @@ io.on(
           room: session.id,
           player: client.data.name,
           type: ClientEvent.JoinSession,
-          totalRooms: sessions.size,
+          data: { [LogField.TotalRooms]: sessions.size },
         });
         if (session.join(client)) {
           session.broadcastPeers();
@@ -79,7 +79,7 @@ io.on(
           room: session.id,
           player: client.data.name,
           type: ServerEvent.ChatEvent,
-          msg: data.message,
+          data: { [LogField.Msg]: data.message },
         });
         session.broadcastChat({
           author: client.data,
@@ -131,7 +131,7 @@ function leaveSession(session: Session, client: Player) {
       logEvent({
         room: session.id,
         type: ServerEvent.SessionDeleted,
-        totalRooms: sessions.size,
+        data: { [LogField.TotalRooms]: sessions.size },
       });
     }
   }
@@ -140,7 +140,5 @@ function leaveSession(session: Session, client: Player) {
 const defaultPort = 8081;
 const actualPort = process.env.PORT || defaultPort;
 server.listen(actualPort, () => {
-  console.log(
-    `[setup] Listening for requests on http://localhost:${actualPort}`,
-  );
+  logger.info("Listening for requests", { port: actualPort });
 });

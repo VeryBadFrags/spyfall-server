@@ -3,7 +3,7 @@ import { Player } from "./player.ts";
 import { ServerEvent } from "./types/serverEvent.ts";
 import { ChatPayload } from "./types/chatPayload.type.ts";
 import { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
-import { logEvent } from "./log.ts";
+import { logEvent, LogField, logger } from "./logger.ts";
 import { allAvatars, roundDurationSeconds } from "./constants.ts";
 import { TimePayload } from "./types/timePayload.type.ts";
 import { getTimeInSeconds } from "./utils.ts";
@@ -39,12 +39,12 @@ export class Session {
    */
   join(client: Player): boolean {
     if (this.players.has(client)) {
-      console.error("[error] Client already in session");
+      logger.error("Client already in session", { room: this.id });
       return false;
     }
 
     if (this.avatars.length === 0) {
-      console.error("[error] The game is full");
+      logger.error("The game is full", { room: this.id });
       return false;
     }
 
@@ -71,7 +71,7 @@ export class Session {
       room: this.id,
       player: client.data.name,
       type: ClientEvent.Disconnect,
-      playersCount: this.players.size,
+      data: { [LogField.PlayersCount]: this.players.size },
     });
     this.broadcastChat({
       message: `${client.data.name} disconnected`,
@@ -85,8 +85,10 @@ export class Session {
     logEvent({
       room: this.id,
       type: ServerEvent.StartGame,
-      playersCount: this.players.size,
-      gamesPlayed: this.gamesPlayed,
+      data: {
+        [LogField.PlayersCount]: this.players.size,
+        [LogField.GamesPlayed]: this.gamesPlayed,
+      },
     });
     this.broadcastTime();
   }
