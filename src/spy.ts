@@ -1,7 +1,7 @@
 import { Session } from "./session.ts";
-import { GamePayload } from "./types/gamePayload.type.ts";
+import { GamePayload } from "./player.ts";
 import { logEvent, LogField } from "./logger.ts";
-import { ServerEvent } from "./types/serverEvent.ts";
+import { ServerEvent } from "./events.ts";
 import { getRandomIndexInArray } from "./utils.ts";
 
 const locations = [

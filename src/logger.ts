@@ -1,5 +1,4 @@
-import { ClientEvent } from "./types/clientEvent.ts";
-import { ServerEvent } from "./types/serverEvent.ts";
+import { ClientEvent, ServerEvent } from "./events.ts";
 
 type LogLevel = "info" | "warn" | "error" | "debug";
 

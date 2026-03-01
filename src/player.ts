@@ -1,9 +1,40 @@
 import type { Socket } from "socket.io";
-import type { ClientData } from "./types/clientData.type.ts";
-import { ServerEvent } from "./types/serverEvent.ts";
-import type { ChatPayload } from "./types/chatPayload.type.ts";
-import type { GamePayload } from "./types/gamePayload.type.ts";
-import type { LobbyStatusPayload } from "./types/lobbyStatusPayload.type.ts";
+import { ServerEvent } from "./events.ts";
+
+export type ClientData = {
+  avatar: string;
+  name: string;
+  ready: boolean;
+};
+
+export type ChatPayload = {
+  /** The message to send */
+  message: string;
+  /** The color of the message */
+  color?: string;
+  /** The author of the message */
+  author?: ClientData;
+};
+
+export type LobbyStatusPayload = {
+  /** The ID of the room */
+  sessionId: string;
+  /** The identity of the current player */
+  identity?: string;
+  /** List of other players */
+  peers?: Array<ClientData>;
+};
+
+export type GamePayload = {
+  /** The player who goes first */
+  first: string;
+  /** If the player is the spy */
+  spy: boolean;
+  /** The current location */
+  location: string;
+  /** List of all locations */
+  locations: Array<string>;
+};
 
 /**
  * @class
