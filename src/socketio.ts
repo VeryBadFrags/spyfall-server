@@ -1,5 +1,5 @@
 import { Server as HttpServer } from "node:http";
-import { Server, ServerOptions } from "socket.io";
+import { Server, type ServerOptions } from "socket.io";
 import process from "node:process";
 import { logger } from "./logger.ts";
 

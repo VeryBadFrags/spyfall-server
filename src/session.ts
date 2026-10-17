@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { ChatPayload, LobbyStatusPayload, Player } from "./player.ts";
+import { type ChatPayload, type LobbyStatusPayload, Player } from "./player.ts";
 import { ClientEvent, ServerEvent } from "./events.ts";
 import { logEvent, LogField, logger } from "./logger.ts";
 import { allAvatars, roundDurationSeconds } from "./constants.ts";

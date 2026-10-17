@@ -1,5 +1,6 @@
-[tools]
-deno = "latest"
 
 [tasks.dev]
-run = "deno task dev"
+run = "node --watch --experimental-transform-types src/main.ts"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"] # Use .nvmrc

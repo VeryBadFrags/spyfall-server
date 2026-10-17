@@ -1,10 +1,9 @@
 import { Session } from "./session.ts";
-import { ChatPayload, LobbyStatusPayload, Player } from "./player.ts";
+import { type ChatPayload, type LobbyStatusPayload, Player } from "./player.ts";
 import { startGame } from "./spy.ts";
-import { Socket } from "socket.io";
+import type { Socket } from "socket.io";
 import { ClientEvent, ServerEvent } from "./events.ts";
 import { createServer } from "node:http";
-import process from "node:process";
 import { initSocketIO } from "./socketio.ts";
 import { createId } from "./utils/random.ts";
 import { logEvent, LogField, logger } from "./logger.ts";
