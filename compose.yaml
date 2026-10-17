@@ -2,7 +2,7 @@ services:
   backend:
     image: ghcr.io/verybadfrags/spyfall-server:main
     environment:
-      - CORS_ALLOW="https://spyfall.verybadfrags.com" # Update to your frontend's URL
+      - CORS_ALLOW=https://spyfall.verybadfrags.com # Update to your frontend's URL
     ports:
       - 8081:8081
     restart: always

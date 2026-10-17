@@ -19,14 +19,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Deno
-        uses: denoland/setup-deno@v2
+      # Uses the version from package.json's packageManager field
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
-          deno-version: v2.x
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Run Lint
-        run: make lint
-        continue-on-error: true
-
-      - name: Run Build
-        run: "deno compile -o dist src/main.ts"
+        run: pnpm exec biome ci .
