@@ -8,6 +8,7 @@ help:
 	@echo "  make docker-build  - Build the Docker image"
 	@echo "  make docker-dev    - Run in Dev mode with Docker"
 	@echo "  make docker-clean  - Remove Docker containers"
+	@echo "  make release VERSION=x.y.z - Tag and publish a release"
 	@echo "  make help          - Display this help message"
 
 .PHONY: dev
@@ -37,3 +38,8 @@ docker-dev:
 .PHONY: docker-clean
 docker-clean:
 	docker compose -f compose.dev.yaml down && docker compose down
+
+.PHONY: release
+release:
+	@test -n "$(VERSION)" || (echo "Usage: make release VERSION=x.y.z" && exit 1)
+	gh release create v$(VERSION) --generate-notes
