@@ -5,25 +5,30 @@ help:
 	@echo "  make start         - Run in Production mode"
 	@echo "  make lint          - Lint the code"
 	@echo "  make format        - Format the code"
+	@echo "  make docker-build  - Build the Docker image"
 	@echo "  make docker-dev    - Run in Dev mode with Docker"
 	@echo "  make docker-clean  - Remove Docker containers"
 	@echo "  make help          - Display this help message"
 
 .PHONY: dev
 dev:
-	deno task dev
+	pnpm run dev
 
 .PHONY: start
 start:
-	deno task start
+	pnpm start
 
 .PHONY: lint
 lint:
-	deno lint
+	pnpm run lint
 
 .PHONY: format
 format:
-	deno fmt
+	pnpm run format
+
+.PHONY: docker-build
+docker-build:
+	docker build -t spyfall-server .
 
 .PHONY: docker-dev
 docker-dev:
