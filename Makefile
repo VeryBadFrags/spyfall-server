@@ -32,8 +32,8 @@ docker-build:
 
 .PHONY: docker-dev
 docker-dev:
-	docker compose -f compose-dev.yaml up -w
+	docker compose -f compose.dev.yaml up -w
 
 .PHONY: docker-clean
 docker-clean:
-	docker compose -f compose-dev.yaml down && docker compose down
+	docker compose -f compose.dev.yaml down && docker compose down
