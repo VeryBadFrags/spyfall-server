@@ -34,3 +34,6 @@ jobs:
 
       - name: Run Lint
         run: pnpm exec biome ci .
+
+      - name: Run Type Check
+        run: pnpm run typecheck

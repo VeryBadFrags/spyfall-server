@@ -8,6 +8,7 @@
 		"start": "node --experimental-transform-types src/main.ts",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "biome check",
+		"typecheck": "tsc",
 		"format": "biome check --write"
 	},
 	"keywords": [
@@ -28,6 +29,8 @@
 		"socket.io": "^4.8.4"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.5.15"
+		"@biomejs/biome": "2.5.15",
+		"@types/node": "^24.19.2",
+		"typescript": "^7.0.2"
 	}
 }
