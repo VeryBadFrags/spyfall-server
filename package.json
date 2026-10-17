@@ -1,31 +1,33 @@
 {
-  "name": "spyfall-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/main.ts",
-  "scripts": {
-    "dev": "node --watch --experimental-transform-types src/main.ts",
-    "start": "node --experimental-transform-types src/main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "spyfall"
-  ],
-  "author": "VeryBadFrags",
-  "license": "MIT",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "12.14.0",
-      "onFail": "download"
-    }
-  },
-  "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6",
-  "type": "module",
-  "dependencies": {
-    "socket.io": "^4.8.4"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.5.15"
-  }
+	"name": "spyfall-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/main.ts",
+	"scripts": {
+		"dev": "node --watch --experimental-transform-types src/main.ts",
+		"start": "node --experimental-transform-types src/main.ts",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "biome check",
+		"format": "biome check --write"
+	},
+	"keywords": [
+		"spyfall"
+	],
+	"author": "VeryBadFrags",
+	"license": "MIT",
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "12.14.0",
+			"onFail": "download"
+		}
+	},
+	"packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6",
+	"type": "module",
+	"dependencies": {
+		"socket.io": "^4.8.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.15"
+	}
 }
