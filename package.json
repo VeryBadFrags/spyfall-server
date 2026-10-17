@@ -1,7 +1,7 @@
 {
 	"name": "spyfall-server",
-	"version": "1.0.0",
-	"description": "",
+	"private": true,
+	"description": "The backend server for https://spyfall.verybadfrags.com",
 	"main": "src/main.ts",
 	"scripts": {
 		"dev": "node --watch --experimental-transform-types src/main.ts",
