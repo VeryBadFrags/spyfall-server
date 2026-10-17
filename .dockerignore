@@ -4,6 +4,8 @@ docs/
 .git
 .gitignore
 .markdownlint.json
-compose-dev.yaml
+biome.json
+compose.dev.yaml
 compose.yaml
 *.md
+node_modules

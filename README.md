@@ -15,7 +15,7 @@ A multiplayer social deduction game inspired by
 
 ## Stack
 
-🛠️ Built with [Deno](https://deno.com),
+🛠️ Built with [Node](https://nodejs.org),
 [Typescript](https://www.typescriptlang.org), and
 [socket.io](https://socket.io).
 
@@ -30,7 +30,7 @@ mise install # only required once
 mise dev
 ```
 
-### With [Deno](https://deno.com)
+### With [Node](https://nodejs.org)
 
 ```sh
 make dev

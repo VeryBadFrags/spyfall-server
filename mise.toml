@@ -1,5 +1,9 @@
-[tools]
-deno = "latest"
 
 [tasks.dev]
-run = "deno task dev"
+run = "pnpm run dev"
+
+[tasks.start]
+run = "pnpm start"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"] # Use .nvmrc
