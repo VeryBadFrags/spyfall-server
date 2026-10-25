@@ -1,3 +1,5 @@
+import { randomInt } from "node:crypto";
+
 /**
  * @param {number} len The length of the ID
  * @param {string} possibleChars the characters to use
@@ -15,12 +17,12 @@ export function createId(
 }
 
 export function getRandomIndexInArray(arraySize: number) {
-	return Math.floor(Math.random() * arraySize);
+	return randomInt(arraySize);
 }
 
 export function shuffleArray(array: Array<number | string>) {
 	for (let i = array.length - 1; i >= 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
+		const j = randomInt(i + 1);
 		[array[i], array[j]] = [array[j], array[i]];
 	}
 }
