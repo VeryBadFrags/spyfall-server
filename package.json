@@ -7,9 +7,11 @@
 		"dev": "node --watch --experimental-transform-types src/main.ts",
 		"start": "node --experimental-transform-types src/main.ts",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"lint": "biome check",
 		"typecheck": "tsc",
-		"format": "biome check --write"
+		"format": "biome format --write",
+		"lint": "biome check",
+		"lint:fix": "biome check --write",
+		"ci": "biome ci"
 	},
 	"keywords": [
 		"spyfall"

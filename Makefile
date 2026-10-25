@@ -19,13 +19,13 @@ dev:
 start:
 	pnpm start
 
-.PHONY: lint
-lint:
-	pnpm run lint
-
 .PHONY: format
 format:
 	pnpm run format
+
+.PHONY: lint
+lint:
+	pnpm run lint:fix
 
 .PHONY: docker-build
 docker-build:
